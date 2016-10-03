@@ -26,6 +26,10 @@ public class HomeAdapter extends RecyclerView.Adapter {
     private final static String TAG = HomeAdapter.class.getName() + "test";
     private List<HomeItemBean> homeDatas;
     private Context context;
+    private final int TYPE_FOOTER = 0;
+    private final int TYPE_HEAD = 1;
+    private final int TYPE_ITEM = 2;
+    private boolean isShowFooter = true;
 
     public HomeAdapter(Context context){
         this.context = context;
@@ -36,10 +40,25 @@ public class HomeAdapter extends RecyclerView.Adapter {
         notifyDataSetChanged();
     }
 
+    public void isShowFooter(boolean showFooter){
+        this.isShowFooter = showFooter;
+    }
+
     @Override
     public RecyclerView.ViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
-        View item = LayoutInflater.from(context).inflate(R.layout.item_home_normal,null);
-        return new ItemViewHolder(item);
+        if(viewType == TYPE_ITEM){
+            View item = LayoutInflater.from(context).inflate(R.layout.item_home_normal,null);
+            return new ItemViewHolder(item);
+        }else if(viewType == TYPE_FOOTER){
+            View v = LayoutInflater.from(context).inflate(R.layout.footer,null);
+            v.setLayoutParams(new ViewGroup.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT,
+                    ViewGroup.LayoutParams.WRAP_CONTENT));
+            FooterViewHolder fvh = new FooterViewHolder(v);
+            return fvh;
+        }else{
+            View v = LayoutInflater.from(context).inflate(R.layout.item_home_head,null);
+            return new HeadViewHolder(v);
+        }
     }
 
     @Override
@@ -60,12 +79,28 @@ public class HomeAdapter extends RecyclerView.Adapter {
     }
 
     @Override
+    public int getItemViewType(int position){
+        if(!isShowFooter && position == 0){
+            return TYPE_HEAD;
+        }else if(!isShowFooter){
+            return TYPE_ITEM;
+        }
+
+        if(position + 1 == getItemCount()){
+            return TYPE_FOOTER;
+        }else{
+            return TYPE_ITEM;
+        }
+    }
+
+    @Override
     public int getItemCount(){
+        int begin = isShowFooter ? 1 : 0;
         if(homeDatas == null){
             LogUtils.d(TAG,"item is null");
-            return 0;
+            return begin;
         }else{
-            return homeDatas.size();
+            return homeDatas.size() + begin;
         }
     }
 
@@ -85,6 +120,22 @@ public class HomeAdapter extends RecyclerView.Adapter {
         @OnClick(R.id.join)
         void onClickJoin(){
             Toast.makeText(context, "lalla", Toast.LENGTH_SHORT).show();
+        }
+    }
+
+    public class FooterViewHolder extends RecyclerView.ViewHolder {
+        public FooterViewHolder(View view){
+            super(view);
+        }
+    }
+
+    public class HeadViewHolder extends RecyclerView.ViewHolder{
+        @BindView(R.id.findtrips)View findTripsView;
+        @BindView(R.id.createtrips)View createTripsView;
+
+        public HeadViewHolder(View header){
+            super(header);
+            ButterKnife.bind(this,header);
         }
     }
 }

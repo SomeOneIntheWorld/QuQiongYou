@@ -12,6 +12,7 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content">
         <LinearLayout
+            android:id="@+id/findtrips"
             android:orientation="vertical"
             android:layout_weight="1"
             android:layout_width="0dp"
@@ -30,6 +31,7 @@
                 style="@style/deep_tv_style" />
         </LinearLayout>
         <LinearLayout
+            android:id="@+id/createtrips"
             android:orientation="vertical"
             android:layout_weight="1"
             android:layout_width="0dp"
