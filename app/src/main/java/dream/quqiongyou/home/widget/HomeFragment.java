@@ -53,11 +53,13 @@ public class HomeFragment extends Fragment implements HomeView{
     @Override
     public void loadTripsSuccess(List<HomeItemBean> datas) {
         mHomeAdater.setHomeData(datas);
+        mHomeAdater.isShowFooter(false);
     }
 
     @Override
     public void loadTripFail(String errorMessage) {
         Toast.makeText(getContext(), errorMessage, Toast.LENGTH_SHORT).show();
+        mHomeAdater.isShowFooter(true);
     }
 
     @Override
