@@ -124,11 +124,9 @@ public class HomeAdapter extends RecyclerView.Adapter {
     }
 
     public class FooterViewHolder extends RecyclerView.ViewHolder {
-
         public FooterViewHolder(View view){
             super(view);
         }
-
     }
 
     public class HeadViewHolder extends RecyclerView.ViewHolder{
