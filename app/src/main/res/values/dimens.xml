@@ -5,4 +5,6 @@
     <dimen name="community_name_tv_size">25sp</dimen>
     <dimen name="community_num_tv_size">15sp</dimen>
     <dimen name="logo_marginTop">80dp</dimen>
+    <dimen name="home_head_tv_size">18sp</dimen>
+    <dimen name="time_tv_size">14sp</dimen>
 </resources>
