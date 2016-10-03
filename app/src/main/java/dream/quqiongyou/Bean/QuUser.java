@@ -1,4 +1,4 @@
-package dream.quqiongyou.Bean;
+package dream.quqiongyou.bean;
 
 /**
  * Created by SomeOneInTheWorld on 2016/10/3.

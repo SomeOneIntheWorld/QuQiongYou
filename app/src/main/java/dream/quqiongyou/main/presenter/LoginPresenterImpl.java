@@ -1,6 +1,6 @@
 package dream.quqiongyou.main.presenter;
 
-import dream.quqiongyou.Bean.QuUser;
+import dream.quqiongyou.bean.QuUser;
 import dream.quqiongyou.main.model.LoginModel;
 import dream.quqiongyou.main.model.LoginModelImpl;
 import dream.quqiongyou.main.view.LoginView;

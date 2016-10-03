@@ -9,7 +9,7 @@ import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
 import butterknife.Unbinder;
-import dream.quqiongyou.Bean.QuUser;
+import dream.quqiongyou.bean.QuUser;
 import dream.quqiongyou.R;
 import dream.quqiongyou.main.presenter.LoginPresenter;
 import dream.quqiongyou.main.presenter.LoginPresenterImpl;
