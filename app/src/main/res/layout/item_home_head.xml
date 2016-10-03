@@ -1,0 +1,52 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="vertical" android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <android.support.v4.view.ViewPager
+    android:id="@+id/slider"
+    android:layout_width="match_parent"
+    android:layout_height="150dp"/>
+    <LinearLayout
+        android:background="@drawable/shadow_bg"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+        <LinearLayout
+            android:orientation="vertical"
+            android:layout_weight="1"
+            android:layout_width="0dp"
+            android:padding="10dp"
+            android:layout_height="wrap_content">
+            <ImageView
+                android:layout_gravity="center"
+                android:background="@color/colorPrimary"
+                android:layout_width="80dp"
+                android:layout_height="80dp" />
+            <TextView
+                android:layout_gravity="center"
+                android:layout_marginTop="10dp"
+                android:text="寻找活动"
+                android:textSize="@dimen/home_head_tv_size"
+                style="@style/deep_tv_style" />
+        </LinearLayout>
+        <LinearLayout
+            android:orientation="vertical"
+            android:layout_weight="1"
+            android:layout_width="0dp"
+            android:padding="10dp"
+            android:layout_height="wrap_content">
+            <ImageView
+                android:layout_gravity="center"
+                android:background="@color/colorPrimary"
+                android:layout_width="80dp"
+                android:layout_height="80dp" />
+            <TextView
+                android:layout_gravity="center"
+                android:layout_marginTop="10dp"
+                android:text="我要发起"
+                android:textSize="@dimen/home_head_tv_size"
+                android:textColor="@color/colorPrimaryDark"
+                style="@style/deep_tv_style"/>
+        </LinearLayout>
+    </LinearLayout>
+</LinearLayout>
