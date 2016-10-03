@@ -5,4 +5,21 @@
     <string name="home">首页</string>
     <string name="community">社区</string>
     <string name="mine">我的</string>
+    <string name="guess_you_like">猜你喜欢</string>
+    <string name="user_id">用户ID</string>
+    <string name="my_post">我的发帖</string>
+    <string name="my_origination">我的发起</string>
+    <string name="collection">收藏的活动</string>
+    <string name="clear_cache">清除缓存</string>
+    <string name="feedback">反馈</string>
+    <string name="about_us">关于我们</string>
+    <string name="origination">发起活动</string>
+    <string name="theme">主题</string>
+    <string name="time">时间</string>
+    <string name="location">地点</string>
+    <string name="ticket_price">票价</string>
+    <string name="contacts_num">联系人电话</string>
+    <string name="theme_hint">输入你的活动主题</string>
+    <string name="time_hint">选择时间</string>
+    <string name="location_hint">输入地点</string>
 </resources>
