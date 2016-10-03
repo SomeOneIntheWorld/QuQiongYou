@@ -1,3 +1,5 @@
 <resources>
     <string name="app_name">QuQiongYou</string>
+    <string name="join"><![CDATA[立即参加>>]]></string>
+    <string name="left_time">剩下时间</string>
 </resources>
