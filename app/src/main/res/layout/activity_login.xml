@@ -5,30 +5,30 @@
     android:background="@color/colorPrimary"
     android:layout_width="match_parent"
     android:layout_height="match_parent">
-<ImageView
-    android:layout_marginTop="@dimen/logo_marginTop"
-    android:layout_centerHorizontal="true"
-    android:background="@color/colorPrimaryDark"
-    android:layout_width="100dp"
-    android:layout_height="100dp"
-    android:id="@+id/logo" />
+    <ImageView
+        android:layout_marginTop="@dimen/logo_marginTop"
+        android:layout_centerHorizontal="true"
+        android:background="@color/colorPrimaryDark"
+        android:layout_width="100dp"
+        android:layout_height="100dp"
+        android:id="@+id/logo" />
 
     <LinearLayout
-    android:id="@+id/account_ll"
-    android:layout_below="@+id/logo"
-    style="@style/login_layout_style"
-    android:layout_marginTop="83dp">
-    <ImageView
-        android:layout_gravity="center_vertical"
-        android:background="@color/colorPrimary"
-        android:id="@+id/account_img"
-        android:layout_width="30dp"
-        android:layout_height="30dp" />
-    <EditText
-        android:hint="输入邮箱或手机号码"
-        android:id="@+id/account"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content" />
+        android:id="@+id/account_ll"
+        android:layout_below="@+id/logo"
+        style="@style/login_layout_style"
+        android:layout_marginTop="83dp">
+        <ImageView
+            android:layout_gravity="center_vertical"
+            android:background="@color/colorPrimary"
+            android:id="@+id/account_img"
+            android:layout_width="30dp"
+            android:layout_height="30dp" />
+        <EditText
+            android:hint="输入邮箱或手机号码"
+            android:id="@+id/account"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content" />
     </LinearLayout>
     <LinearLayout
         android:id="@+id/pwd_ll"
