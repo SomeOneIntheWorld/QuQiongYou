@@ -7,3 +7,4 @@
 /build
 /captures
 gradle-wrapper.properties
+app/build.gradle
