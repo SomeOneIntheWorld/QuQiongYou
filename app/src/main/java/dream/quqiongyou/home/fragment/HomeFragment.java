@@ -11,6 +11,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Toast;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import butterknife.BindView;
@@ -19,6 +20,7 @@ import butterknife.Unbinder;
 import dream.quqiongyou.R;
 import dream.quqiongyou.bean.HomeItemBean;
 import dream.quqiongyou.adapter.HomeAdapter;
+import dream.quqiongyou.bean.TopInfo;
 import dream.quqiongyou.home.presenter.HomePresenter;
 import dream.quqiongyou.home.presenter.HomePresenterImpl;
 import dream.quqiongyou.home.view.HomeView;
@@ -30,6 +32,8 @@ public class HomeFragment extends Fragment implements HomeView{
     @BindView(R.id.home_recycler)
     RecyclerView mHomeRecycler;
     HomeAdapter mHomeAdater;
+    List<HomeItemBean> datas = new ArrayList<>();;
+    List<TopInfo> topInfos = new ArrayList<>();
 
     private HomePresenter mHomePresenter;
     private Unbinder unbinder;
@@ -41,20 +45,34 @@ public class HomeFragment extends Fragment implements HomeView{
         unbinder = ButterKnife.bind(this,view);
 
         mHomeAdater = new HomeAdapter(getContext());
+        mHomeAdater.setHomeData(datas,topInfos);
         mHomeRecycler.setHasFixedSize(true);
         mHomeRecycler.setLayoutManager(new LinearLayoutManager(getActivity()));
         mHomeRecycler.setItemAnimator(new DefaultItemAnimator());
         mHomeRecycler.setAdapter(mHomeAdater);
 
         mHomePresenter = new HomePresenterImpl(this);
+        mHomePresenter.loadTopInfo();
         mHomePresenter.loadTrips();
 
         return view;
     }
 
+
+
     @Override
     public void loadTripsSuccess(List<HomeItemBean> datas) {
-        mHomeAdater.setHomeData(datas);
+        this.datas.clear();
+        this.datas.addAll(datas);
+        mHomeAdater.notifyDataSetChanged();
+        mHomeAdater.isShowFooter(false);
+    }
+
+    @Override
+    public void loadTopInfoSuccess(List<TopInfo> topInfos) {
+        this.topInfos.clear();
+        this.topInfos.addAll(topInfos);
+        mHomeAdater.notifyDataSetChanged();
         mHomeAdater.isShowFooter(false);
     }
 
@@ -79,4 +97,6 @@ public class HomeFragment extends Fragment implements HomeView{
         super.onDestroyView();
         unbinder.unbind();
     }
+
+
 }

@@ -4,6 +4,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import dream.quqiongyou.bean.HomeItemBean;
+import dream.quqiongyou.bean.TopInfo;
 import dream.quqiongyou.common.CallBackByModel;
 
 /**
@@ -21,5 +22,14 @@ public class HomeModelImpl implements HomeModel {
             datas.add(data);
         }
         listener.loadSuccess(datas);
+    }
+
+    @Override
+    public void loadTopinfoInModel(CallBackByModel<TopInfo> listener) {
+        List<TopInfo>topInfos = new ArrayList<>();
+        topInfos.add(new TopInfo());
+        topInfos.add(new TopInfo());
+        topInfos.add(new TopInfo());
+        listener.loadSuccess(topInfos);
     }
 }

@@ -5,4 +5,5 @@ package dream.quqiongyou.home.presenter;
  */
 public interface HomePresenter {
     void loadTrips();
+    void loadTopInfo();
 }

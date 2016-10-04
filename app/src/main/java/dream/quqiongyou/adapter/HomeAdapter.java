@@ -9,6 +9,7 @@ import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import butterknife.BindView;
@@ -16,6 +17,8 @@ import butterknife.ButterKnife;
 import butterknife.OnClick;
 import dream.quqiongyou.R;
 import dream.quqiongyou.bean.HomeItemBean;
+import dream.quqiongyou.bean.TopInfo;
+import dream.quqiongyou.home.widget.Slider;
 import dream.quqiongyou.utils.ImageLoaderUtils;
 import dream.quqiongyou.utils.LogUtils;
 
@@ -25,6 +28,7 @@ import dream.quqiongyou.utils.LogUtils;
 public class HomeAdapter extends RecyclerView.Adapter {
     private final static String TAG = "test";
     private List<HomeItemBean> homeDatas;
+    private List<TopInfo> topInfos;
     private Context context;
     private final int TYPE_FOOTER = 0;
     private final int TYPE_HEAD = 1;
@@ -35,9 +39,10 @@ public class HomeAdapter extends RecyclerView.Adapter {
         this.context = context;
     }
 
-    public void setHomeData(List<HomeItemBean>homeDatas){
+    public void setHomeData(List<HomeItemBean>homeDatas,List<TopInfo>topInfos){
         this.homeDatas = homeDatas;
-        notifyDataSetChanged();
+        this.topInfos = topInfos;
+//        notifyDataSetChanged();
     }
 
     public void isShowFooter(boolean showFooter){
@@ -75,6 +80,8 @@ public class HomeAdapter extends RecyclerView.Adapter {
                 return;
             }
             ImageLoaderUtils.display(context, ((ItemViewHolder)holder).tripIV,itemBean.getImageurl());
+        }else if (holder instanceof HeadViewHolder){
+            ((HeadViewHolder)holder).slider.setTopInfos(topInfos);
         }
     }
 
@@ -130,6 +137,7 @@ public class HomeAdapter extends RecyclerView.Adapter {
     }
 
     public class HeadViewHolder extends RecyclerView.ViewHolder{
+        @BindView(R.id.slider)Slider slider;
         @BindView(R.id.findtrips)View findTripsView;
         @BindView(R.id.createtrips)View createTripsView;
 
