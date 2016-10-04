@@ -18,6 +18,7 @@ import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
 import dream.quqiongyou.R;
+import dream.quqiongyou.community.view.CommunityFragment;
 import dream.quqiongyou.home.fragment.HomeFragment;
 
 /**
@@ -138,7 +139,7 @@ public class MainActivity extends AppCompatActivity {
                 case 0:
                     return new HomeFragment();
                 case 1:
-                    return new HomeFragment();
+                    return new CommunityFragment();
                 case 2:
                     return new HomeFragment();
                 default:

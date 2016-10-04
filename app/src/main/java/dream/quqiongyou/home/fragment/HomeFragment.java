@@ -17,7 +17,7 @@ import butterknife.BindView;
 import butterknife.ButterKnife;
 import dream.quqiongyou.R;
 import dream.quqiongyou.bean.HomeItemBean;
-import dream.quqiongyou.home.HomeAdapter;
+import dream.quqiongyou.adapter.HomeAdapter;
 import dream.quqiongyou.home.presenter.HomePresenter;
 import dream.quqiongyou.home.presenter.HomePresenterImpl;
 import dream.quqiongyou.home.view.HomeView;
