@@ -22,6 +22,7 @@
             style="@style/deep_tv_style" />
     </RelativeLayout>
     <RelativeLayout
+        android:id="@+id/mine_posts"
     android:padding="10dp"
     android:layout_marginTop="10dp"
     style="@style/mine_item_style">
@@ -35,6 +36,7 @@
         style="@style/mine_item_tv_style" />
 </RelativeLayout>
     <RelativeLayout
+        android:id="@+id/mine_origination"
         android:padding="10dp"
         style="@style/mine_item_style">
         <ImageView
@@ -47,6 +49,7 @@
             style="@style/mine_item_tv_style" />
     </RelativeLayout>
     <RelativeLayout
+        android:id="@+id/mine_collection"
     android:padding="10dp"
     style="@style/mine_item_style">
     <ImageView
@@ -59,6 +62,7 @@
         style="@style/mine_item_tv_style" />
 </RelativeLayout>
     <RelativeLayout
+        android:id="@+id/mine_clear_cache"
         android:padding="10dp"
         android:layout_marginTop="10dp"
         style="@style/mine_item_style">
@@ -72,6 +76,7 @@
             style="@style/mine_item_tv_style" />
     </RelativeLayout>
     <RelativeLayout
+        android:id="@+id/mine_feedback"
         android:padding="10dp"
         android:layout_marginTop="10dp"
         style="@style/mine_item_style">
@@ -85,6 +90,7 @@
             style="@style/mine_item_tv_style" />
     </RelativeLayout>
     <RelativeLayout
+        android:id="@+id/mine_about_us"
         android:padding="10dp"
         android:layout_marginTop="10dp"
         style="@style/mine_item_style">

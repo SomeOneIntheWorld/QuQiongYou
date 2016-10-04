@@ -20,30 +20,22 @@ import butterknife.OnClick;
 import dream.quqiongyou.R;
 import dream.quqiongyou.community.view.CommunityFragment;
 import dream.quqiongyou.home.fragment.HomeFragment;
+import dream.quqiongyou.mine.MineFragment;
 
 /**
  * Created by SomeOneInTheWorld on 2016/10/3.
  */
 public class MainActivity extends AppCompatActivity {
     private final static String ACCOUNT = "account";
-    @BindView(R.id.main_viewpager)
-    ViewPager mViewPager;
-    @BindView(R.id.home_ll)
-    LinearLayout homeLl;
-    @BindView(R.id.community_ll)
-    LinearLayout communityLl;
-    @BindView(R.id.mine_ll)
-    LinearLayout mineLl;
-    @BindView(R.id.toolbar_title)
-    TextView toolbarTitle;
-    @BindView(R.id.toolbar)
-    Toolbar toolbar;
-    @BindView(R.id.home_img)
-    ImageView homeImg;
-    @BindView(R.id.community_img)
-    ImageView communityImg;
-    @BindView(R.id.mine_img)
-    ImageView mineImg;
+    @BindView(R.id.main_viewpager) ViewPager mViewPager;
+    @BindView(R.id.home_ll) LinearLayout homeLl;
+    @BindView(R.id.community_ll) LinearLayout communityLl;
+    @BindView(R.id.mine_ll) LinearLayout mineLl;
+    @BindView(R.id.toolbar_title) TextView toolbarTitle;
+    @BindView(R.id.toolbar) Toolbar toolbar;
+    @BindView(R.id.home_img) ImageView homeImg;
+    @BindView(R.id.community_img) ImageView communityImg;
+    @BindView(R.id.mine_img) ImageView mineImg;
     private MainPagerAdapter mMainPagerAdapter;
 
     public static void startMainActivity(Context context, String account) {
@@ -141,7 +133,7 @@ public class MainActivity extends AppCompatActivity {
                 case 1:
                     return new CommunityFragment();
                 case 2:
-                    return new HomeFragment();
+                    return new MineFragment();
                 default:
                     return new HomeFragment();
             }
