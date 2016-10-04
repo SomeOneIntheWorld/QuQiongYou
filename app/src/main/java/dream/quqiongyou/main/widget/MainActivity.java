@@ -9,6 +9,7 @@ import android.support.v4.app.FragmentStatePagerAdapter;
 import android.support.v4.view.ViewPager;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
+import android.util.SparseArray;
 import android.view.View;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
@@ -37,6 +38,7 @@ public class MainActivity extends AppCompatActivity {
     @BindView(R.id.community_img) ImageView communityImg;
     @BindView(R.id.mine_img) ImageView mineImg;
     private MainPagerAdapter mMainPagerAdapter;
+    private SparseArray<Fragment> fragmentList = new SparseArray<>();
 
     public static void startMainActivity(Context context, String account) {
         Intent intent = new Intent(context, MainActivity.class);
@@ -78,7 +80,6 @@ public class MainActivity extends AppCompatActivity {
         }
     };
 
-
     /**
      * 设置选项图案变化
      * @param selectedIndex
@@ -108,14 +109,21 @@ public class MainActivity extends AppCompatActivity {
         switch (view.getId()) {
             case R.id.home_ll:
                 changeSelection(0);
+                changeFragment(0);
                 break;
             case R.id.community_ll:
                 changeSelection(1);
+                changeFragment(1);
                 break;
             case R.id.mine_ll:
                 changeSelection(2);
+                changeFragment(2);
                 break;
         }
+    }
+
+    private void changeFragment(int position){
+        mViewPager.setCurrentItem(position);
     }
 
     private class MainPagerAdapter extends FragmentStatePagerAdapter {
@@ -127,21 +135,35 @@ public class MainActivity extends AppCompatActivity {
 
         @Override
         public Fragment getItem(int position) {
-            switch (position) {
-                case 0:
-                    return new HomeFragment();
-                case 1:
-                    return new CommunityFragment();
-                case 2:
-                    return new MineFragment();
-                default:
-                    return new HomeFragment();
-            }
+            return getFragment(position);
         }
 
         @Override
         public int getCount() {
             return NUM_PAGES;
+        }
+
+        private Fragment getFragment(int position){
+            Fragment fragment = fragmentList.get(position);
+            if(fragment != null){
+                return fragment;
+            }
+            switch (position) {
+                case 0:
+                    fragment = new HomeFragment();
+                    break;
+                case 1:
+                    fragment = new CommunityFragment();
+                    break;
+                case 2:
+                    fragment = new MineFragment();
+                    break;
+                default:
+                    fragment = new HomeFragment();
+                    break;
+            }
+            fragmentList.put(position,fragment);
+            return fragment;
         }
     }
 }
