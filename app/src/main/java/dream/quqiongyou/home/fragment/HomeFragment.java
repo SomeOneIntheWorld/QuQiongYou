@@ -15,6 +15,7 @@ import java.util.List;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
+import butterknife.Unbinder;
 import dream.quqiongyou.R;
 import dream.quqiongyou.bean.HomeItemBean;
 import dream.quqiongyou.adapter.HomeAdapter;
@@ -31,12 +32,13 @@ public class HomeFragment extends Fragment implements HomeView{
     HomeAdapter mHomeAdater;
 
     private HomePresenter mHomePresenter;
+    private Unbinder unbinder;
 
     @Nullable
     @Override
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         View view =  inflater.inflate(R.layout.fragment_home,null);
-        ButterKnife.bind(this,view);
+        unbinder = ButterKnife.bind(this,view);
 
         mHomeAdater = new HomeAdapter(getContext());
         mHomeRecycler.setHasFixedSize(true);
@@ -70,5 +72,11 @@ public class HomeFragment extends Fragment implements HomeView{
     @Override
     public void hideProgressBar() {
 
+    }
+
+    @Override
+    public void onDestroyView() {
+        super.onDestroyView();
+        unbinder.unbind();
     }
 }
