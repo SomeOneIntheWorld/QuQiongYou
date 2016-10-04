@@ -3,6 +3,7 @@ package dream.quqiongyou.home.presenter;
 import java.util.List;
 
 import dream.quqiongyou.bean.HomeItemBean;
+import dream.quqiongyou.common.CallBackByModel;
 import dream.quqiongyou.home.model.HomeModel;
 import dream.quqiongyou.home.model.HomeModelImpl;
 import dream.quqiongyou.home.view.HomeView;
@@ -10,7 +11,7 @@ import dream.quqiongyou.home.view.HomeView;
 /**
  * Created by SomeOneInTheWorld on 2016/10/3.
  */
-public class HomePresenterImpl implements HomePresenter,HomeModelImpl.CallBackByHomeModel {
+public class HomePresenterImpl implements HomePresenter,CallBackByModel<HomeItemBean> {
     private HomeModel homeModel;
     private HomeView homeView;
 
@@ -26,13 +27,13 @@ public class HomePresenterImpl implements HomePresenter,HomeModelImpl.CallBackBy
     }
 
     @Override
-    public void loadTripsSuccess(List<HomeItemBean> datas) {
+    public void loadSuccess(List<HomeItemBean> results) {
         homeView.hideProgressBar();
-        homeView.loadTripsSuccess(datas);
+        homeView.loadTripsSuccess(results);
     }
 
     @Override
-    public void loadTripFail(String errorMessage) {
+    public void loadFail(String errorMessage) {
         homeView.hideProgressBar();
         homeView.loadTripFail(errorMessage);
     }

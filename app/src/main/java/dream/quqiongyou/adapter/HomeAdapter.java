@@ -1,4 +1,4 @@
-package dream.quqiongyou.home;
+package dream.quqiongyou.adapter;
 
 import android.content.Context;
 import android.support.v7.widget.RecyclerView;
@@ -23,7 +23,7 @@ import dream.quqiongyou.utils.LogUtils;
  * Created by SomeOneInTheWorld on 2016/10/3.
  */
 public class HomeAdapter extends RecyclerView.Adapter {
-    private final static String TAG = HomeAdapter.class.getName() + "test";
+    private final static String TAG = "test";
     private List<HomeItemBean> homeDatas;
     private Context context;
     private final int TYPE_FOOTER = 0;
