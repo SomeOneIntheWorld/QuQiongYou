@@ -22,4 +22,6 @@
     <string name="theme_hint">输入你的活动主题</string>
     <string name="time_hint">选择时间</string>
     <string name="location_hint">输入地点</string>
+    <string name="fuckticket">逃票攻略</string>
+    <string name="fuckticket_title">标题</string>
 </resources>

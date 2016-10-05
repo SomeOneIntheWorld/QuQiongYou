@@ -59,7 +59,7 @@
         <item name="android:layout_marginLeft">@dimen/mine_item_img_marginLeft</item>
     </style>
 
-    <style name="origination_item_layot_style">
+    <style name="origination_item_layout_style">
         <item name="android:layout_width">match_parent</item>
         <item name="android:layout_height">wrap_content</item>
         <!--<item name="android:padding">20dp</item>-->

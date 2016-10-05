@@ -1,0 +1,81 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="vertical"
+    android:padding="20dp"
+    android:background="@color/item_layout_color"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content">
+    <RelativeLayout
+        android:id="@+id/usr_info"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+        <ImageView
+            android:id="@+id/avatar"
+            android:background="@color/colorPrimary"
+            android:layout_width="@dimen/fuckticket_avatar_size"
+            android:layout_height="@dimen/fuckticket_avatar_size" />
+        <TextView
+            android:id="@+id/rank"
+            android:text="Lv2"
+            android:textSize="@dimen/fuckticket_rank_size"
+            style="@style/normal_tv_style"
+            android:layout_below="@+id/name"
+            android:layout_alignLeft="@+id/name"
+            />
+        <TextView
+            android:id="@+id/name"
+            android:text="@string/about_us"
+            android:textSize="@dimen/fuckticket_name_size"
+            style="@style/deep_tv_style"
+            android:layout_marginLeft="20dp"
+            android:layout_toRightOf="@id/avatar"
+            />
+    </RelativeLayout>
+    <TextView
+        android:id="@+id/title"
+    android:layout_marginTop="5dp"
+    android:layout_below="@+id/usr_info"
+    android:text="@string/fuckticket_title"
+    android:textSize="@dimen/fuckticket_title_size"
+    android:textColor="@color/deep_tv_color"
+    style="@style/normal_tv_style" />
+    <TextView
+        android:id="@+id/subtitle"
+        android:layout_marginTop="5dp"
+        android:layout_below="@+id/title"
+        android:text="@string/fuckticket_title"
+        android:textSize="@dimen/fuckticket_subtitle_size"
+        android:textColor="@color/light_tv_color"
+        style="@style/normal_tv_style" />
+    <ViewStub
+        android:id="@+id/img_group"
+        android:layout_below="@+id/subtitle"
+        android:layout="@layout/cardview_layout"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content" />
+<RelativeLayout
+    android:layout_below="@id/img_group"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content">
+    <TextView
+        android:id="@+id/time"
+        android:text="23hour ago"
+        style="@style/normal_tv_style" />
+    <TextView
+        android:text="4"
+        android:drawableLeft="@drawable/dot_focus"
+        android:id="@+id/comment_num"
+        android:layout_alignParentRight="true"
+        android:layout_alignParentEnd="true"
+        style="@style/normal_tv_style" />
+    <TextView
+        android:text="71"
+        android:id="@+id/seen_num"
+        android:layout_toLeftOf="@id/comment_num"
+        android:drawableLeft="@drawable/dot_focus"
+        style="@style/normal_tv_style"
+        />
+</RelativeLayout>
+
+
+</RelativeLayout>

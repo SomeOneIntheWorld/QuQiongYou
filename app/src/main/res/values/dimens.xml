@@ -13,4 +13,9 @@
     <dimen name="mine_item_tv_marginLeft">20dp</dimen>
     <dimen name="toolbar_title_size">20sp</dimen>
     <dimen name="origination_item_tv_size">16sp</dimen>
+    <dimen name="fuckticket_avatar_size">35dp</dimen>
+    <dimen name="fuckticket_name_size">15sp</dimen>
+    <dimen name="fuckticket_rank_size">13sp</dimen>
+    <dimen name="fuckticket_title_size">23sp</dimen>
+    <dimen name="fuckticket_subtitle_size">20sp</dimen>
 </resources>
