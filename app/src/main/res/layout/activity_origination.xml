@@ -46,19 +46,46 @@
                 android:layout_height="1.5dp"
                 android:background="@color/light_gray_plus"/>
             <LinearLayout
+                android:id="@+id/start_time"
                 style="@style/origination_item_layout_style"
-                >
+                android:layout_width="match_parent">
                 <TextView
                     android:textSize="@dimen/origination_item_tv_size"
                     android:layout_gravity="center"
                     android:textColor="@color/deep_tv_color"
-                    android:text="@string/time"
+                    android:text="开始时间"
                     style="@style/normal_tv_style" />
-                <EditText
+                <TextView
+                    android:id="@+id/start_time_tv"
                     android:textSize="@dimen/origination_item_tv_size"
                     android:textColorHint="@color/light_gray"
                     android:hint="@string/time_hint"
-                    android:layout_marginLeft="20dp"
+                    android:layout_marginLeft="50dp"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content" />
+            </LinearLayout>
+            <View
+                android:layout_marginLeft="10dp"
+                android:layout_marginRight="10dp"
+                android:layout_width="match_parent"
+                android:layout_height="1.5dp"
+                android:background="@color/light_gray_plus"/>
+            <LinearLayout
+                android:id="@+id/end_time"
+                style="@style/origination_item_layout_style"
+                android:layout_width="match_parent">
+                <TextView
+                    android:textSize="@dimen/origination_item_tv_size"
+                    android:layout_gravity="center"
+                    android:textColor="@color/deep_tv_color"
+                    android:text="结束时间"
+                    style="@style/normal_tv_style" />
+                <TextView
+                    android:id="@+id/end_time_tv"
+                    android:textSize="@dimen/origination_item_tv_size"
+                    android:textColorHint="@color/light_gray"
+                    android:hint="@string/time_hint"
+                    android:layout_marginLeft="50dp"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content" />
             </LinearLayout>
@@ -116,13 +143,17 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content">
             <LinearLayout
+                android:id="@+id/price"
                 style="@style/origination_item_layout_style"
                 >
                 <TextView
+                    android:id="@+id/price_tv"
+                    android:layout_width="match_parent"
                     android:textSize="@dimen/origination_item_tv_size"
                     android:layout_gravity="center"
+                    android:gravity="center_horizontal"
                     android:textColor="@color/deep_tv_color"
-                    android:text="@string/ticket_price"
+                    android:text="选择票价"
                     style="@style/normal_tv_style" />
 
             </LinearLayout>
@@ -135,11 +166,13 @@
             <LinearLayout
                 style="@style/origination_item_layout_style"
                 >
-                <TextView
+                <EditText
+                    android:gravity="center_horizontal"
+                    android:layout_width="match_parent"
                     android:textSize="@dimen/origination_item_tv_size"
                     android:layout_gravity="center"
                     android:textColor="@color/deep_tv_color"
-                    android:text="@string/contacts_num"
+                    android:hint="@string/contacts_num"
                     style="@style/normal_tv_style" />
 
             </LinearLayout>
