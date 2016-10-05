@@ -8,7 +8,7 @@ import dream.quqiongyou.main.view.LoginView;
 /**
  * Created by SomeOneInTheWorld on 2016/10/3.
  */
-public class LoginPresenterImpl implements LoginPresenter,LoginModelImpl.CallBackByLoginModel{
+public class LoginPresenterImpl implements LoginPresenter,LoginModel.CallBackByLoginModel{
     private LoginModel loginModel;
     private LoginView loginView;
 

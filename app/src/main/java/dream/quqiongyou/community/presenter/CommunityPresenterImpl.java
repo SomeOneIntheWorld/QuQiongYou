@@ -10,7 +10,7 @@ import dream.quqiongyou.community.view.CommunityView;
 /**
  * Created by SomeOneInTheWorld on 2016/10/4.
  */
-public class CommunityPresenterImpl implements CommunityPresenter,CommunityModelImpl.CallBackByCommunityModel {
+public class CommunityPresenterImpl implements CommunityPresenter,CommunityModel.CallBackByCommunityModel {
     private CommunityView view;
     private CommunityModel model;
 

@@ -10,9 +10,4 @@ public class LoginModelImpl implements LoginModel {
     public void checkQuUserByModel(QuUser user,CallBackByLoginModel listener) {
         listener.onSuccess();
     }
-
-    public interface CallBackByLoginModel{
-        void onSuccess();
-        void onFail();
-    }
 }

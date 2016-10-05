@@ -18,6 +18,7 @@ import android.widget.TextView;
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
+import butterknife.Unbinder;
 import dream.quqiongyou.R;
 import dream.quqiongyou.community.view.CommunityFragment;
 import dream.quqiongyou.home.fragment.HomeFragment;
@@ -39,6 +40,7 @@ public class MainActivity extends AppCompatActivity {
     @BindView(R.id.mine_img) ImageView mineImg;
     private MainPagerAdapter mMainPagerAdapter;
     private SparseArray<Fragment> fragmentList = new SparseArray<>();
+    private Unbinder unbinder;
 
     public static void startMainActivity(Context context, String account) {
         Intent intent = new Intent(context, MainActivity.class);
@@ -50,7 +52,7 @@ public class MainActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-        ButterKnife.bind(this);
+        unbinder = ButterKnife.bind(this);
 
         mMainPagerAdapter = new MainPagerAdapter(getSupportFragmentManager());
         mViewPager.setAdapter(mMainPagerAdapter);
@@ -165,5 +167,11 @@ public class MainActivity extends AppCompatActivity {
             fragmentList.put(position,fragment);
             return fragment;
         }
+    }
+
+    @Override
+    protected void onDestroy(){
+        super.onDestroy();
+        unbinder.unbind();
     }
 }
