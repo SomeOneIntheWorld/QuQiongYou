@@ -12,14 +12,23 @@ import android.os.Bundle;
 import android.provider.MediaStore;
 import android.support.v7.app.AppCompatActivity;
 import android.text.TextUtils;
+import android.view.KeyEvent;
+import android.view.View;
 import android.widget.GridView;
+import android.widget.TextView;
 import android.widget.Toast;
 
+import com.bigkoo.pickerview.OptionsPickerView;
+import com.bigkoo.pickerview.TimePickerView;
+
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
+import butterknife.OnClick;
 import butterknife.OnItemClick;
 import butterknife.OnItemLongClick;
 import butterknife.Unbinder;
@@ -39,6 +48,11 @@ public class OriginationActivity extends AppCompatActivity implements Originatio
     private String photoPath;
 
     @BindView(R.id.origination_add)GridView addPictureGV;
+    @BindView(R.id.start_time_tv)TextView startTimeTV;
+    @BindView(R.id.end_time_tv)TextView endTimeTV;
+    @BindView(R.id.price_tv)TextView priceTV;
+    private TimePickerView pvTime;
+    private OptionsPickerView pvOptions;
 
     public static void startOriginationActivity(Context context){
         Intent intent = new Intent(context,OriginationActivity.class);
@@ -55,6 +69,39 @@ public class OriginationActivity extends AppCompatActivity implements Originatio
         sharedList.add(bp);
         sharePictureAdapter = new UISharePictureAdapter(getApplicationContext(), sharedList, addPictureGV);
         addPictureGV.setAdapter(sharePictureAdapter);
+
+        pvTime = new TimePickerView(this, TimePickerView.Type.MONTH_DAY_HOUR_MIN);
+        pvOptions = new OptionsPickerView(this);
+
+        final ArrayList<Integer> options1Items = new ArrayList<>();
+        final ArrayList<ArrayList<Integer>> options2Items = new ArrayList<>();
+        options1Items.add(0);
+        options1Items.add(50);
+        options1Items.add(100);
+        options1Items.add(200);
+        options1Items.add(300);
+        options1Items.add(400);
+        options2Items.add(options1Items);
+        options2Items.add(options1Items);
+        options2Items.add(options1Items);
+        options2Items.add(options1Items);
+        options2Items.add(options1Items);
+        options2Items.add(options1Items);
+
+        pvOptions.setPicker(options1Items, options2Items, true);
+        pvOptions.setTitle("选择价格区间");
+        pvOptions.setCyclic(false, false, true);
+        pvOptions.setSelectOptions(1, 1, 1);
+
+        pvOptions.setOnoptionsSelectListener(new OptionsPickerView.OnOptionsSelectListener() {
+
+            @Override
+            public void onOptionsSelect(int options1, int option2, int options3) {
+                String tx = "价格区间：" + options1Items.get(options1).toString() + " - "
+                        + options2Items.get(options1).get(option2).toString();
+                priceTV.setText(tx);
+            }
+        });
     }
 
     @OnItemClick(R.id.origination_add)
@@ -82,6 +129,40 @@ public class OriginationActivity extends AppCompatActivity implements Originatio
         return true;
     }
 
+    @OnClick({R.id.start_time,R.id.end_time,R.id.price})
+    void onClick(View view){
+        switch(view.getId()){
+            case R.id.start_time:
+                doEvent(startTimeTV);
+                break;
+            case R.id.end_time:
+                doEvent(endTimeTV);
+                break;
+            case R.id.price:
+                pvOptions.show();
+                break;
+        }
+    }
+
+    private void doEvent(final TextView view){
+        pvTime.setTime(new Date());
+        pvTime.setCyclic(false);
+        pvTime.setCancelable(true);
+        pvTime.setOnTimeSelectListener(new TimePickerView.OnTimeSelectListener() {
+            @Override
+            public void onTimeSelect(Date date) {
+                SimpleDateFormat format = new SimpleDateFormat("MM-dd HH:mm");
+                view.setText(format.format(date));
+            }
+        });
+
+        view.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                pvTime.show();
+            }
+        });
+    }
 
     @Override
     public void showProgressBar() {
@@ -157,5 +238,20 @@ public class OriginationActivity extends AppCompatActivity implements Originatio
     protected void onDestroy(){
         super.onDestroy();
         unbinder.unbind();
+    }
+
+    @Override
+    public boolean onKeyDown(int keyCode, KeyEvent event) {
+        if (keyCode == KeyEvent.KEYCODE_BACK) {
+            if(pvTime.isShowing()){
+                pvTime.dismiss();
+                return true;
+            }
+            if(pvOptions.isShowing()){
+                pvOptions.dismiss();
+                return true;
+            }
+        }
+        return super.onKeyDown(keyCode, event);
     }
 }
