@@ -1,124 +1,150 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    android:orientation="vertical"
-    android:background="@color/main_layout_color"
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_height="match_parent"
     android:layout_width="match_parent"
-    android:layout_height="match_parent">
-<android.support.v7.widget.Toolbar
-    style="@style/ToolbarStyle">
-    <TextView
-        android:layout_gravity="center"
-        android:textSize="@dimen/toolbar_title_size"
-        android:text="@string/origination"
-        style="@style/deep_tv_style" />
-</android.support.v7.widget.Toolbar>
-
+    android:scrollbars="none">
     <LinearLayout
-        android:background="@color/item_layout_color"
         android:orientation="vertical"
+        android:background="@color/main_layout_color"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content">
-        <LinearLayout
-            style="@style/origination_item_layot_style"
-           >
+        android:layout_height="match_parent">
+        <android.support.v7.widget.Toolbar
+            style="@style/ToolbarStyle">
             <TextView
-                android:textSize="@dimen/origination_item_tv_size"
                 android:layout_gravity="center"
-                android:textColor="@color/origination_tv_color"
-                android:text="@string/theme"
-                style="@style/normal_tv_style" />
-            <EditText
-                android:textSize="@dimen/origination_item_tv_size"
-                android:textColorHint="@color/light_gray"
-                android:hint="@string/theme_hint"
-                android:layout_marginLeft="20dp"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content" />
-        </LinearLayout>
-        <View
-            android:layout_marginLeft="10dp"
-            android:layout_marginRight="10dp"
+                android:textSize="@dimen/toolbar_title_size"
+                android:text="@string/origination"
+                style="@style/deep_tv_style" />
+        </android.support.v7.widget.Toolbar>
+
+        <LinearLayout
+            android:background="@color/item_layout_color"
+            android:orientation="vertical"
             android:layout_width="match_parent"
-            android:layout_height="1.5dp"
-            android:background="@color/light_gray_plus"/>
-        <LinearLayout
-            style="@style/origination_item_layot_style"
-            >
-            <TextView
-                android:textSize="@dimen/origination_item_tv_size"
-                android:layout_gravity="center"
-                android:textColor="@color/origination_tv_color"
-                android:text="@string/time"
-                style="@style/normal_tv_style" />
-            <EditText
-                android:textSize="@dimen/origination_item_tv_size"
-                android:textColorHint="@color/light_gray"
-                android:hint="@string/time_hint"
-                android:layout_marginLeft="20dp"
+            android:layout_height="wrap_content">
+            <LinearLayout
+                style="@style/origination_item_layot_style"
+                >
+                <TextView
+                    android:textSize="@dimen/origination_item_tv_size"
+                    android:layout_gravity="center"
+                    android:textColor="@color/origination_tv_color"
+                    android:text="@string/theme"
+                    style="@style/normal_tv_style" />
+                <EditText
+                    android:textSize="@dimen/origination_item_tv_size"
+                    android:textColorHint="@color/light_gray"
+                    android:hint="@string/theme_hint"
+                    android:layout_marginLeft="20dp"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content" />
+            </LinearLayout>
+            <View
+                android:layout_marginLeft="10dp"
+                android:layout_marginRight="10dp"
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content" />
+                android:layout_height="1.5dp"
+                android:background="@color/light_gray_plus"/>
+            <LinearLayout
+                style="@style/origination_item_layot_style"
+                >
+                <TextView
+                    android:textSize="@dimen/origination_item_tv_size"
+                    android:layout_gravity="center"
+                    android:textColor="@color/origination_tv_color"
+                    android:text="@string/time"
+                    style="@style/normal_tv_style" />
+                <EditText
+                    android:textSize="@dimen/origination_item_tv_size"
+                    android:textColorHint="@color/light_gray"
+                    android:hint="@string/time_hint"
+                    android:layout_marginLeft="20dp"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content" />
+            </LinearLayout>
+            <View
+                android:layout_marginLeft="10dp"
+                android:layout_marginRight="10dp"
+                android:layout_width="match_parent"
+                android:layout_height="1.5dp"
+                android:background="@color/light_gray_plus"/>
+            <LinearLayout
+                style="@style/origination_item_layot_style"
+                >
+                <TextView
+                    android:textSize="@dimen/origination_item_tv_size"
+                    android:layout_gravity="center"
+                    android:textColor="@color/origination_tv_color"
+                    android:text="@string/location"
+                    style="@style/normal_tv_style" />
+                <EditText
+                    android:textSize="@dimen/origination_item_tv_size"
+                    android:textColorHint="@color/light_gray"
+                    android:hint="@string/location_hint"
+                    android:layout_marginLeft="20dp"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content" />
+            </LinearLayout>
         </LinearLayout>
-        <View
-            android:layout_marginLeft="10dp"
-            android:layout_marginRight="10dp"
-            android:layout_width="match_parent"
-            android:layout_height="1.5dp"
-            android:background="@color/light_gray_plus"/>
+
+
+        <!--TODO:活动内容介绍布局 （坑先留着）-->
         <LinearLayout
-            style="@style/origination_item_layot_style"
-            >
-            <TextView
-                android:textSize="@dimen/origination_item_tv_size"
-                android:layout_gravity="center"
-                android:textColor="@color/origination_tv_color"
-                android:text="@string/location"
-                style="@style/normal_tv_style" />
+            android:orientation="vertical"
+            style="@style/origination_item_layot_style">
             <EditText
-                android:textSize="@dimen/origination_item_tv_size"
-                android:textColorHint="@color/light_gray"
-                android:hint="@string/location_hint"
-                android:layout_marginLeft="20dp"
+                android:id="@+id/origination_description_et"
+                android:hint="详细介绍下你的活动内容和活动安排"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content" />
+
+            <GridView
+                android:id="@+id/origination_add"
+                android:layout_width="fill_parent"
+                android:layout_height="100dp"
+                android:background="#FFFFFF"
+                android:columnWidth="90dp"
+                android:gravity="center"
+                android:horizontalSpacing="5dp"
+                android:numColumns="4"
+                android:stretchMode="columnWidth"
+                android:verticalSpacing="5dp" />
+        </LinearLayout>
+
+        <LinearLayout
+            android:background="@color/item_layout_color"
+            android:orientation="vertical"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+            <LinearLayout
+                style="@style/origination_item_layot_style"
+                >
+                <TextView
+                    android:textSize="@dimen/origination_item_tv_size"
+                    android:layout_gravity="center"
+                    android:textColor="@color/origination_tv_color"
+                    android:text="@string/ticket_price"
+                    style="@style/normal_tv_style" />
+
+            </LinearLayout>
+            <View
+                android:layout_marginLeft="10dp"
+                android:layout_marginRight="10dp"
+                android:layout_width="match_parent"
+                android:layout_height="1.5dp"
+                android:background="@color/light_gray_plus"/>
+            <LinearLayout
+                style="@style/origination_item_layot_style"
+                >
+                <TextView
+                    android:textSize="@dimen/origination_item_tv_size"
+                    android:layout_gravity="center"
+                    android:textColor="@color/origination_tv_color"
+                    android:text="@string/contacts_num"
+                    style="@style/normal_tv_style" />
+
+            </LinearLayout>
+
         </LinearLayout>
     </LinearLayout>
-
-
-    <!--TODO:活动内容介绍布局 （坑先留着）-->
-
-    <LinearLayout
-        android:background="@color/item_layout_color"
-        android:orientation="vertical"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content">
-        <LinearLayout
-            style="@style/origination_item_layot_style"
-            >
-            <TextView
-                android:textSize="@dimen/origination_item_tv_size"
-                android:layout_gravity="center"
-                android:textColor="@color/origination_tv_color"
-                android:text="@string/ticket_price"
-                style="@style/normal_tv_style" />
-
-        </LinearLayout>
-        <View
-            android:layout_marginLeft="10dp"
-            android:layout_marginRight="10dp"
-            android:layout_width="match_parent"
-            android:layout_height="1.5dp"
-            android:background="@color/light_gray_plus"/>
-        <LinearLayout
-            style="@style/origination_item_layot_style"
-            >
-            <TextView
-                android:textSize="@dimen/origination_item_tv_size"
-                android:layout_gravity="center"
-                android:textColor="@color/origination_tv_color"
-                android:text="@string/contacts_num"
-                style="@style/normal_tv_style" />
-
-        </LinearLayout>
-
-    </LinearLayout>
-</LinearLayout>
+</ScrollView>

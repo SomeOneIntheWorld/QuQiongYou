@@ -31,9 +31,4 @@ public class CommunityModelImpl implements CommunityModel{
         }
         callBackByCommunityModel.loadSuccess(communityDatas,guessDatas);
     }
-
-    public interface CallBackByCommunityModel{
-        void loadSuccess(List<CommunityItemBean>communityDatas,List<CommunityItemBean>guessDatas);
-        void loadFail(String errorMessage);
-    }
 }

@@ -9,7 +9,6 @@ import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import java.util.ArrayList;
 import java.util.List;
 
 import butterknife.BindView;
@@ -19,6 +18,7 @@ import dream.quqiongyou.R;
 import dream.quqiongyou.bean.HomeItemBean;
 import dream.quqiongyou.bean.TopInfo;
 import dream.quqiongyou.home.widget.Slider;
+import dream.quqiongyou.origination.view.OriginationActivity;
 import dream.quqiongyou.utils.ImageLoaderUtils;
 import dream.quqiongyou.utils.LogUtils;
 
@@ -144,6 +144,19 @@ public class HomeAdapter extends RecyclerView.Adapter {
         public HeadViewHolder(View header){
             super(header);
             ButterKnife.bind(this,header);
+        }
+
+        @OnClick({R.id.slider,R.id.findtrips,R.id.createtrips})
+        void onClick(View view){
+            switch(view.getId()){
+                case R.id.slider:
+                    break;
+                case R.id.findtrips:
+                    break;
+                case R.id.createtrips:
+                    OriginationActivity.startOriginationActivity(context);
+                    break;
+            }
         }
     }
 }
