@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="vertical" 
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+<Toolbar
+    style="@style/ToolbarStyle">
+    <TextView
+        android:layout_gravity="center"
+        android:textSize="@dimen/toolbar_title_size"
+        android:text="@string/fuckticket"
+        style="@style/deep_tv_style" />
+</Toolbar>
+    <android.support.v7.widget.RecyclerView
+        android:id="@+id/fuckticket_recycler"
+        android:layout_width="match_parent"
+        android:layout_height="0dp"/>
+
+</LinearLayout>

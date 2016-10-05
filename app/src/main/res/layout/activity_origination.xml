@@ -23,12 +23,12 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content">
             <LinearLayout
-                style="@style/origination_item_layot_style"
+                style="@style/origination_item_layout_style"
                 >
                 <TextView
                     android:textSize="@dimen/origination_item_tv_size"
                     android:layout_gravity="center"
-                    android:textColor="@color/origination_tv_color"
+                    android:textColor="@color/deep_tv_color"
                     android:text="@string/theme"
                     style="@style/normal_tv_style" />
                 <EditText
@@ -46,12 +46,12 @@
                 android:layout_height="1.5dp"
                 android:background="@color/light_gray_plus"/>
             <LinearLayout
-                style="@style/origination_item_layot_style"
+                style="@style/origination_item_layout_style"
                 >
                 <TextView
                     android:textSize="@dimen/origination_item_tv_size"
                     android:layout_gravity="center"
-                    android:textColor="@color/origination_tv_color"
+                    android:textColor="@color/deep_tv_color"
                     android:text="@string/time"
                     style="@style/normal_tv_style" />
                 <EditText
@@ -69,12 +69,12 @@
                 android:layout_height="1.5dp"
                 android:background="@color/light_gray_plus"/>
             <LinearLayout
-                style="@style/origination_item_layot_style"
+                style="@style/origination_item_layout_style"
                 >
                 <TextView
                     android:textSize="@dimen/origination_item_tv_size"
                     android:layout_gravity="center"
-                    android:textColor="@color/origination_tv_color"
+                    android:textColor="@color/deep_tv_color"
                     android:text="@string/location"
                     style="@style/normal_tv_style" />
                 <EditText
@@ -91,13 +91,12 @@
         <!--TODO:活动内容介绍布局 （坑先留着）-->
         <LinearLayout
             android:orientation="vertical"
-            style="@style/origination_item_layot_style">
+            style="@style/origination_item_layout_style">
             <EditText
                 android:id="@+id/origination_description_et"
                 android:hint="详细介绍下你的活动内容和活动安排"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content" />
-
             <GridView
                 android:id="@+id/origination_add"
                 android:layout_width="fill_parent"
@@ -117,12 +116,12 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content">
             <LinearLayout
-                style="@style/origination_item_layot_style"
+                style="@style/origination_item_layout_style"
                 >
                 <TextView
                     android:textSize="@dimen/origination_item_tv_size"
                     android:layout_gravity="center"
-                    android:textColor="@color/origination_tv_color"
+                    android:textColor="@color/deep_tv_color"
                     android:text="@string/ticket_price"
                     style="@style/normal_tv_style" />
 
@@ -134,12 +133,12 @@
                 android:layout_height="1.5dp"
                 android:background="@color/light_gray_plus"/>
             <LinearLayout
-                style="@style/origination_item_layot_style"
+                style="@style/origination_item_layout_style"
                 >
                 <TextView
                     android:textSize="@dimen/origination_item_tv_size"
                     android:layout_gravity="center"
-                    android:textColor="@color/origination_tv_color"
+                    android:textColor="@color/deep_tv_color"
                     android:text="@string/contacts_num"
                     style="@style/normal_tv_style" />
 
