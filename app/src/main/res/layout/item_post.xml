@@ -1,0 +1,69 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="vertical"
+    android:padding="20dp"
+    android:background="@color/item_layout_color"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content">
+    <RelativeLayout
+        android:id="@+id/title_rl"
+        android:gravity="center"
+        android:layout_marginTop="5dp"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+        <TextView
+            android:id="@+id/title"
+            android:text="@string/fuckticket_title"
+            android:textSize="@dimen/fuckticket_title_size"
+            android:textColor="@color/deep_tv_color"
+            style="@style/normal_tv_style" />
+        <TextView
+            android:text="删除"
+            android:id="@+id/delete"
+            android:textColor="@color/colorPrimaryDark"
+            android:layout_alignParentRight="true"
+            android:layout_alignParentEnd="true"
+            android:textSize="@dimen/fuckticket_title_size"
+            style="@style/normal_tv_style" />
+    </RelativeLayout>
+
+    <TextView
+        android:id="@+id/subtitle"
+        android:layout_marginTop="5dp"
+        android:layout_below="@+id/title_rl"
+        android:text="@string/fuckticket_title"
+        android:textSize="@dimen/fuckticket_subtitle_size"
+        android:textColor="@color/light_tv_color"
+        style="@style/normal_tv_style" />
+    <ViewStub
+        android:id="@+id/img_group"
+        android:layout_below="@+id/subtitle"
+        android:layout="@layout/cardview_layout"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content" />
+    <RelativeLayout
+        android:layout_below="@id/img_group"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+        <TextView
+            android:id="@+id/time"
+            android:text="23hour ago"
+            style="@style/normal_tv_style" />
+        <TextView
+            android:text="4"
+            android:drawableLeft="@drawable/dot_focus"
+            android:id="@+id/comment_num"
+            android:layout_alignParentRight="true"
+            android:layout_alignParentEnd="true"
+            style="@style/normal_tv_style" />
+        <TextView
+            android:text="71"
+            android:id="@+id/seen_num"
+            android:layout_toLeftOf="@id/comment_num"
+            android:drawableLeft="@drawable/dot_focus"
+            style="@style/normal_tv_style"
+            />
+    </RelativeLayout>
+
+
+</RelativeLayout>

@@ -13,6 +13,7 @@
     android:textSize="@dimen/item_fuckticket_head_tv_size"
     style="@style/deep_tv_style" />
     <TextView
+        android:id="@+id/best_tv"
         android:layout_marginLeft="10dp"
         android:text="@string/prime"
         android:textSize="@dimen/item_fuckticket_head_tv_size"

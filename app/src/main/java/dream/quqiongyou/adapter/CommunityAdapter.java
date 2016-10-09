@@ -120,5 +120,9 @@ public class CommunityAdapter extends RecyclerView.Adapter{
             super(parent);
             ButterKnife.bind(this,parent);
         }
+
+        public String getTitleTV(){
+            return titleTV.getText().toString();
+        }
     }
 }
