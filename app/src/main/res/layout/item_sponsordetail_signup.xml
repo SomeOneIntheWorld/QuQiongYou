@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="80dp"
+    >
+    <ImageView
+        android:id="@+id/signup_headimg"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:paddingLeft="20dp"
+        android:src="@mipmap/ic_launcher"
+        android:layout_margin="10dp"/>
+    <LinearLayout
+        android:id="@+id/signup_msg"
+        android:layout_toRightOf="@+id/signup_headimg"
+        android:orientation="vertical"
+        android:padding="10dp"
+        android:layout_width="wrap_content"
+        android:layout_height="match_parent">
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:gravity="start"
+            android:textSize="@dimen/fuckticket_title_size"
+            android:text="用户姓名"
+            android:textColor="@color/colorPrimaryDark"/>
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:gravity="start"
+            android:textSize="@dimen/fuckticket_subtitle_size"
+            android:text="用户电话:188********"/>
+    </LinearLayout>
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="match_parent"
+        android:layout_alignParentEnd="true"
+        android:layout_alignParentRight="true"
+        android:gravity="center"
+        android:padding="15dp"
+        android:text="删除"
+        android:textSize="@dimen/fuckticket_subtitle_size"/>
+</RelativeLayout>
