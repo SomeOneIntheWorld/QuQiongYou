@@ -15,15 +15,15 @@ import java.util.List;
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import dream.quqiongyou.R;
-import dream.quqiongyou.bean.CommunityItemBean;
+import dream.quqiongyou.bean.TopicBean;
 import dream.quqiongyou.utils.ImageLoaderUtils;
 
 /**
  * Created by SomeOneInTheWorld on 2016/10/4.
  */
 public class CommunityAdapter extends RecyclerView.Adapter{
-    private List<CommunityItemBean> communityDatas;
-    private List<CommunityItemBean> guessDatas;
+    private List<TopicBean> communityDatas;
+    private List<TopicBean> guessDatas;
     private Context context;
     private final static int TYPE_GUESS = 1;
     private final static int TYPE_TOPIC = 2;
@@ -34,19 +34,18 @@ public class CommunityAdapter extends RecyclerView.Adapter{
         this.context = context;
     }
 
-    public void setDatas(List<CommunityItemBean>communityDatas,List<CommunityItemBean>guessDatas){
+    public void setDatas(List<TopicBean>communityDatas, List<TopicBean>guessDatas){
         this.communityDatas = communityDatas;
         this.guessDatas = guessDatas;
-        notifyDataSetChanged();
     }
 
     @Override
     public RecyclerView.ViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
         if(viewType == TYPE_TOPIC || viewType == TYPE_GUESS){
-            View item = LayoutInflater.from(context).inflate(R.layout.item_community,null);
+            View item = LayoutInflater.from(context).inflate(R.layout.item_community,parent,false);
             return new CommunityViewHolder(item);
         }else if(viewType == TYPE_TEXT){
-            View item = LayoutInflater.from(context).inflate(R.layout.item_community,null);
+            View item = LayoutInflater.from(context).inflate(R.layout.item_community,parent,false);
             ViewStub viewStub = (ViewStub)item.findViewById(R.id.stub);
             viewStub.inflate();
             return new CommunityViewHolder(item);
@@ -58,28 +57,28 @@ public class CommunityAdapter extends RecyclerView.Adapter{
     @Override
     public void onBindViewHolder(RecyclerView.ViewHolder holder, int position) {
         int type = getItemViewType(position);
-        CommunityItemBean communityItemBean;
+        TopicBean topicBean;
         if(type == TYPE_TOPIC) {
-            communityItemBean = communityDatas.get(position);
+            topicBean = communityDatas.get(position);
         }else if(type == TYPE_GUESS || type == TYPE_TEXT) {
-            communityItemBean = guessDatas.get(position - communityDatas.size());
+            topicBean = guessDatas.get(position - communityDatas.size());
         }else{
             return;
         }
 
-        ((CommunityViewHolder)holder).titleTV.setText(communityItemBean.getTitle());
-        ((CommunityViewHolder)holder).topnumTV.setText(communityItemBean.getTopicnum());
+        ((CommunityViewHolder)holder).titleTV.setText(topicBean.getTitle());
+        ((CommunityViewHolder)holder).topnumTV.setText(topicBean.getTopicnum());
         ((CommunityViewHolder)holder).menuIV.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 Toast.makeText(context,"you click the menu",Toast.LENGTH_SHORT).show();
             }
         });
-        if(communityItemBean.getImgurl() == null){
+        if(topicBean.getImgurl() == null){
             ((CommunityViewHolder)holder).communityIV.setImageResource(R.mipmap.community_normal);
             return;
         }
-        ImageLoaderUtils.display(context,((CommunityViewHolder)holder).communityIV,communityItemBean.getImgurl());
+        ImageLoaderUtils.display(context,((CommunityViewHolder)holder).communityIV, topicBean.getImgurl());
     }
 
     @Override

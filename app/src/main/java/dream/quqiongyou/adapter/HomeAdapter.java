@@ -52,14 +52,13 @@ public class HomeAdapter extends RecyclerView.Adapter {
     @Override
     public RecyclerView.ViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
         if(viewType == TYPE_ITEM){
-            View item = LayoutInflater.from(context).inflate(R.layout.item_home_normal,null);
+            View item = LayoutInflater.from(context).inflate(R.layout.item_home_normal,parent,false);
             return new ItemViewHolder(item);
         }else if(viewType == TYPE_FOOTER){
-            View v = LayoutInflater.from(context).inflate(R.layout.footer,null);
+            View v = LayoutInflater.from(context).inflate(R.layout.footer,parent,false);
             v.setLayoutParams(new ViewGroup.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT,
                     ViewGroup.LayoutParams.WRAP_CONTENT));
-            FooterViewHolder fvh = new FooterViewHolder(v);
-            return fvh;
+            return new FooterViewHolder(v);
         }else{
             View v = LayoutInflater.from(context).inflate(R.layout.item_home_head,null);
             return new HeadViewHolder(v);

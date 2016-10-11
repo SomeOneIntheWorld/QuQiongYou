@@ -1,11 +1,12 @@
 package dream.quqiongyou.bean;
 
+import java.io.Serializable;
 import java.util.List;
 
 /**
  * Created by SomeOneInTheWorld on 2016/10/7.
  */
-public class PostBean {
+public class PostBean implements Serializable{
     private String title;
     private String subtitle;
     private QuUser poster;
@@ -13,6 +14,8 @@ public class PostBean {
     private int seenum;
     private int commentnum;
     private boolean isgreat;
+    private int goodjobnum;
+    private String source;
     private List<String>imglist;
 
     public PostBean(String title,String subtitle){
@@ -75,5 +78,19 @@ public class PostBean {
     }
     public List<String> getImglist(){
         return imglist;
+    }
+
+    public void setGoodjobnum(int goodjobnum){
+        this.goodjobnum = goodjobnum;
+    }
+    public int getGoodjobnum(){
+        return goodjobnum;
+    }
+
+    public void setSource(String source){
+        this.source = source;
+    }
+    public String getSource(){
+        return source;
     }
 }

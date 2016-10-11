@@ -18,17 +18,17 @@
             android:text="帖子详情"
             style="@style/deep_tv_style" />
         <TextView
-            android:id="@+id/best_tv"
+            android:id="@+id/top_tv"
             android:layout_marginRight="10dp"
             android:layout_gravity = "right"
-            android:text="@string/prime"
+            android:text="楼主"
             android:textSize="@dimen/item_fuckticket_head_tv_size"
             android:background="@drawable/circle_corner_bg4_fuckticket_head"
             android:padding="5dp"
             style="@style/deep_tv_style" />
     </android.support.v7.widget.Toolbar>
     <android.support.v7.widget.RecyclerView
-        android:id="@+id/fuckticket_recycler"
+        android:id="@+id/postdetail_recycler"
         android:layout_weight="1"
         android:layout_width="match_parent"
         android:layout_height="0dp"
@@ -44,7 +44,7 @@
             android:gravity="center"
             >
             <ImageView
-                android:src="@mipmap/ic_launcher"
+                android:src="@mipmap/collected"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 />

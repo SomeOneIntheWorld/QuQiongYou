@@ -2,7 +2,7 @@ package dream.quqiongyou.community.presenter;
 
 import java.util.List;
 
-import dream.quqiongyou.bean.CommunityItemBean;
+import dream.quqiongyou.bean.TopicBean;
 import dream.quqiongyou.community.model.CommunityModel;
 import dream.quqiongyou.community.model.CommunityModelImpl;
 import dream.quqiongyou.community.view.CommunityView;
@@ -26,7 +26,7 @@ public class CommunityPresenterImpl implements CommunityPresenter,CommunityModel
     }
 
     @Override
-    public void loadSuccess(List<CommunityItemBean> communityDatas, List<CommunityItemBean> guessDatas) {
+    public void loadSuccess(List<TopicBean> communityDatas, List<TopicBean> guessDatas) {
         view.loadSomethingSuccess(communityDatas,guessDatas);
     }
 
