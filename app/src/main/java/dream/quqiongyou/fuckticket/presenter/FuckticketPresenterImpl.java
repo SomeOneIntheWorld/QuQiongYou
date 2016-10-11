@@ -3,6 +3,7 @@ package dream.quqiongyou.fuckticket.presenter;
 import java.util.List;
 
 import dream.quqiongyou.bean.PostBean;
+import dream.quqiongyou.bean.TopicBean;
 import dream.quqiongyou.fuckticket.model.FuckticketModel;
 import dream.quqiongyou.fuckticket.model.FuckticketModelImpl;
 import dream.quqiongyou.fuckticket.view.FuckticketView;
@@ -20,9 +21,9 @@ public class FuckticketPresenterImpl implements FuckticketPresenter,FuckticketMo
     }
 
     @Override
-    public void loadPostsByPresenter() {
+    public void loadPostsByPresenter(TopicBean topicBean) {
         view.showProgressBar();
-        model.loadPostBeanList(this);
+        model.loadPostBeanList(topicBean,this);
     }
 
     @Override

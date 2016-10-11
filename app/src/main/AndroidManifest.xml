@@ -21,6 +21,8 @@
         <activity android:name=".main.widget.MainActivity"/>
         <activity android:name=".register.widget.RegisterActivity"/>
         <activity android:name=".origination.view.OriginationActivity"/>
+        <activity android:name=".fuckticket.view.FuckticketActivity"/>
+        <activity android:name=".postdetail.view.PostDetailActivity"/>
     </application>
 
 </manifest>

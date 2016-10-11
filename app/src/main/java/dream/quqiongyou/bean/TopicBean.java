@@ -1,9 +1,11 @@
 package dream.quqiongyou.bean;
 
+import java.io.Serializable;
+
 /**
  * Created by SomeOneInTheWorld on 2016/10/4.
  */
-public class CommunityItemBean {
+public class TopicBean implements Serializable{
     private String imgurl;
     private String title;
     private String topicnum;

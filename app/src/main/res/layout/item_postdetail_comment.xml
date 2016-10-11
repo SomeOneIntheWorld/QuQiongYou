@@ -40,7 +40,7 @@
             style="@style/normal_tv_style" />
     </RelativeLayout>
     <TextView
-        android:id="@+id/subtitle"
+        android:id="@+id/answer"
         android:layout_marginTop="5dp"
         android:layout_below="@+id/usr_info"
         android:text="@string/fuckticket_title"
@@ -49,7 +49,7 @@
         style="@style/normal_tv_style" />
     <ViewStub
         android:id="@+id/img_group"
-        android:layout_below="@+id/subtitle"
+        android:layout_below="@+id/answer"
         android:layout="@layout/cardview_layout"
         android:layout_width="match_parent"
         android:layout_height="wrap_content" />
@@ -76,7 +76,7 @@
             style="@style/normal_tv_style" />
         <TextView
             android:text="71"
-            android:id="@+id/seen_num"
+            android:id="@+id/good_job"
             android:layout_toLeftOf="@id/comment_num"
             android:drawableLeft="@drawable/dot_focus"
             style="@style/normal_tv_style"

@@ -10,6 +10,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import butterknife.BindView;
@@ -17,7 +18,7 @@ import butterknife.ButterKnife;
 import dream.quqiongyou.R;
 import dream.quqiongyou.adapter.CommunityAdapter;
 import dream.quqiongyou.adapter.OnItemTouchListener;
-import dream.quqiongyou.bean.CommunityItemBean;
+import dream.quqiongyou.bean.TopicBean;
 import dream.quqiongyou.community.presenter.CommunityPresenter;
 import dream.quqiongyou.community.presenter.CommunityPresenterImpl;
 import dream.quqiongyou.fuckticket.view.FuckticketActivity;
@@ -27,7 +28,9 @@ import dream.quqiongyou.fuckticket.view.FuckticketActivity;
  */
 public class CommunityFragment extends Fragment implements CommunityView {
     @BindView(R.id.community_rv)RecyclerView recyclerView;
-    CommunityAdapter communityAdapter;
+    private CommunityAdapter communityAdapter;
+    private List<TopicBean>communityList = new ArrayList<>();
+    private List<TopicBean>guessList = new ArrayList<>();
 
     @Nullable
     @Override
@@ -36,20 +39,22 @@ public class CommunityFragment extends Fragment implements CommunityView {
         ButterKnife.bind(this,view);
 
         communityAdapter = new CommunityAdapter(getContext());
+        communityAdapter.setDatas(communityList,guessList);
         recyclerView.setHasFixedSize(true);
         recyclerView.setLayoutManager(new LinearLayoutManager(getActivity()));
-
         recyclerView.setItemAnimator(new DefaultItemAnimator());
         recyclerView.setAdapter(communityAdapter);
         recyclerView.addOnItemTouchListener(new OnItemTouchListener(recyclerView) {
             @Override
             public void onItemClick(RecyclerView.ViewHolder vh) {
-                if(vh instanceof CommunityAdapter.CommunityViewHolder){
-                    CommunityAdapter.CommunityViewHolder holder = (CommunityAdapter.CommunityViewHolder)vh;
-                    if(holder.getTitleTV().equals("上边")){
-                        FuckticketActivity.startFuckticketActivity(getContext());
-                    }
+                int position = vh.getAdapterPosition();
+                TopicBean topicBean = new TopicBean();
+                if(position >=0 && position < communityList.size()){
+                    topicBean = communityList.get(position);
+                }else if(position >= communityList.size() && position < communityList.size() + guessList.size()){
+                    topicBean = guessList.get(position - communityList.size());
                 }
+                FuckticketActivity.startFuckticketActivity(getContext(),topicBean);
             }
         });
 
@@ -59,8 +64,12 @@ public class CommunityFragment extends Fragment implements CommunityView {
     }
 
     @Override
-    public void loadSomethingSuccess(List<CommunityItemBean> communityDatas, List<CommunityItemBean> guessDatas) {
-        communityAdapter.setDatas(communityDatas,guessDatas);
+    public void loadSomethingSuccess(List<TopicBean> communityDatas, List<TopicBean> guessDatas) {
+        this.communityList.clear();
+        this.communityList.addAll(communityDatas);
+        this.guessList.clear();
+        this.guessList.addAll(guessDatas);
+        this.communityAdapter.notifyDataSetChanged();
     }
 
     @Override
