@@ -7,8 +7,8 @@ import dream.quqiongyou.bean.QuUser;
  */
 public interface LoginModel {
     interface CallBackByLoginModel{
-        void onSuccess();
-        void onFail();
+        void onSuccess(QuUser user);
+        void onFail(String message);
     }
 
     void checkQuUserByModel(QuUser user, LoginModelImpl.CallBackByLoginModel listener);
