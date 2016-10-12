@@ -64,13 +64,14 @@ public class LoginActivity extends AppCompatActivity implements LoginView{
     }
 
     @Override
-    public void loginResult(boolean isSuccess) {
-        isSuccess = true;
-        if(isSuccess){
-            MainActivity.startMainActivity(this,account);
-        }else{
-            Toast.makeText(this,"账号或密码错误！",Toast.LENGTH_SHORT).show();
-        }
+    public void loginSuccess(QuUser user) {
+        QuUser.setCurrentUser(user);
+        MainActivity.startMainActivity(this,account);
+    }
+
+    @Override
+    public void loginFail(String message) {
+        Toast.makeText(this,"message = " + message,Toast.LENGTH_SHORT).show();
     }
 
     @Override

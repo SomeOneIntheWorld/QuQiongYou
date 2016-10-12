@@ -4,6 +4,7 @@ import dream.quqiongyou.bean.QuUser;
 import dream.quqiongyou.main.model.LoginModel;
 import dream.quqiongyou.main.model.LoginModelImpl;
 import dream.quqiongyou.main.view.LoginView;
+import dream.quqiongyou.utils.LogUtils;
 
 /**
  * Created by SomeOneInTheWorld on 2016/10/3.
@@ -18,15 +19,17 @@ public class LoginPresenterImpl implements LoginPresenter,LoginModel.CallBackByL
     }
 
     @Override
-    public void onSuccess() {
+    public void onFail(String message) {
+        LogUtils.d("LoginTest","onFail");
         loginView.hideProgress();
-        loginView.loginResult(true);
+        loginView.loginFail(message);
     }
 
     @Override
-    public void onFail() {
+    public void onSuccess(QuUser user) {
+        LogUtils.d("LoginTest","onSuccess");
         loginView.hideProgress();
-        loginView.loginResult(false);
+        loginView.loginSuccess(user);
     }
 
     @Override

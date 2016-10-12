@@ -5,7 +5,7 @@ import java.io.Serializable;
 /**
  * Created by SomeOneInTheWorld on 2016/10/3.
  */
-public class QuUser implements Serializable{
+public class QuUser extends BaseProtocolBean implements Serializable{
     //we need a method to get the current QuUser,because it is important.
     private String password;
     private String account;
