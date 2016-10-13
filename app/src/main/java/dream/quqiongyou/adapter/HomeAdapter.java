@@ -75,7 +75,7 @@ public class HomeAdapter extends RecyclerView.Adapter {
             ((ItemViewHolder)holder).minTV.setText(time);
             ((ItemViewHolder)holder).secondTV.setText(time);
             if(itemBean.getImageurl() == null){
-                ((ItemViewHolder)holder).tripIV.setImageResource(R.mipmap.community_normal);
+                ((ItemViewHolder)holder).tripIV.setBackgroundResource(R.mipmap.pictures_of_the_event_2);
                 return;
             }
             ImageLoaderUtils.display(context, ((ItemViewHolder)holder).tripIV,itemBean.getImageurl());

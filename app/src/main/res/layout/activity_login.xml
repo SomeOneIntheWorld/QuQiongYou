@@ -8,7 +8,7 @@
     <ImageView
         android:layout_marginTop="@dimen/logo_marginTop"
         android:layout_centerHorizontal="true"
-        android:background="@color/colorPrimaryDark"
+        android:background="@mipmap/avatar"
         android:layout_width="100dp"
         android:layout_height="100dp"
         android:id="@+id/logo" />
@@ -20,7 +20,7 @@
         android:layout_marginTop="83dp">
         <ImageView
             android:layout_gravity="center_vertical"
-            android:background="@color/colorPrimary"
+            android:background="@mipmap/account"
             android:id="@+id/account_img"
             android:layout_width="30dp"
             android:layout_height="30dp" />
@@ -39,12 +39,13 @@
         <ImageView
             android:id="@+id/pwd_img"
             android:layout_gravity="center_vertical"
-            android:background="@color/colorPrimary"
+            android:background="@mipmap/password"
             android:layout_width="30dp"
             android:layout_height="30dp" />
         <EditText
             android:id="@+id/pwd"
             android:hint="输入密码"
+            android:password="true"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content" />
     </LinearLayout>

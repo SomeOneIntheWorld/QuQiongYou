@@ -7,12 +7,14 @@ import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.DefaultItemAnimator;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.view.View;
 
 import java.util.ArrayList;
 import java.util.List;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
+import butterknife.OnClick;
 import butterknife.Unbinder;
 import dream.quqiongyou.R;
 import dream.quqiongyou.adapter.PostDetailAdapter;
@@ -24,18 +26,19 @@ import dream.quqiongyou.postdetail.presenter.PostDetailPresenterImpl;
 /**
  * Created by SomeOneInTheWorld on 2016/10/10.
  */
-public class PostDetailActivity extends AppCompatActivity implements PostDetailView{
+public class PostDetailActivity extends AppCompatActivity implements PostDetailView {
     private Unbinder unbinder;
     private PostDetailAdapter postDetailAdapter;
     private PostBean postBean;
     private PostDetailPresenter presenter;
     private List<CommentBean> commentBeanList = new ArrayList<>();
     private final static String POST_BEAN = "postBean";
-    @BindView(R.id.postdetail_recycler)RecyclerView postdetailRV;
+    @BindView(R.id.postdetail_recycler)
+    RecyclerView postdetailRV;
 
-    public static void startPostDetailActivity(Context context, PostBean postBean){
-        Intent intent = new Intent(context,PostDetailActivity.class);
-        intent.putExtra(POST_BEAN,postBean);
+    public static void startPostDetailActivity(Context context, PostBean postBean) {
+        Intent intent = new Intent(context, PostDetailActivity.class);
+        intent.putExtra(POST_BEAN, postBean);
         context.startActivity(intent);
     }
 
@@ -46,7 +49,7 @@ public class PostDetailActivity extends AppCompatActivity implements PostDetailV
         unbinder = ButterKnife.bind(this);
 
         Intent intent = getIntent();
-        if(intent != null){
+        if (intent != null) {
             postBean = (PostBean) intent.getSerializableExtra(POST_BEAN);
         }
         postDetailAdapter = new PostDetailAdapter(this);
@@ -83,8 +86,16 @@ public class PostDetailActivity extends AppCompatActivity implements PostDetailV
     }
 
     @Override
-    protected void onDestroy(){
+    protected void onDestroy() {
         super.onDestroy();
         unbinder.unbind();
+    }
+
+    @OnClick(R.id.back)
+    public void onClick(View view) {
+        switch (view.getId()){
+            case R.id.back:
+                finish();
+        }
     }
 }
