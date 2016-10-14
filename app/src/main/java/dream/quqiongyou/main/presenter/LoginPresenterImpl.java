@@ -27,7 +27,7 @@ public class LoginPresenterImpl implements LoginPresenter,LoginModel.CallBackByL
 
     @Override
     public void onSuccess(QuUser user) {
-        LogUtils.d("LoginTest","onSuccess");
+        LogUtils.d("LoginTest","onSuccess and the user name = " + user.getNickname() + " " + user.getLevel());
         loginView.hideProgress();
         loginView.loginSuccess(user);
     }

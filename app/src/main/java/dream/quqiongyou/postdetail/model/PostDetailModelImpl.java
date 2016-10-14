@@ -21,7 +21,7 @@ public class PostDetailModelImpl implements PostDetailModel {
             QuUser user = new QuUser("123456","password");
             user.setLevel(2);
             user.setNickname("第 " + i + "个用户");
-            user.setHeadimg(null);
+            user.setHeadingimg(null);
             commentBean.setAnsweruser(user);
             commentBean.setComment("这是第 " + i + " 个用户在回答");
             commentBean.setCommentnum(i*100);

@@ -28,7 +28,7 @@ public class FuckticketModelImpl implements FuckticketModel {
             QuUser user = new QuUser("123456","password");
             user.setLevel(2);
             user.setNickname("第 " + i + "个用户");
-            user.setHeadimg(null);
+            user.setHeadingimg(null);
             postBean.setPoster(user);
 
             topList.add(postBean);
@@ -45,7 +45,7 @@ public class FuckticketModelImpl implements FuckticketModel {
             QuUser user = new QuUser("123456","password");
             user.setLevel(2);
             user.setNickname("第 " + i + "个用户");
-            user.setHeadimg(null);
+            user.setHeadingimg(null);
             postBean.setPoster(user);
             normalList.add(postBean);
         }

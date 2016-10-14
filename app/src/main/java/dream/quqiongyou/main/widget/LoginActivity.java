@@ -67,6 +67,7 @@ public class LoginActivity extends AppCompatActivity implements LoginView{
     public void loginSuccess(QuUser user) {
         QuUser.setCurrentUser(user);
         MainActivity.startMainActivity(this,account);
+        this.finish();
     }
 
     @Override
