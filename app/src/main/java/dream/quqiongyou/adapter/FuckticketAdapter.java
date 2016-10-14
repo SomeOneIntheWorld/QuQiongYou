@@ -68,8 +68,8 @@ public class FuckticketAdapter extends RecyclerView.Adapter {
             ((PostNormalViewHolder)holder).seennumTV.setText(String.valueOf(itemBean.getSeenum()));
             ((PostNormalViewHolder)holder).timeTV.setText(itemBean.getTime());
             ((PostNormalViewHolder)holder).titleTV.setText(itemBean.getTitle());
-            if(itemBean.getPoster().getHeadimg() != null){
-                ImageLoaderUtils.display(context,((PostNormalViewHolder)holder).headView,itemBean.getPoster().getHeadimg());
+            if(itemBean.getPoster().getHeadingimg() != null){
+                ImageLoaderUtils.display(context,((PostNormalViewHolder)holder).headView,itemBean.getPoster().getHeadingimg());
             }
             //ViewStub
         }else if(holder instanceof PostTopViewHolder){

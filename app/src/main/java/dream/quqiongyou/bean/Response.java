@@ -5,7 +5,7 @@ import java.io.Serializable;
 /**
  * Created by SomeOneInTheWorld on 2016/10/12.
  */
-public class BaseProtocolBean extends BaseBean implements Serializable {
+public class Response<T> extends BaseBean implements Serializable {
 
     /**
      * 服务器的返回代码
@@ -15,5 +15,7 @@ public class BaseProtocolBean extends BaseBean implements Serializable {
     /**
      * 服务器的返回消息
      */
-    public String msg;
+    public String message;
+
+    public T data;
 }

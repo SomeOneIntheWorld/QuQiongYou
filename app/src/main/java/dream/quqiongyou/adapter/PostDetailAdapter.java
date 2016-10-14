@@ -62,7 +62,7 @@ public class PostDetailAdapter extends RecyclerView.Adapter{
             topViewHolder.rankTV.setText(String.valueOf(postBean.getPoster().getLevel()));
             topViewHolder.timeTV.setText(postBean.getTime());
             topViewHolder.titleTV.setText(postBean.getTitle());
-            String headSource = postBean.getPoster().getHeadimg();
+            String headSource = postBean.getPoster().getHeadingimg();
             if(headSource == null){
                 return;
             }
@@ -84,7 +84,7 @@ public class PostDetailAdapter extends RecyclerView.Adapter{
             answerHolder.timeTV.setText(comment.getAnswertime().toString());
             answerHolder.goodjobTV.setText(String.valueOf(comment.getGoodjobnum()));
             answerHolder.rankTV.setText(String.valueOf(comment.getAnsweruser().getLevel()));
-            String imgsrc = comment.getAnsweruser().getHeadimg();
+            String imgsrc = comment.getAnsweruser().getHeadingimg();
             if(imgsrc == null){
                 return;
             }

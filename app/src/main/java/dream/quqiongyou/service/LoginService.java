@@ -1,6 +1,7 @@
 package dream.quqiongyou.service;
 
 import dream.quqiongyou.bean.QuUser;
+import dream.quqiongyou.bean.Response;
 import retrofit2.http.Body;
 import retrofit2.http.POST;
 import rx.Observable;
@@ -10,5 +11,5 @@ import rx.Observable;
  */
 public interface LoginService {
     @POST("quqiongyou/dengluapi.php")
-    Observable<QuUser> getUserMessage(@Body QuUser user);
+    Observable<Response<QuUser>> getUserMessage(@Body QuUser user);
 }
