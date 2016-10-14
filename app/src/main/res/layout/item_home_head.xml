@@ -19,7 +19,7 @@
             android:layout_height="wrap_content">
             <ImageView
                 android:layout_gravity="center"
-                android:background="@color/colorPrimary"
+                android:background="@mipmap/findtrips"
                 android:layout_width="80dp"
                 android:layout_height="80dp" />
             <TextView
@@ -38,7 +38,7 @@
             android:layout_height="wrap_content">
             <ImageView
                 android:layout_gravity="center"
-                android:background="@color/colorPrimary"
+                android:background="@mipmap/createtrips"
                 android:layout_width="80dp"
                 android:layout_height="80dp" />
             <TextView

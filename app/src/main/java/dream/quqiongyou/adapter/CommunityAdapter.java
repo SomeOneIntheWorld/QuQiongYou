@@ -74,11 +74,13 @@ public class CommunityAdapter extends RecyclerView.Adapter{
                 Toast.makeText(context,"you click the menu",Toast.LENGTH_SHORT).show();
             }
         });
-        if(topicBean.getImgurl() == null){
-            ((CommunityViewHolder)holder).communityIV.setImageResource(R.mipmap.community_normal);
-            return;
-        }
-        ImageLoaderUtils.display(context,((CommunityViewHolder)holder).communityIV, topicBean.getImgurl());
+
+//        if(topicBean.getImgurl() == null){
+//            ((CommunityViewHolder)holder).communityIV.setImageResource(R.mipmap.community_normal);
+//            return;
+//        }
+//        ImageLoaderUtils.display(context,((CommunityViewHolder)holder).communityIV, topicBean.getImgurl());
+        ((CommunityViewHolder)holder).communityIV.setBackgroundResource(topicBean.getImgId());
     }
 
     @Override

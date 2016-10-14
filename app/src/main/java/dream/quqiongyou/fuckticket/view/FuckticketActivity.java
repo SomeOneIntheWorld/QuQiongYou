@@ -7,12 +7,14 @@ import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.DefaultItemAnimator;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.view.View;
 
 import java.util.ArrayList;
 import java.util.List;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
+import butterknife.OnClick;
 import butterknife.Unbinder;
 import dream.quqiongyou.R;
 import dream.quqiongyou.adapter.FuckticketAdapter;
@@ -27,22 +29,23 @@ import dream.quqiongyou.utils.LogUtils;
 /**
  * Created by SomeOneInTheWorld on 2016/10/8.
  */
-public class FuckticketActivity extends AppCompatActivity implements FuckticketView{
+public class FuckticketActivity extends AppCompatActivity implements FuckticketView {
     private Unbinder unbinder;
     private FuckticketAdapter fuckticketAdapter;
-    @BindView(R.id.fuckticket_recycler)RecyclerView fuckticketRC;
+    @BindView(R.id.fuckticket_recycler)
+    RecyclerView fuckticketRC;
 
     private final String TAG = "FUCKACTEST";
 
-    private List<PostBean>topList = new ArrayList<>();
-    private List<PostBean>normalList = new ArrayList<>();
+    private List<PostBean> topList = new ArrayList<>();
+    private List<PostBean> normalList = new ArrayList<>();
     private FuckticketPresenter presenter;
     private TopicBean topicBean;
     private final static String TOPIC = "topicbean";
 
     public static void startFuckticketActivity(Context context, TopicBean topicBean) {
-        Intent intent = new Intent(context,FuckticketActivity.class);
-        intent.putExtra(TOPIC,topicBean);
+        Intent intent = new Intent(context, FuckticketActivity.class);
+        intent.putExtra(TOPIC, topicBean);
         context.startActivity(intent);
     }
 
@@ -53,27 +56,27 @@ public class FuckticketActivity extends AppCompatActivity implements FuckticketV
         unbinder = ButterKnife.bind(this);
 
         Intent intent = getIntent();
-        if(intent != null){
-            topicBean = (TopicBean)intent.getSerializableExtra(TOPIC);
-            LogUtils.d(TAG,"topicBean is not null");
+        if (intent != null) {
+            topicBean = (TopicBean) intent.getSerializableExtra(TOPIC);
+            LogUtils.d(TAG, "topicBean is not null");
         }
         fuckticketRC.setLayoutManager(new LinearLayoutManager(this));
         fuckticketRC.setItemAnimator(new DefaultItemAnimator());
         fuckticketAdapter = new FuckticketAdapter(this);
-        fuckticketAdapter.setTopAndNormalLists(topList,normalList);
+        fuckticketAdapter.setTopAndNormalLists(topList, normalList);
         fuckticketRC.setAdapter(fuckticketAdapter);
         fuckticketRC.addOnItemTouchListener(new OnItemTouchListener(fuckticketRC) {
             @Override
             public void onItemClick(RecyclerView.ViewHolder vh) {
                 int position = vh.getAdapterPosition();
                 PostBean postBean = null;
-                LogUtils.d(TAG,"the position is " + position);
-                if(position >= 0 && position < topList.size()){
+                LogUtils.d(TAG, "the position is " + position);
+                if (position >= 0 && position < topList.size()) {
                     postBean = topList.get(position);
-                }else if(position >= topList.size() && position < topList.size() + normalList.size()){
+                } else if (position >= topList.size() && position < topList.size() + normalList.size()) {
                     postBean = normalList.get(position - topList.size());
                 }
-                PostDetailActivity.startPostDetailActivity(FuckticketActivity.this,postBean);
+                PostDetailActivity.startPostDetailActivity(FuckticketActivity.this, postBean);
             }
         });
 
@@ -106,8 +109,20 @@ public class FuckticketActivity extends AppCompatActivity implements FuckticketV
     }
 
     @Override
-    protected void onDestroy(){
+    protected void onDestroy() {
         super.onDestroy();
         unbinder.unbind();
+    }
+
+
+    @OnClick({R.id.back, R.id.search})
+    public void onClick(View view) {
+        switch (view.getId()) {
+            case R.id.back:
+                finish();
+                break;
+            case R.id.search:
+                break;
+        }
     }
 }

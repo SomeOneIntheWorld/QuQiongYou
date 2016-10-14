@@ -9,6 +9,7 @@ public class TopicBean implements Serializable{
     private String imgurl;
     private String title;
     private String topicnum;
+    private int imgId;
 
     public void setImgurl(String imgurl){
         this.imgurl = imgurl;
@@ -29,5 +30,12 @@ public class TopicBean implements Serializable{
     }
     public String getTopicnum(){
         return topicnum;
+    }
+
+    public int getImgId() {
+        return imgId;
+    }
+    public void setImgId(int imgId) {
+        this.imgId = imgId;
     }
 }
