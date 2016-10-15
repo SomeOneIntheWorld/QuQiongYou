@@ -5,14 +5,13 @@ import java.util.List;
 
 import dream.quqiongyou.bean.HomeItemBean;
 import dream.quqiongyou.bean.TopInfo;
-import dream.quqiongyou.common.CallBackByModel;
 
 /**
  * Created by SomeOneInTheWorld on 2016/10/3.
  */
 public class HomeModelImpl implements HomeModel {
     @Override
-    public void loadTripsInModel(CallBackByModel<HomeItemBean> listener) {
+    public void loadHomeInfoInModel(CallbackByHomeModel listener) {
         List<HomeItemBean>datas = new ArrayList<>();
         for(int i=0;i<10;i++){
             HomeItemBean data = new HomeItemBean();
@@ -21,15 +20,11 @@ public class HomeModelImpl implements HomeModel {
             data.setLefttime("10");
             datas.add(data);
         }
-        listener.loadSuccess(datas);
-    }
-
-    @Override
-    public void loadTopinfoInModel(CallBackByModel<TopInfo> listener) {
         List<TopInfo>topInfos = new ArrayList<>();
         topInfos.add(new TopInfo());
         topInfos.add(new TopInfo());
         topInfos.add(new TopInfo());
-        listener.loadSuccess(topInfos);
+
+        listener.loadSuccess(datas,topInfos);
     }
 }

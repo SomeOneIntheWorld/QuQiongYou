@@ -27,12 +27,18 @@
             android:padding="5dp"
             style="@style/deep_tv_style" />
     </android.support.v7.widget.Toolbar>
-    <android.support.v7.widget.RecyclerView
-        android:id="@+id/postdetail_recycler"
-        android:layout_weight="1"
+    <android.support.v4.widget.SwipeRefreshLayout
+        android:id="@+id/postdetail_refresh"
         android:layout_width="match_parent"
         android:layout_height="0dp"
-        />
+        android:layout_weight="1">
+        <android.support.v7.widget.RecyclerView
+            android:id="@+id/postdetail_recycler"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            />
+    </android.support.v4.widget.SwipeRefreshLayout>
+
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="50dp">

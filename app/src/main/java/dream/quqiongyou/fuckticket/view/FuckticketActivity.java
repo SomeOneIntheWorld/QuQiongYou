@@ -3,6 +3,7 @@ package dream.quqiongyou.fuckticket.view;
 import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
+import android.support.v4.widget.SwipeRefreshLayout;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.DefaultItemAnimator;
 import android.support.v7.widget.LinearLayoutManager;
@@ -19,7 +20,9 @@ import butterknife.Unbinder;
 import dream.quqiongyou.R;
 import dream.quqiongyou.adapter.FuckticketAdapter;
 import dream.quqiongyou.adapter.OnItemTouchListener;
+import dream.quqiongyou.adapter.RecyclerViewLoadMoreListener;
 import dream.quqiongyou.bean.PostBean;
+import dream.quqiongyou.bean.QuUser;
 import dream.quqiongyou.bean.TopicBean;
 import dream.quqiongyou.fuckticket.presenter.FuckticketPresenter;
 import dream.quqiongyou.fuckticket.presenter.FuckticketPresenterImpl;
@@ -34,6 +37,8 @@ public class FuckticketActivity extends AppCompatActivity implements FuckticketV
     private FuckticketAdapter fuckticketAdapter;
     @BindView(R.id.fuckticket_recycler)
     RecyclerView fuckticketRC;
+    @BindView(R.id.fuckticket_refresh_layout)
+    SwipeRefreshLayout fuckticketSRL;
 
     private final String TAG = "FUCKACTEST";
 
@@ -60,7 +65,8 @@ public class FuckticketActivity extends AppCompatActivity implements FuckticketV
             topicBean = (TopicBean) intent.getSerializableExtra(TOPIC);
             LogUtils.d(TAG, "topicBean is not null");
         }
-        fuckticketRC.setLayoutManager(new LinearLayoutManager(this));
+        LinearLayoutManager manager = new LinearLayoutManager(this);
+        fuckticketRC.setLayoutManager(manager);
         fuckticketRC.setItemAnimator(new DefaultItemAnimator());
         fuckticketAdapter = new FuckticketAdapter(this);
         fuckticketAdapter.setTopAndNormalLists(topList, normalList);
@@ -79,9 +85,49 @@ public class FuckticketActivity extends AppCompatActivity implements FuckticketV
                 PostDetailActivity.startPostDetailActivity(FuckticketActivity.this, postBean);
             }
         });
+        final RecyclerViewLoadMoreListener listener = new RecyclerViewLoadMoreListener(manager) {
+            @Override
+            public void onLoadMore(int currentPage) {
+                loadMoreData();
+            }
+        };
+        fuckticketRC.addOnScrollListener(listener);
+        fuckticketSRL.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
+            @Override
+            public void onRefresh() {
+                listener.setPreviousTotal(0);
+                presenter.loadPostsByPresenter(topicBean);
+            }
+        });
 
         presenter = new FuckticketPresenterImpl(this);
         presenter.loadPostsByPresenter(topicBean);
+    }
+
+    //the method is just for testing.please remove it later.
+    void loadMoreData(){
+        for(int i=0;i<10;i++){
+            PostBean postBean = new PostBean("这是第 " + i + " 个普通帖","这是副标题");
+            postBean.setSource("iphone " + i);
+            postBean.setGoodjobnum(i*10);
+            postBean.setCommentnum(i*100);
+            postBean.setImglist(null);
+            postBean.setIsgreat(true);
+            postBean.setSeenum(i*100);
+
+            QuUser user = new QuUser("123456","password");
+            user.setLevel(2);
+            user.setNickname("第 " + i + "个用户");
+            user.setHeadingimg(null);
+            postBean.setPoster(user);
+            normalList.add(postBean);
+        }
+        try{
+            new Thread().sleep(2000);
+        }catch(Exception e){
+            e.printStackTrace();
+        }
+        fuckticketAdapter.notifyDataSetChanged();
     }
 
     @Override
@@ -96,6 +142,9 @@ public class FuckticketActivity extends AppCompatActivity implements FuckticketV
 
     @Override
     public void showPostBeanList(List<PostBean> topList, List<PostBean> normalList) {
+        if(fuckticketSRL.isRefreshing()){
+            fuckticketSRL.setRefreshing(false);
+        }
         this.topList.clear();
         this.topList.addAll(topList);
         this.normalList.clear();
@@ -105,7 +154,9 @@ public class FuckticketActivity extends AppCompatActivity implements FuckticketV
 
     @Override
     public void showErrorMessage(String message) {
-
+        if(fuckticketSRL.isRefreshing()){
+            fuckticketSRL.setRefreshing(false);
+        }
     }
 
     @Override

@@ -23,6 +23,8 @@ import dream.quqiongyou.utils.LogUtils;
 public class FuckticketAdapter extends RecyclerView.Adapter {
     private static final int TYPE_POST_TOP = 0;
     private static final int TYPE_POST_NORMAL = 1;
+    private static final int TYPE_POST_FOOTER = 2;
+    private static final String TAG = "FuckTicketTest";
 
     private List<PostBean>topLists;
     private List<PostBean>normalLists;
@@ -46,6 +48,7 @@ public class FuckticketAdapter extends RecyclerView.Adapter {
 
     @Override
     public RecyclerView.ViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
+        LogUtils.d(TAG,"viewType is " + viewType);
         if(viewType == TYPE_POST_NORMAL){
             View item = LayoutInflater.from(context).inflate(R.layout.item_fuckticket,parent,false);
             return new PostNormalViewHolder(item);
@@ -53,7 +56,8 @@ public class FuckticketAdapter extends RecyclerView.Adapter {
             View item = LayoutInflater.from(context).inflate(R.layout.item_fuckticket_head,parent,false);
             return new PostTopViewHolder(item);
         }else{
-            return null;
+            View item = LayoutInflater.from(context).inflate(R.layout.item_footer,parent,false);
+            return new FooterViewHolder(item);
         }
     }
 
@@ -83,13 +87,13 @@ public class FuckticketAdapter extends RecyclerView.Adapter {
     public int getItemCount() {
         int count;
         if(topLists == null && normalLists == null){
-            count = 0;
+            count = 1;
         }else if(topLists == null){
-            count = normalLists.size();
+            count = normalLists.size() + 1;
         }else if(normalLists == null){
-            count = topLists.size();
+            count = topLists.size() + 1;
         }else{
-            count = topLists.size() + normalLists.size();
+            count = topLists.size() + normalLists.size() + 1;
         }
         LogUtils.d("FUCKACTEST","count = " + count);
         return count;
@@ -99,10 +103,11 @@ public class FuckticketAdapter extends RecyclerView.Adapter {
     public int getItemViewType(int position) {
         if(position>=0 && position<topLists.size()){
             return TYPE_POST_TOP;
-        }else if(position>=topLists.size() && position<topLists.size()+normalLists.size()){
+        }else if(position>=topLists.size() && position<topLists.size()+normalLists.size()-1){
             return TYPE_POST_NORMAL;
         }else{
-            return getItemViewType(position);
+            LogUtils.d(TAG,"is foot");
+            return TYPE_POST_FOOTER;
         }
     }
 
@@ -129,6 +134,12 @@ public class FuckticketAdapter extends RecyclerView.Adapter {
         public PostTopViewHolder(View parent){
             super(parent);
             ButterKnife.bind(this,parent);
+        }
+    }
+
+    public class FooterViewHolder extends RecyclerView.ViewHolder {
+        public FooterViewHolder(View view){
+            super(view);
         }
     }
 }
