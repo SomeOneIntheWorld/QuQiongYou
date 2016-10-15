@@ -20,4 +20,6 @@
     <dimen name="fuckticket_subtitle_size">20sp</dimen>
     <dimen name="item_fuckticket_head_tv_size">20sp</dimen>
     <dimen name="item_fuckticket_head_content_tv_size">16sp</dimen>
+    <dimen name="edit_padding_top">0dp</dimen>
+    <dimen name="post_tv_size">10sp</dimen>
 </resources>

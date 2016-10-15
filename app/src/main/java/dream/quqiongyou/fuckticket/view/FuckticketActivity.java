@@ -26,6 +26,7 @@ import dream.quqiongyou.bean.QuUser;
 import dream.quqiongyou.bean.TopicBean;
 import dream.quqiongyou.fuckticket.presenter.FuckticketPresenter;
 import dream.quqiongyou.fuckticket.presenter.FuckticketPresenterImpl;
+import dream.quqiongyou.post.view.PostActivity;
 import dream.quqiongyou.postdetail.view.PostDetailActivity;
 import dream.quqiongyou.utils.LogUtils;
 
@@ -166,7 +167,7 @@ public class FuckticketActivity extends AppCompatActivity implements FuckticketV
     }
 
 
-    @OnClick({R.id.back, R.id.search})
+    @OnClick({R.id.back, R.id.search,R.id.post})
     public void onClick(View view) {
         switch (view.getId()) {
             case R.id.back:
@@ -174,6 +175,8 @@ public class FuckticketActivity extends AppCompatActivity implements FuckticketV
                 break;
             case R.id.search:
                 break;
+            case R.id.post:
+                PostActivity.startPostActivity(this);
         }
     }
 }

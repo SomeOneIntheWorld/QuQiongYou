@@ -26,4 +26,9 @@
     <string name="fuckticket_title">标题</string>
     <string name="toTop">置顶</string>
     <string name="prime">精品</string>
+    <string name="post">发帖</string>
+    <string name="next">下一步</string>
+    <string name="image">图片</string>
+    <string name="emoji">表情</string>
+    <string name="hidden_keyboard">收起键盘</string>
 </resources>
