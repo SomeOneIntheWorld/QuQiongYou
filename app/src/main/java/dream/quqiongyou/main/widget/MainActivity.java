@@ -11,6 +11,7 @@ import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.util.SparseArray;
 import android.view.View;
+import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
@@ -57,6 +58,7 @@ public class MainActivity extends AppCompatActivity {
         mMainPagerAdapter = new MainPagerAdapter(getSupportFragmentManager());
         mViewPager.setAdapter(mMainPagerAdapter);
         mViewPager.setOnPageChangeListener(vpSlide);
+
     }
 
     public ViewPager.OnPageChangeListener vpSlide = new ViewPager.OnPageChangeListener() {
@@ -138,6 +140,11 @@ public class MainActivity extends AppCompatActivity {
         @Override
         public Fragment getItem(int position) {
             return getFragment(position);
+        }
+
+        @Override
+        public void destroyItem(ViewGroup container, int position, Object object) {
+            //super.destroyItem(container, position, object);
         }
 
         @Override

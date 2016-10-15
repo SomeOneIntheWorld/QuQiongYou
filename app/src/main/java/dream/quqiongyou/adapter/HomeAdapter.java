@@ -20,20 +20,19 @@ import dream.quqiongyou.bean.TopInfo;
 import dream.quqiongyou.home.widget.Slider;
 import dream.quqiongyou.origination.view.OriginationActivity;
 import dream.quqiongyou.utils.ImageLoaderUtils;
-import dream.quqiongyou.utils.LogUtils;
 
 /**
  * Created by SomeOneInTheWorld on 2016/10/3.
  */
 public class HomeAdapter extends RecyclerView.Adapter {
-    private final static String TAG = "test";
+    private final static String TAG = "testttt";
     private List<HomeItemBean> homeDatas;
     private List<TopInfo> topInfos;
     private Context context;
     private final int TYPE_FOOTER = 0;
     private final int TYPE_HEAD = 1;
     private final int TYPE_ITEM = 2;
-    private boolean isShowFooter = true;
+    private final int TYPE_NONE = 3;
 
     public HomeAdapter(Context context){
         this.context = context;
@@ -42,11 +41,6 @@ public class HomeAdapter extends RecyclerView.Adapter {
     public void setHomeData(List<HomeItemBean>homeDatas,List<TopInfo>topInfos){
         this.homeDatas = homeDatas;
         this.topInfos = topInfos;
-//        notifyDataSetChanged();
-    }
-
-    public void isShowFooter(boolean showFooter){
-        this.isShowFooter = showFooter;
     }
 
     @Override
@@ -55,13 +49,14 @@ public class HomeAdapter extends RecyclerView.Adapter {
             View item = LayoutInflater.from(context).inflate(R.layout.item_home_normal,parent,false);
             return new ItemViewHolder(item);
         }else if(viewType == TYPE_FOOTER){
-            View v = LayoutInflater.from(context).inflate(R.layout.footer,parent,false);
-            v.setLayoutParams(new ViewGroup.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT,
-                    ViewGroup.LayoutParams.WRAP_CONTENT));
+            View v = LayoutInflater.from(context).inflate(R.layout.item_footer,parent,false);
             return new FooterViewHolder(v);
-        }else{
-            View v = LayoutInflater.from(context).inflate(R.layout.item_home_head,null);
+        }else if(viewType == TYPE_HEAD){
+            View v = LayoutInflater.from(context).inflate(R.layout.item_home_head,parent,false);
             return new HeadViewHolder(v);
+        }else{
+            View v = LayoutInflater.from(context).inflate(R.layout.item_home_none,parent,false);
+            return new FooterViewHolder(v);
         }
     }
 
@@ -79,31 +74,29 @@ public class HomeAdapter extends RecyclerView.Adapter {
                 return;
             }
             ImageLoaderUtils.display(context, ((ItemViewHolder)holder).tripIV,itemBean.getImageurl());
-        }else if (holder instanceof HeadViewHolder){
-            ((HeadViewHolder)holder).slider.setTopInfos(topInfos);
+        }else if (holder instanceof HeadViewHolder) {
+            ((HeadViewHolder) holder).slider.setTopInfos(topInfos);
         }
     }
 
     @Override
     public int getItemViewType(int position){
-        if(!isShowFooter && position == 0){
+        if(position == 0) {
             return TYPE_HEAD;
-        }else if(!isShowFooter){
-            return TYPE_ITEM;
         }
-
-        if(position + 1 == getItemCount()){
+        if(position  == homeDatas.size()){
             return TYPE_FOOTER;
-        }else{
+        }else if(position < homeDatas.size()){
             return TYPE_ITEM;
+        }else{
+            return TYPE_NONE;
         }
     }
 
     @Override
     public int getItemCount(){
-        int begin = isShowFooter ? 1 : 0;
+        int begin = 2;//header and footer
         if(homeDatas == null){
-            LogUtils.d(TAG,"item is null");
             return begin;
         }else{
             return homeDatas.size() + begin;

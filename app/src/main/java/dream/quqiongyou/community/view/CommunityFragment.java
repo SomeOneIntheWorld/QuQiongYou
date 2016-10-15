@@ -3,6 +3,7 @@ package dream.quqiongyou.community.view;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
+import android.support.v4.widget.SwipeRefreshLayout;
 import android.support.v7.widget.DefaultItemAnimator;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
@@ -28,6 +29,7 @@ import dream.quqiongyou.fuckticket.view.FuckticketActivity;
  */
 public class CommunityFragment extends Fragment implements CommunityView {
     @BindView(R.id.community_rv)RecyclerView recyclerView;
+    @BindView(R.id.community_refresh_layout)SwipeRefreshLayout refreshLayout;
     private CommunityAdapter communityAdapter;
     private List<TopicBean>communityList = new ArrayList<>();
     private List<TopicBean>guessList = new ArrayList<>();
@@ -58,13 +60,23 @@ public class CommunityFragment extends Fragment implements CommunityView {
             }
         });
 
-        CommunityPresenter communityPresenter = new CommunityPresenterImpl(this);
+        final CommunityPresenter communityPresenter = new CommunityPresenterImpl(this);
         communityPresenter.loadSomethingInCommunity();
+
+        refreshLayout.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
+            @Override
+            public void onRefresh() {
+                communityPresenter.loadSomethingInCommunity();
+            }
+        });
         return view;
     }
 
     @Override
     public void loadSomethingSuccess(List<TopicBean> communityDatas, List<TopicBean> guessDatas) {
+        if(refreshLayout.isRefreshing()){
+            refreshLayout.setRefreshing(false);
+        }
         this.communityList.clear();
         this.communityList.addAll(communityDatas);
         this.guessList.clear();
@@ -74,7 +86,9 @@ public class CommunityFragment extends Fragment implements CommunityView {
 
     @Override
     public void loadSomethingFail(String errorMessage) {
-
+        if(refreshLayout.isRefreshing()){
+            refreshLayout.setRefreshing(false);
+        }
     }
 
     @Override

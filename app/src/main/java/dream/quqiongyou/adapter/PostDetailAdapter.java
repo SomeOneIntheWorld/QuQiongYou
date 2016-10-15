@@ -27,6 +27,7 @@ public class PostDetailAdapter extends RecyclerView.Adapter{
 
     private final static int TYPE_POST_DETAIL_TOP = 0;
     private final static int TYPE_POST_DETAIL_ANSWER = 1;
+    private final static int TYPE_POST_FOOTER = 2;
 
     public PostDetailAdapter(Context context){
         this.context = context;
@@ -45,9 +46,12 @@ public class PostDetailAdapter extends RecyclerView.Adapter{
         if(viewType == TYPE_POST_DETAIL_TOP){
             View view = LayoutInflater.from(context).inflate(R.layout.item_postdetail_head,parent,false);
             return new PostDetailTopViewHolder(view);
-        }else{
+        }else if(viewType == TYPE_POST_DETAIL_ANSWER){
             View view = LayoutInflater.from(context).inflate(R.layout.item_postdetail_comment,parent,false);
             return new PostDetailAnswerHolder(view);
+        }else{
+            View view = LayoutInflater.from(context).inflate(R.layout.item_footer,parent,false);
+            return new FooterViewHolder(view);
         }
     }
 
@@ -95,11 +99,11 @@ public class PostDetailAdapter extends RecyclerView.Adapter{
     @Override
     public int getItemCount() {
         if(commentBeanList == null && postBean == null){
-            return 0;
+            return 1;//the footer
         }else if(commentBeanList == null){
-            return 1;
+            return 2;
         }else{
-            return commentBeanList.size() + 1;
+            return commentBeanList.size() + 2;
         }
     }
 
@@ -107,6 +111,8 @@ public class PostDetailAdapter extends RecyclerView.Adapter{
     public int getItemViewType(int position) {
         if(position == 0) {
             return TYPE_POST_DETAIL_TOP;
+        }else if(position == commentBeanList.size()){
+            return TYPE_POST_FOOTER;
         }else{
             return TYPE_POST_DETAIL_ANSWER;
         }
@@ -142,6 +148,12 @@ public class PostDetailAdapter extends RecyclerView.Adapter{
         public PostDetailAnswerHolder(View parent){
             super(parent);
             ButterKnife.bind(this,parent);
+        }
+    }
+
+    public class FooterViewHolder extends RecyclerView.ViewHolder {
+        public FooterViewHolder(View view){
+            super(view);
         }
     }
 }
