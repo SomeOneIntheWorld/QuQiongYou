@@ -4,6 +4,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import dream.quqiongyou.R;
+import dream.quqiongyou.bean.TopInfo;
 import dream.quqiongyou.bean.TopicBean;
 
 /**
@@ -38,6 +39,11 @@ public class CommunityModelImpl implements CommunityModel{
             topicBean.setTopicnum("30");
             guessDatas.add(topicBean);
 
-        callBackByCommunityModel.loadSuccess(communityDatas,guessDatas);
+        List<TopInfo>topInfos = new ArrayList<>();
+        topInfos.add(new TopInfo());
+        topInfos.add(new TopInfo());
+        topInfos.add(new TopInfo());
+
+        callBackByCommunityModel.loadSuccess(communityDatas,guessDatas,topInfos);
     }
 }

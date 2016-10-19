@@ -2,6 +2,7 @@ package dream.quqiongyou.community.model;
 
 import java.util.List;
 
+import dream.quqiongyou.bean.TopInfo;
 import dream.quqiongyou.bean.TopicBean;
 
 /**
@@ -9,7 +10,7 @@ import dream.quqiongyou.bean.TopicBean;
  */
 public interface CommunityModel {
     interface CallBackByCommunityModel{
-        void loadSuccess(List<TopicBean> communityDatas, List<TopicBean>guessDatas);
+        void loadSuccess(List<TopicBean> communityDatas, List<TopicBean>guessDatas, List<TopInfo>topInfoList);
         void loadFail(String errorMessage);
     }
     void loadSomethingInModel(CommunityModelImpl.CallBackByCommunityModel listener);

@@ -11,6 +11,7 @@ public class QuUser implements Serializable{
     private String account;
     private String nickname;
     private String headingimg;
+    private String phone;
     private int level;
 
     private static QuUser instance = null;
@@ -72,5 +73,12 @@ public class QuUser implements Serializable{
     }
     public String getHeadingimg(){
         return headingimg;
+    }
+
+    public void setPhone(String phone){
+        this.phone = phone;
+    }
+    public String getPhone(){
+        return phone;
     }
 }

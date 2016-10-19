@@ -19,6 +19,7 @@ import butterknife.ButterKnife;
 import dream.quqiongyou.R;
 import dream.quqiongyou.adapter.CommunityAdapter;
 import dream.quqiongyou.adapter.OnItemTouchListener;
+import dream.quqiongyou.bean.TopInfo;
 import dream.quqiongyou.bean.TopicBean;
 import dream.quqiongyou.community.presenter.CommunityPresenter;
 import dream.quqiongyou.community.presenter.CommunityPresenterImpl;
@@ -33,6 +34,7 @@ public class CommunityFragment extends Fragment implements CommunityView {
     private CommunityAdapter communityAdapter;
     private List<TopicBean>communityList = new ArrayList<>();
     private List<TopicBean>guessList = new ArrayList<>();
+    private List<TopInfo>topInfoList = new ArrayList<>();
 
     @Nullable
     @Override
@@ -42,6 +44,7 @@ public class CommunityFragment extends Fragment implements CommunityView {
 
         communityAdapter = new CommunityAdapter(getContext());
         communityAdapter.setDatas(communityList,guessList);
+        communityAdapter.setTopInfos(topInfoList);
         recyclerView.setHasFixedSize(true);
         recyclerView.setLayoutManager(new LinearLayoutManager(getActivity()));
         recyclerView.setItemAnimator(new DefaultItemAnimator());
@@ -73,7 +76,7 @@ public class CommunityFragment extends Fragment implements CommunityView {
     }
 
     @Override
-    public void loadSomethingSuccess(List<TopicBean> communityDatas, List<TopicBean> guessDatas) {
+    public void loadSomethingSuccess(List<TopicBean> communityDatas, List<TopicBean> guessDatas,List<TopInfo>topInfoList) {
         if(refreshLayout.isRefreshing()){
             refreshLayout.setRefreshing(false);
         }
@@ -81,6 +84,9 @@ public class CommunityFragment extends Fragment implements CommunityView {
         this.communityList.addAll(communityDatas);
         this.guessList.clear();
         this.guessList.addAll(guessDatas);
+        this.topInfoList.clear();
+        this.topInfoList.addAll(topInfoList);
+
         this.communityAdapter.notifyDataSetChanged();
     }
 

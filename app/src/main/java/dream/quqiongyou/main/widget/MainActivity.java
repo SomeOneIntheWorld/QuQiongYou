@@ -21,6 +21,7 @@ import butterknife.ButterKnife;
 import butterknife.OnClick;
 import butterknife.Unbinder;
 import dream.quqiongyou.R;
+import dream.quqiongyou.bean.QuUser;
 import dream.quqiongyou.community.view.CommunityFragment;
 import dream.quqiongyou.home.fragment.HomeFragment;
 import dream.quqiongyou.mine.MineFragment;
@@ -29,7 +30,7 @@ import dream.quqiongyou.mine.MineFragment;
  * Created by SomeOneInTheWorld on 2016/10/3.
  */
 public class MainActivity extends AppCompatActivity {
-    private final static String ACCOUNT = "account";
+    private final static String USER = "user";
     @BindView(R.id.main_viewpager) ViewPager mViewPager;
     @BindView(R.id.home_ll) LinearLayout homeLl;
     @BindView(R.id.community_ll) LinearLayout communityLl;
@@ -43,9 +44,9 @@ public class MainActivity extends AppCompatActivity {
     private SparseArray<Fragment> fragmentList = new SparseArray<>();
     private Unbinder unbinder;
 
-    public static void startMainActivity(Context context, String account) {
+    public static void startMainActivity(Context context, QuUser user) {
         Intent intent = new Intent(context, MainActivity.class);
-        intent.putExtra(ACCOUNT, account);
+        intent.putExtra(USER, user);
         context.startActivity(intent);
     }
 
