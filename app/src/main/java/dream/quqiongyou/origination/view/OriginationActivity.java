@@ -14,6 +14,7 @@ import android.support.v7.app.AppCompatActivity;
 import android.text.TextUtils;
 import android.view.KeyEvent;
 import android.view.View;
+import android.widget.EditText;
 import android.widget.GridView;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -34,6 +35,7 @@ import butterknife.OnItemLongClick;
 import butterknife.Unbinder;
 import dream.quqiongyou.R;
 import dream.quqiongyou.adapter.UISharePictureAdapter;
+import dream.quqiongyou.bean.OriginationDetailBean;
 import dream.quqiongyou.origination.presenter.OriginationPresenter;
 import dream.quqiongyou.utils.BitmapUtils;
 
@@ -45,12 +47,20 @@ public class OriginationActivity extends AppCompatActivity implements Originatio
     private Unbinder unbinder;
     private List<Bitmap>sharedList = new ArrayList<>();
     private UISharePictureAdapter sharePictureAdapter;
+    private OriginationDetailBean originationDetailBean = new OriginationDetailBean();
     private String photoPath;
+    private List<String>imgList = new ArrayList<>();
 
     @BindView(R.id.origination_add)GridView addPictureGV;
     @BindView(R.id.start_time_tv)TextView startTimeTV;
     @BindView(R.id.end_time_tv)TextView endTimeTV;
     @BindView(R.id.price_tv)TextView priceTV;
+    @BindView(R.id.origination_commit)TextView commitTV;
+    @BindView(R.id.phone_et)TextView phoneTV;
+    @BindView(R.id.maxnumber_et)EditText maxNumberET;
+    @BindView(R.id.other_tv)TextView otherTV;
+    @BindView(R.id.place_et)EditText placeET;
+    @BindView(R.id.topic_et)EditText topicET;
     private TimePickerView pvTime;
     private OptionsPickerView pvOptions;
 
@@ -65,7 +75,7 @@ public class OriginationActivity extends AppCompatActivity implements Originatio
         setContentView(R.layout.activity_origination);
         unbinder = ButterKnife.bind(this);
 
-        Bitmap bp = BitmapFactory.decodeResource(getResources(), R.drawable.menu);
+        Bitmap bp = BitmapFactory.decodeResource(getResources(), R.mipmap.add_pictures_for_activity_initiate);
         sharedList.add(bp);
         sharePictureAdapter = new UISharePictureAdapter(getApplicationContext(), sharedList, addPictureGV);
         addPictureGV.setAdapter(sharePictureAdapter);
@@ -97,9 +107,10 @@ public class OriginationActivity extends AppCompatActivity implements Originatio
 
             @Override
             public void onOptionsSelect(int options1, int option2, int options3) {
-                String tx = "价格区间：" + options1Items.get(options1).toString() + " - "
+                String tx =  options1Items.get(options1).toString() + "-"
                         + options2Items.get(options1).get(option2).toString();
-                priceTV.setText(tx);
+                String showTx = "价格区间：" + tx;
+                priceTV.setText(showTx);
             }
         });
     }
@@ -114,8 +125,6 @@ public class OriginationActivity extends AppCompatActivity implements Originatio
                 Intent intent = new Intent(Intent.ACTION_PICK, null);
                 intent.setDataAndType(MediaStore.Images.Media.EXTERNAL_CONTENT_URI, "image/*");
                 startActivityForResult(intent, 0x1);
-            } else {
-                Toast.makeText(OriginationActivity.this, "点击第" + (position + 1) + " 号图片", Toast.LENGTH_SHORT).show();
             }
         }
     }
@@ -129,7 +138,7 @@ public class OriginationActivity extends AppCompatActivity implements Originatio
         return true;
     }
 
-    @OnClick({R.id.start_time,R.id.end_time,R.id.price})
+    @OnClick({R.id.start_time,R.id.end_time,R.id.price,R.id.origination_commit})
     void onClick(View view){
         switch(view.getId()){
             case R.id.start_time:
@@ -141,7 +150,22 @@ public class OriginationActivity extends AppCompatActivity implements Originatio
             case R.id.price:
                 pvOptions.show();
                 break;
+            case R.id.origination_commit:
+                initOriginationDetailBean();
+                OriginationSuccessActivity.startOriginationSuccessActivity(this,originationDetailBean);
+                break;
         }
+    }
+
+    private void initOriginationDetailBean(){
+        originationDetailBean.setImglist(imgList);
+        originationDetailBean.setLocation(placeET.getText().toString());
+        originationDetailBean.setMaxpeoplenum(Integer.parseInt(maxNumberET.getText().toString()));
+        originationDetailBean.setStarttime(startTimeTV.getText().toString());
+        originationDetailBean.setEndtime(endTimeTV.getText().toString());
+        originationDetailBean.setPrice(priceTV.getText().toString());
+        originationDetailBean.setTopic(topicET.getText().toString());
+        originationDetailBean.setPhone(phoneTV.getText().toString());
     }
 
     private void doEvent(final TextView view){
@@ -212,6 +236,9 @@ public class OriginationActivity extends AppCompatActivity implements Originatio
                     int column_index = cursor.getColumnIndexOrThrow(MediaStore.Images.Media.DATA);
                     cursor.moveToFirst();
                     photoPath = cursor.getString(column_index);
+                    if(!TextUtils.isEmpty(photoPath)){
+                        imgList.add(photoPath);
+                    }
                 } catch (Exception e) {
                     e.printStackTrace();
                 }

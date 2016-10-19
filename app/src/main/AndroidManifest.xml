@@ -20,7 +20,7 @@
 
         <activity android:name=".main.widget.MainActivity"
             android:launchMode="singleInstance"/>
-        <activity android:name=".register.widget.RegisterActivity"/>
+        <activity android:name=".register.view.RegisterActivity"/>
         <activity android:name=".origination.view.OriginationActivity"/>
         <activity android:name=".fuckticket.view.FuckticketActivity"/>
         <activity android:name=".postdetail.view.PostDetailActivity"/>

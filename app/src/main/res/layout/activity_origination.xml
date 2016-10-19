@@ -32,6 +32,7 @@
                     android:text="@string/theme"
                     style="@style/normal_tv_style" />
                 <EditText
+                    android:id="@+id/topic_et"
                     android:textSize="@dimen/origination_item_tv_size"
                     android:textColorHint="@color/light_gray"
                     android:hint="@string/theme_hint"
@@ -105,6 +106,7 @@
                     android:text="@string/location"
                     style="@style/normal_tv_style" />
                 <EditText
+                    android:id="@+id/place_et"
                     android:textSize="@dimen/origination_item_tv_size"
                     android:textColorHint="@color/light_gray"
                     android:hint="@string/location_hint"
@@ -167,19 +169,67 @@
                 style="@style/origination_item_layout_style"
                 >
                 <EditText
+                    android:id="@+id/phone_et"
                     android:gravity="center_horizontal"
                     android:layout_width="match_parent"
                     android:textSize="@dimen/origination_item_tv_size"
                     android:layout_gravity="center"
                     android:textColor="@color/deep_tv_color"
                     android:hint="@string/contacts_num"
+                    android:inputType="phone"
                     style="@style/normal_tv_style" />
 
             </LinearLayout>
+            <View
+                android:layout_marginLeft="10dp"
+                android:layout_marginRight="10dp"
+                android:layout_width="match_parent"
+                android:layout_height="1.5dp"
+                android:background="@color/light_gray_plus"/>
+            <LinearLayout
+                style="@style/origination_item_layout_style"
+                >
+                <EditText
+                    android:id="@+id/maxnumber_et"
+                    android:gravity="center_horizontal"
+                    android:layout_width="match_parent"
+                    android:textSize="@dimen/origination_item_tv_size"
+                    android:layout_gravity="center"
+                    android:textColor="@color/deep_tv_color"
+                    android:hint="名额限制"
+                    style="@style/normal_tv_style" />
 
+            </LinearLayout>
+            <View
+                android:layout_marginLeft="10dp"
+                android:layout_marginRight="10dp"
+                android:layout_width="match_parent"
+                android:layout_height="1.5dp"
+                android:background="@color/light_gray_plus"/>
+            <LinearLayout
+                style="@style/origination_item_layout_style"
+                >
+                <TextView
+                    android:id="@+id/other_tv"
+                    android:layout_width="match_parent"
+                    android:textSize="@dimen/origination_item_tv_size"
+                    android:layout_gravity="center"
+                    android:gravity="center_horizontal"
+                    android:textColor="@color/deep_tv_color"
+                    android:text="报名限制"
+                    style="@style/normal_tv_style" />
+
+            </LinearLayout>
+            <View
+                android:layout_marginLeft="10dp"
+                android:layout_marginRight="10dp"
+                android:layout_width="match_parent"
+                android:layout_height="1.5dp"
+                android:background="@color/light_gray_plus"/>
         </LinearLayout>
 
         <TextView
+            android:id="@+id/origination_commit"
             android:gravity="center"
             android:layout_width="match_parent"
             android:layout_height="40dp"

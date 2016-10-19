@@ -14,7 +14,7 @@ import dream.quqiongyou.R;
 import dream.quqiongyou.main.presenter.LoginPresenter;
 import dream.quqiongyou.main.presenter.LoginPresenterImpl;
 import dream.quqiongyou.main.view.LoginView;
-import dream.quqiongyou.register.widget.RegisterActivity;
+import dream.quqiongyou.register.view.RegisterActivity;
 
 public class LoginActivity extends AppCompatActivity implements LoginView{
     @BindView(R.id.account)
@@ -66,7 +66,7 @@ public class LoginActivity extends AppCompatActivity implements LoginView{
     @Override
     public void loginSuccess(QuUser user) {
         QuUser.setCurrentUser(user);
-        MainActivity.startMainActivity(this,account);
+        MainActivity.startMainActivity(this,user);
         this.finish();
     }
 

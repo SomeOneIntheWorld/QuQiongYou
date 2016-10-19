@@ -1,16 +1,22 @@
 package dream.quqiongyou.bean;
 
+import java.io.Serializable;
 import java.util.List;
 
 /**
  * Created by SomeOneInTheWorld on 2016/10/4.
  */
-public class OriginationDetailBean {
+public class OriginationDetailBean implements Serializable{
     private String topic;
-    private String time;
+    private String starttime;
+    private String endtime;
     private String location;
-    private int price;
+    private String price;
     private String phone;
+    private int maxpeoplenum;
+    private boolean needName;
+    private boolean needPhone;
+    private boolean needIntroduce;
     private List<String> imglist;
 
     public void setTopic(String topic){
@@ -20,11 +26,18 @@ public class OriginationDetailBean {
         return topic;
     }
 
-    public void setTime(String time){
-        this.time = time;
+    public void setStarttime(String starttime){
+        this.starttime = starttime;
     }
-    public String getTime(){
-        return time;
+    public String getStarttime(){
+        return starttime;
+    }
+
+    public void setEndtime(String endtime){
+        this.endtime = endtime;
+    }
+    public String getEndtime(){
+        return endtime;
     }
 
     public void setLocation(String location){
@@ -34,10 +47,10 @@ public class OriginationDetailBean {
         return location;
     }
 
-    public void setPrice(int price){
+    public void setPrice(String price){
         this.price = price;
     }
-    public int getPrice(){
+    public String getPrice(){
         return price;
     }
 
@@ -50,6 +63,37 @@ public class OriginationDetailBean {
 
     public void setImglist(List<String>imgList){
         this.imglist = imgList;
+    }
+    public List<String>getImglist(){
+        return this.imglist;
+    }
+
+    public void setMaxpeoplenum(int maxpeoplenum){
+        this.maxpeoplenum = maxpeoplenum;
+    }
+    public int getMaxpeoplenum(){
+        return maxpeoplenum;
+    }
+
+    public void setNeedName(boolean needName){
+        this.needName = needName;
+    }
+    public boolean getNeedName(){
+        return needName;
+    }
+
+    public void setNeedPhone(boolean needPhone){
+        this.needPhone = needPhone;
+    }
+    public boolean getNeedPhone(){
+        return needPhone;
+    }
+
+    public void setNeedIntroduce(boolean needIntroduce){
+        this.needIntroduce = needIntroduce;
+    }
+    public boolean getNeedIntroduce(){
+        return needIntroduce;
     }
 }
 
