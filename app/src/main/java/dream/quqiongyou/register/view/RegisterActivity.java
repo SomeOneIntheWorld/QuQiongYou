@@ -59,7 +59,15 @@ public class RegisterActivity extends AppCompatActivity implements RegisterView{
                 presenter.requestIdentifyingCode(phoneET.getText().toString());
                 break;
             case R.id.register_register:
-                Toast.makeText(this,"你带呢了",Toast.LENGTH_SHORT).show();
+                Toast.makeText(this,"注册开始",Toast.LENGTH_SHORT).show();
+                String myphone = phoneET.getText().toString();
+                String myIdentifyCode = identifyCodeET.getText().toString();
+                String myPassword = passwordET.getText().toString();
+                if(TextUtils.isEmpty(myphone) || TextUtils.isEmpty((myIdentifyCode)) || TextUtils.isEmpty(myPassword)){
+                    Toast.makeText(this,"电话或者验证码或者密码不能为空！",Toast.LENGTH_SHORT).show();
+                    return;
+                }
+                presenter.register(phoneET.getText().toString(),identifyCodeET.getText().toString(),passwordET.getText().toString());
                 break;
         }
     }
@@ -77,12 +85,22 @@ public class RegisterActivity extends AppCompatActivity implements RegisterView{
     @Override
     public void onSuccessRequestForCode(String code) {
         identifyingCode = code;
-        phoneET.setText(code);
+        identifyCodeET.setText(code);
     }
 
     @Override
     public void onFailRequestForCode(String message) {
         Toast.makeText(this,message,Toast.LENGTH_SHORT).show();
+    }
+
+    @Override
+    public void onSuccessRegister() {
+        Toast.makeText(this,"成功注册",Toast.LENGTH_SHORT).show();
+    }
+
+    @Override
+    public void onFailRegister() {
+        Toast.makeText(this,"注册失败",Toast.LENGTH_SHORT).show();
     }
 
     @Override

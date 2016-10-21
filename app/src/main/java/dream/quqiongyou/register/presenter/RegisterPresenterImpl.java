@@ -23,6 +23,24 @@ public class RegisterPresenterImpl implements RegisterPresenter,RegisterModel.On
     }
 
     @Override
+    public void register(String phone, String identifyingCode, String password) {
+        view.showProgressbar();
+        model.register(phone,identifyingCode,password,this);
+    }
+
+    @Override
+    public void onSuccessRegister() {
+        view.hideProgressbar();
+        view.onSuccessRegister();
+    }
+
+    @Override
+    public void onFailRegister() {
+        view.hideProgressbar();
+        view.onFailRegister();
+    }
+
+    @Override
     public void onSuccess(String code) {
         view.hideProgressbar();
         view.onSuccessRequestForCode(code);

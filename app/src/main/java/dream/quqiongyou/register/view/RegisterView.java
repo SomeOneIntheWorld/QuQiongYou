@@ -8,4 +8,6 @@ public interface RegisterView {
     void hideProgressbar();
     void onSuccessRequestForCode(String code);
     void onFailRequestForCode(String message);
+    void onSuccessRegister();
+    void onFailRegister();
 }
