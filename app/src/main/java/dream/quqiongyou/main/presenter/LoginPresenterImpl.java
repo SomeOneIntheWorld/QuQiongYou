@@ -33,8 +33,8 @@ public class LoginPresenterImpl implements LoginPresenter,LoginModel.CallBackByL
     }
 
     @Override
-    public void checkUser(QuUser user) {
+    public void checkUser(String account,String password) {
         loginView.showProgress();
-        loginModel.checkQuUserByModel(user, this);
+        loginModel.checkQuUserByModel(account,password, this);
     }
 }

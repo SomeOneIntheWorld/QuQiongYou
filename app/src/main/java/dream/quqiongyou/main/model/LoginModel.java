@@ -11,5 +11,5 @@ public interface LoginModel {
         void onFail(String message);
     }
 
-    void checkQuUserByModel(QuUser user, LoginModelImpl.CallBackByLoginModel listener);
+    void checkQuUserByModel(String account,String password, LoginModelImpl.CallBackByLoginModel listener);
 }

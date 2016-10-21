@@ -39,8 +39,7 @@ public class LoginActivity extends AppCompatActivity implements LoginView{
     void onClickLogin(){
         account = mAccountET.getText() == null ? "" : mAccountET.getText().toString();
         String password = mPwdET.getText() == null ? "" : mPwdET.getText().toString();
-        QuUser quUser = new QuUser(account,password);
-        loginPresenter.checkUser(quUser);
+        loginPresenter.checkUser(account,password);
     }
 
     @OnClick(R.id.register)

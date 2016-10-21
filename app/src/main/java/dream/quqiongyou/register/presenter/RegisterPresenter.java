@@ -5,4 +5,5 @@ package dream.quqiongyou.register.presenter;
  */
 public interface RegisterPresenter {
     void requestIdentifyingCode(String phone);
+    void register(String phone,String identifyingCode,String password);
 }
