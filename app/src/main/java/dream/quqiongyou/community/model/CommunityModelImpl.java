@@ -3,9 +3,12 @@ package dream.quqiongyou.community.model;
 import java.util.ArrayList;
 import java.util.List;
 
-import dream.quqiongyou.R;
+import dream.quqiongyou.bean.Response;
 import dream.quqiongyou.bean.TopInfo;
 import dream.quqiongyou.bean.TopicBean;
+import dream.quqiongyou.service.OkService;
+import dream.quqiongyou.utils.RxUtils;
+import rx.functions.Action1;
 
 /**
  * Created by SomeOneInTheWorld on 2016/10/4.
@@ -13,37 +16,25 @@ import dream.quqiongyou.bean.TopicBean;
 public class CommunityModelImpl implements CommunityModel{
 
     @Override
-    public void loadSomethingInModel(CallBackByCommunityModel callBackByCommunityModel) {
-        List<TopicBean>communityDatas = new ArrayList<>();
+    public void loadSomethingInModel(final CallBackByCommunityModel callBackByCommunityModel) {
+        OkService.CommunityMainService service = RxUtils.createService(OkService.CommunityMainService.class);
+        service.getCommunityMainData()
+                .compose(RxUtils.<Response<List<TopicBean>>>normalSchedulers())
+                .subscribe(new Action1<Response<List<TopicBean>>>() {
+                    @Override
+                    public void call(Response<List<TopicBean>> listResponse) {
+                        List<TopInfo>topInfos = new ArrayList<>();
+                        topInfos.add(new TopInfo());
+                        topInfos.add(new TopInfo());
+                        topInfos.add(new TopInfo());
 
-
-            TopicBean topicBean1 = new TopicBean();
-            topicBean1.setTitle("逃票攻略");
-            topicBean1.setImgId(R.mipmap.fuckticket);
-            topicBean1.setTopicnum("10");
-            communityDatas.add(topicBean1);
-
-        TopicBean topicBean2 = new TopicBean();
-        topicBean2.setTitle("骑行");
-        topicBean2.setImgId(R.mipmap.riding);
-        topicBean2.setTopicnum("20");
-        communityDatas.add(topicBean2);
-
-
-
-        List<TopicBean>guessDatas = new ArrayList<>();
-
-            TopicBean topicBean = new TopicBean();
-            topicBean.setTitle("野外漂流");
-            topicBean.setImgId(R.mipmap.outdoor);
-            topicBean.setTopicnum("30");
-            guessDatas.add(topicBean);
-
-        List<TopInfo>topInfos = new ArrayList<>();
-        topInfos.add(new TopInfo());
-        topInfos.add(new TopInfo());
-        topInfos.add(new TopInfo());
-
-        callBackByCommunityModel.loadSuccess(communityDatas,guessDatas,topInfos);
+                        callBackByCommunityModel.loadSuccess(listResponse.data,listResponse.data,topInfos);
+                    }
+                }, new Action1<Throwable>() {
+                    @Override
+                    public void call(Throwable throwable) {
+                        callBackByCommunityModel.loadFail(throwable.getMessage());
+                    }
+                });
     }
 }

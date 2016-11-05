@@ -5,6 +5,7 @@ import java.util.List;
 import dream.quqiongyou.bean.HomeItemBean;
 import dream.quqiongyou.bean.QuUser;
 import dream.quqiongyou.bean.Response;
+import dream.quqiongyou.bean.TopicBean;
 import okhttp3.RequestBody;
 import retrofit2.http.Body;
 import retrofit2.http.GET;
@@ -32,6 +33,10 @@ public interface OkService{
     interface MainDataService{
         @GET("quqiongyou/activity/activitybrow.php")
         Observable<Response<List<HomeItemBean>>> getMainData(@Query("page")int page);
+    }
+    interface CommunityMainService{
+        @POST("quqiongyou/community/first.php")
+        Observable<Response<List<TopicBean>>> getCommunityMainData();
     }
 }
 
