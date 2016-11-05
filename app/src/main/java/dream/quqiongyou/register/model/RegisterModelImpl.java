@@ -5,16 +5,11 @@ import com.google.gson.Gson;
 import java.util.LinkedHashMap;
 
 import dream.quqiongyou.bean.Response;
-import dream.quqiongyou.common.Constants;
 import dream.quqiongyou.service.OkService;
+import dream.quqiongyou.utils.RxUtils;
 import okhttp3.MediaType;
 import okhttp3.RequestBody;
-import retrofit2.Retrofit;
-import retrofit2.adapter.rxjava.RxJavaCallAdapterFactory;
-import retrofit2.converter.gson.GsonConverterFactory;
 import rx.Subscriber;
-import rx.android.schedulers.AndroidSchedulers;
-import rx.schedulers.Schedulers;
 
 /**
  * Created by SomeOneInTheWorld on 2016/10/17.
@@ -22,20 +17,14 @@ import rx.schedulers.Schedulers;
 public class RegisterModelImpl implements RegisterModel{
     @Override
     public void requestIdentifyingCode(String phone, final OnCallBackByRegisterModel listener) {
-        Retrofit retrofit = new Retrofit.Builder()
-                .baseUrl(Constants.BASE_URL)
-                .addConverterFactory(GsonConverterFactory.create())
-                .addCallAdapterFactory(RxJavaCallAdapterFactory.create())
-                .build();
-        OkService.IdentifyingCodeGetService identifyingCodeGetService = retrofit.create(OkService.IdentifyingCodeGetService.class);
+        OkService.IdentifyingCodeGetService identifyingCodeGetService = RxUtils.createService(OkService.IdentifyingCodeGetService.class);
         Gson gson = new Gson();
         LinkedHashMap<String,String> paramsMap = new LinkedHashMap<>();
         paramsMap.put("phone",phone);
         String strEntity = gson.toJson(paramsMap);
         RequestBody requestBody = RequestBody.create(MediaType.parse("application/json;charset=UTF-8"),strEntity);
         identifyingCodeGetService.getIdentifyingCode(requestBody)
-                .subscribeOn(Schedulers.io())
-                .observeOn(AndroidSchedulers.mainThread())
+                .compose(RxUtils.<Response<String>>normalSchedulers())
                 .subscribe(new Subscriber<Response<String>>() {
                     @Override
                     public void onCompleted() {
@@ -62,12 +51,7 @@ public class RegisterModelImpl implements RegisterModel{
 
     @Override
     public void register(String phone, String identifyingCode, String password, final OnCallBackByRegisterModel listener) {
-        Retrofit retrofit = new Retrofit.Builder()
-                .baseUrl(Constants.BASE_URL)
-                .addConverterFactory(GsonConverterFactory.create())
-                .addCallAdapterFactory(RxJavaCallAdapterFactory.create())
-                .build();
-        OkService.RegisterService service = retrofit.create(OkService.RegisterService.class);
+        OkService.RegisterService service = RxUtils.createService(OkService.RegisterService.class);
         Gson gson = new Gson();
         LinkedHashMap<String,String> paramsMap = new LinkedHashMap<>();
         paramsMap.put("account",phone);
@@ -75,8 +59,7 @@ public class RegisterModelImpl implements RegisterModel{
         String strEntity = gson.toJson(paramsMap);
         RequestBody requestBody = RequestBody.create(MediaType.parse("application/json;charset=UTF-8"),strEntity);
         service.getRegisterResult(requestBody)
-                .subscribeOn(Schedulers.io())
-                .observeOn(AndroidSchedulers.mainThread())
+                .compose(RxUtils.<Response<String>>normalSchedulers())
                 .subscribe(new Subscriber<Response<String>>() {
                     @Override
                     public void onCompleted() {

@@ -26,6 +26,7 @@ import dream.quqiongyou.common.Constants;
 import dream.quqiongyou.home.presenter.HomePresenter;
 import dream.quqiongyou.home.presenter.HomePresenterImpl;
 import dream.quqiongyou.home.view.HomeView;
+import dream.quqiongyou.utils.LogUtils;
 
 /**
  * Created by SomeOneInTheWorld on 2016/10/3.
@@ -43,7 +44,7 @@ public class HomeFragment extends Fragment implements HomeView{
 
     @Nullable
     @Override
-    public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
+    public View onCreateView(LayoutInflater inflater, @Nullable final ViewGroup container, @Nullable Bundle savedInstanceState) {
         View view =  inflater.inflate(R.layout.fragment_home,null);
         unbinder = ButterKnife.bind(this,view);
 
@@ -58,7 +59,8 @@ public class HomeFragment extends Fragment implements HomeView{
             @Override
             public void onLoadMore(int currentPage) {
                 mHomeRecycler.setNestedScrollingEnabled(false);
-                loadMoreInfo();
+                LogUtils.d("HOMEMODELIMPL_TEST","currentPage in HomeFragment = " + currentPage);
+                mHomePresenter.loadHomeInfoByPresenter(currentPage);
                 mHomeRecycler.setNestedScrollingEnabled(true);
             }
         };
@@ -66,13 +68,13 @@ public class HomeFragment extends Fragment implements HomeView{
         mRefreshLayout.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
             @Override
             public void onRefresh() {
-                mHomePresenter.loadHomeInfoByPresenter();
+                mHomePresenter.loadHomeInfoByPresenter(1);
                 listener.setPreviousTotal(0);
             }
         });
 
         mHomePresenter = new HomePresenterImpl(this);
-        mHomePresenter.loadHomeInfoByPresenter();
+        mHomePresenter.loadHomeInfoByPresenter(1);
 
         return view;
     }
@@ -91,27 +93,17 @@ public class HomeFragment extends Fragment implements HomeView{
         }
     }
 
-    //just for test,please delete the code when the true GET is done.
-    void loadMoreInfo(){
-        for(int i=0;i<10;i++){
-            HomeItemBean data = new HomeItemBean();
-            data.setImageurl(null);
-            data.setTitle("这是测试");
-            data.setLefttime("10");
-            datas.add(data);
-        }
-
-        try{
-            new Thread().sleep(2000);
-        }catch(Exception e){
-            e.printStackTrace();
-        }
-
-        mHomeAdater.notifyDataSetChanged();
+    @Override
+    public void loadNoMoreData() {
+        mHomeAdater.setStatusOfProgressBar(true);
     }
 
     @Override
     public void loadHomeInfoFail(List<?> infos, int tag, String message) {
+        if(mRefreshLayout.isRefreshing()){
+            mRefreshLayout.setRefreshing(false);
+        }
+
         if(tag == Constants.HOME_TAG_HOME_ITEM_SUCCESS){
             this.datas.clear();
             this.datas.addAll((List<HomeItemBean>)infos);
@@ -120,19 +112,20 @@ public class HomeFragment extends Fragment implements HomeView{
             this.topInfos.clear();
             this.topInfos.addAll((List<TopInfo>)infos);
             mHomeAdater.notifyDataSetChanged();
-        }
-
-        if(mRefreshLayout.isRefreshing()){
-            mRefreshLayout.setRefreshing(false);
+        }else{
+            mHomeAdater.setStatusOfProgressBar(true);
         }
     }
 
     @Override
     public void showProgressBar() {
+        mHomeAdater.setStatusOfProgressBar(false);
+
     }
 
     @Override
     public void hideProgressBar() {
+        mHomeAdater.setStatusOfProgressBar(true);
     }
 
     @Override

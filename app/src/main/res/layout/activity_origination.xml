@@ -143,7 +143,8 @@
             android:background="@color/item_layout_color"
             android:orientation="vertical"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content">
+            android:layout_height="wrap_content"
+            android:layout_margin="10dp">
             <LinearLayout
                 android:id="@+id/price"
                 style="@style/origination_item_layout_style"
@@ -165,9 +166,6 @@
                 android:layout_width="match_parent"
                 android:layout_height="1.5dp"
                 android:background="@color/light_gray_plus"/>
-            <LinearLayout
-                style="@style/origination_item_layout_style"
-                >
                 <EditText
                     android:id="@+id/phone_et"
                     android:gravity="center_horizontal"
@@ -178,17 +176,6 @@
                     android:hint="@string/contacts_num"
                     android:inputType="phone"
                     style="@style/normal_tv_style" />
-
-            </LinearLayout>
-            <View
-                android:layout_marginLeft="10dp"
-                android:layout_marginRight="10dp"
-                android:layout_width="match_parent"
-                android:layout_height="1.5dp"
-                android:background="@color/light_gray_plus"/>
-            <LinearLayout
-                style="@style/origination_item_layout_style"
-                >
                 <EditText
                     android:id="@+id/maxnumber_et"
                     android:gravity="center_horizontal"
@@ -198,17 +185,6 @@
                     android:textColor="@color/deep_tv_color"
                     android:hint="名额限制"
                     style="@style/normal_tv_style" />
-
-            </LinearLayout>
-            <View
-                android:layout_marginLeft="10dp"
-                android:layout_marginRight="10dp"
-                android:layout_width="match_parent"
-                android:layout_height="1.5dp"
-                android:background="@color/light_gray_plus"/>
-            <LinearLayout
-                style="@style/origination_item_layout_style"
-                >
                 <TextView
                     android:id="@+id/other_tv"
                     android:layout_width="match_parent"
@@ -218,14 +194,13 @@
                     android:textColor="@color/deep_tv_color"
                     android:text="报名限制"
                     style="@style/normal_tv_style" />
-
-            </LinearLayout>
             <View
                 android:layout_marginLeft="10dp"
                 android:layout_marginRight="10dp"
                 android:layout_width="match_parent"
                 android:layout_height="1.5dp"
                 android:background="@color/light_gray_plus"/>
+
         </LinearLayout>
 
         <TextView

@@ -8,14 +8,10 @@ import dream.quqiongyou.bean.QuUser;
 import dream.quqiongyou.bean.Response;
 import dream.quqiongyou.common.Constants;
 import dream.quqiongyou.service.OkService;
+import dream.quqiongyou.utils.RxUtils;
 import okhttp3.MediaType;
 import okhttp3.RequestBody;
-import retrofit2.Retrofit;
-import retrofit2.adapter.rxjava.RxJavaCallAdapterFactory;
-import retrofit2.converter.gson.GsonConverterFactory;
 import rx.Subscriber;
-import rx.android.schedulers.AndroidSchedulers;
-import rx.schedulers.Schedulers;
 
 /**
  * Created by SomeOneInTheWorld on 2016/10/3.
@@ -24,12 +20,7 @@ public class LoginModelImpl implements LoginModel {
     private final String TAG = "LoginTest";
     @Override
     public void checkQuUserByModel(final String account, String password, final CallBackByLoginModel listener) {
-        Retrofit retrofit = new Retrofit.Builder()
-                .baseUrl(Constants.BASE_URL)
-                .addConverterFactory(GsonConverterFactory.create())
-                .addCallAdapterFactory(RxJavaCallAdapterFactory.create())
-                .build();
-        OkService.LoginService loginService = retrofit.create(OkService.LoginService.class);
+        OkService.LoginService loginService = RxUtils.createService(OkService.LoginService.class);
         Gson gson = new Gson();
         LinkedHashMap<String,String> paramsMap = new LinkedHashMap<>();
         paramsMap.put("account",account);
@@ -37,8 +28,7 @@ public class LoginModelImpl implements LoginModel {
         String strEntity = gson.toJson(paramsMap);
         RequestBody requestBody = RequestBody.create(MediaType.parse("application/json;charset=UTF-8"),strEntity);
         loginService.getUserMessage(requestBody)
-                .subscribeOn(Schedulers.io())
-                .observeOn(AndroidSchedulers.mainThread())
+                .compose(RxUtils.<Response<QuUser>>normalSchedulers())
                 .subscribe(new Subscriber<Response<QuUser>>(){
                     @Override
                     public void onCompleted() {

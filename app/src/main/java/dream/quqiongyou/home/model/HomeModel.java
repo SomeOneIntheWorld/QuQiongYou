@@ -12,6 +12,7 @@ public interface HomeModel {
     interface CallbackByHomeModel{
         void loadSuccess(List<HomeItemBean>homeItemBeanList,List<TopInfo>topInfoList);
         void loadFail(List<?>item,int tag,String message);
+        void loadNoMoreData();
     }
-    void loadHomeInfoInModel(CallbackByHomeModel listener);
+    void loadHomeInfoInModel(int page,CallbackByHomeModel listener);
 }
