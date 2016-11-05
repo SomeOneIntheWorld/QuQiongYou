@@ -9,7 +9,9 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import butterknife.BindView;
+import butterknife.ButterKnife;
 import butterknife.OnClick;
+import butterknife.Unbinder;
 import dream.quqiongyou.R;
 import dream.quqiongyou.bean.OriginationDetailBean;
 import dream.quqiongyou.bean.QuUser;
@@ -20,6 +22,7 @@ import dream.quqiongyou.main.widget.MainActivity;
  */
 public class OriginationSuccessActivity extends AppCompatActivity{
     private static final String DETAIL_BEAN = "detail_bean";
+    private Unbinder unbinder;
     @BindView(R.id.origination_success_activity)TextView activityNameTV;
 
     public static void startOriginationSuccessActivity(Context context, OriginationDetailBean bean) {
@@ -33,10 +36,13 @@ public class OriginationSuccessActivity extends AppCompatActivity{
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_origination_success);
 
+        unbinder = ButterKnife.bind(this);
         Intent intent = getIntent();
         if(intent != null){
             OriginationDetailBean originationDetailBean = (OriginationDetailBean)intent.getSerializableExtra(DETAIL_BEAN);
-            activityNameTV.setText(originationDetailBean.getTopic());
+            if(originationDetailBean != null){
+                activityNameTV.setText(originationDetailBean.getTopic() == null ? "lala" : originationDetailBean.getTopic());
+            }
         }
     }
 
@@ -51,5 +57,11 @@ public class OriginationSuccessActivity extends AppCompatActivity{
                 MainActivity.startMainActivity(this, QuUser.getCurrentUser());
                 break;
         }
+    }
+
+    @Override
+    protected void onDestroy(){
+        super.onDestroy();
+        unbinder.unbind();
     }
 }

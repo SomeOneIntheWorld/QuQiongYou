@@ -11,6 +11,7 @@ import dream.quqiongyou.bean.TopInfo;
 public interface HomeView {
     void loadHomeInfoSuccess(List<HomeItemBean>datas,List<TopInfo>topInfos);
     void loadHomeInfoFail(List<?>infos,int tag,String message);
+    void loadNoMoreData();
     void showProgressBar();
     void hideProgressBar();
 }

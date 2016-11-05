@@ -20,15 +20,17 @@ import dream.quqiongyou.bean.TopInfo;
 import dream.quqiongyou.home.widget.Slider;
 import dream.quqiongyou.origination.view.OriginationActivity;
 import dream.quqiongyou.utils.ImageLoaderUtils;
+import dream.quqiongyou.utils.LogUtils;
 
 /**
  * Created by SomeOneInTheWorld on 2016/10/3.
  */
 public class HomeAdapter extends RecyclerView.Adapter {
-    private final static String TAG = "testttt";
+    private final static String TAG = "testttxt";
     private List<HomeItemBean> homeDatas;
     private List<TopInfo> topInfos;
     private Context context;
+    private FooterViewHolder footerViewHolder;
     private final int TYPE_FOOTER = 0;
     private final int TYPE_HEAD = 1;
     private final int TYPE_ITEM = 2;
@@ -41,6 +43,21 @@ public class HomeAdapter extends RecyclerView.Adapter {
     public void setHomeData(List<HomeItemBean>homeDatas,List<TopInfo>topInfos){
         this.homeDatas = homeDatas;
         this.topInfos = topInfos;
+    }
+
+    public void setStatusOfProgressBar(boolean gone){
+        LogUtils.d(TAG,"gone = " + gone);
+        if(footerViewHolder == null){
+            LogUtils.d(TAG,"is null");
+            return;
+        }
+        if(gone){
+            footerViewHolder.loadLayout.setVisibility(View.GONE);
+            footerViewHolder.loadFinishedTV.setVisibility(View.VISIBLE);
+        }else{
+            footerViewHolder.loadLayout.setVisibility(View.VISIBLE);
+            footerViewHolder.loadFinishedTV.setVisibility(View.GONE);
+        }
     }
 
     @Override
@@ -56,19 +73,22 @@ public class HomeAdapter extends RecyclerView.Adapter {
             return new HeadViewHolder(v);
         }else{
             View v = LayoutInflater.from(context).inflate(R.layout.item_home_none,parent,false);
-            return new FooterViewHolder(v);
+            return new NoneViewHolder(v);
         }
     }
 
     @Override
     public void onBindViewHolder(RecyclerView.ViewHolder holder, int position) {
         if(holder instanceof ItemViewHolder){
+            position = position - 1;
             HomeItemBean itemBean = homeDatas.get(position);
-            String time = itemBean.getLefttime();
-            ((ItemViewHolder)holder).titleTV.setText(itemBean.getTitle());
-            ((ItemViewHolder)holder).hourTV.setText(time);
-            ((ItemViewHolder)holder).minTV.setText(time);
-            ((ItemViewHolder)holder).secondTV.setText(time);
+
+            int[]time = getLeftTime(itemBean.getEndtime(),itemBean.getBegintime());
+
+            ((ItemViewHolder)holder).titleTV.setText(itemBean.getAcname());
+            ((ItemViewHolder)holder).hourTV.setText(String.valueOf(time[0]));
+            ((ItemViewHolder)holder).minTV.setText(String.valueOf(time[1]));
+            ((ItemViewHolder)holder).secondTV.setText(String.valueOf(time[2]));
             if(itemBean.getImageurl() == null){
                 ((ItemViewHolder)holder).tripIV.setBackgroundResource(R.mipmap.pictures_of_the_event_2);
                 return;
@@ -76,7 +96,30 @@ public class HomeAdapter extends RecyclerView.Adapter {
             ImageLoaderUtils.display(context, ((ItemViewHolder)holder).tripIV,itemBean.getImageurl());
         }else if (holder instanceof HeadViewHolder) {
             ((HeadViewHolder) holder).slider.setTopInfos(topInfos);
+        }else if(holder instanceof FooterViewHolder){
+            footerViewHolder = (FooterViewHolder)holder;
         }
+    }
+
+    private int[] getLeftTime(String startTime,String endTime){
+        int endDay = Integer.parseInt(endTime.substring(endTime.lastIndexOf("-") + 1,endTime.lastIndexOf("-") + 3));
+        int endHour = Integer.parseInt(endTime.substring(endTime.indexOf(" ") + 1,endTime.indexOf(" ") + 3));
+        int endMinute = Integer.parseInt(endTime.substring(endTime.indexOf(":") + 1,endTime.indexOf(":") + 3));
+        int endSecond = Integer.parseInt(endTime.substring(endTime.lastIndexOf(":") + 1,endTime.lastIndexOf(":") + 3));
+        int startDay = Integer.parseInt(startTime.substring(startTime.lastIndexOf("-") + 1,startTime.lastIndexOf("-") + 3));
+        int startHour = Integer.parseInt(startTime.substring(startTime.indexOf(" ") + 1,startTime.indexOf(" ") + 3));
+        int startMinute = Integer.parseInt(startTime.substring(startTime.indexOf(":") + 1,startTime.indexOf(":") + 3));
+        int startSecond = Integer.parseInt(startTime.substring(startTime.lastIndexOf(":") + 1,startTime.lastIndexOf(":") + 3));
+        int allLeftTime = (endDay - startDay) * 86400
+                        + (endHour - startHour) * 3600
+                        + (endMinute - startMinute) * 60
+                        + (endSecond - startSecond);
+
+        int[]time = new int[3];
+        time[0] = allLeftTime / 3600;
+        time[1] = (allLeftTime - time[0] * 3600) / 60;
+        time[2] = allLeftTime - time[0] * 3600 - time[1] * 60;
+        return time;
     }
 
     @Override
@@ -84,9 +127,9 @@ public class HomeAdapter extends RecyclerView.Adapter {
         if(position == 0) {
             return TYPE_HEAD;
         }
-        if(position  == homeDatas.size()){
+        if(position  == homeDatas.size() + 1){
             return TYPE_FOOTER;
-        }else if(position < homeDatas.size()){
+        }else if(position <= homeDatas.size()){
             return TYPE_ITEM;
         }else{
             return TYPE_NONE;
@@ -106,7 +149,7 @@ public class HomeAdapter extends RecyclerView.Adapter {
     public class ItemViewHolder extends RecyclerView.ViewHolder{
         @BindView(R.id.join)TextView joinTV;
         @BindView(R.id.img) ImageView tripIV;
-        @BindView(R.id.title) TextView titleTV;
+        @BindView(R.id.acname) TextView titleTV;
         @BindView(R.id.hour) TextView hourTV;
         @BindView(R.id.min) TextView minTV;
         @BindView(R.id.second) TextView secondTV;
@@ -123,7 +166,17 @@ public class HomeAdapter extends RecyclerView.Adapter {
     }
 
     public class FooterViewHolder extends RecyclerView.ViewHolder {
+        @BindView(R.id.load_finished)TextView loadFinishedTV;
+        @BindView(R.id.load_layout)View loadLayout;
+
         public FooterViewHolder(View view){
+            super(view);
+            ButterKnife.bind(this,view);
+        }
+    }
+
+    public class NoneViewHolder extends RecyclerView.ViewHolder {
+        public NoneViewHolder(View view){
             super(view);
         }
     }

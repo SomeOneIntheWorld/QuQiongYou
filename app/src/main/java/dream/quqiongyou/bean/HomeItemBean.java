@@ -5,8 +5,18 @@ package dream.quqiongyou.bean;
  */
 public class HomeItemBean {
     private String imageurl;
-    private String title;
-    private String lefttime;
+    private String acname;
+    private String  begintime;
+    private String endtime;
+    private String id;
+
+    public String getId() {
+        return id;
+    }
+
+    public void setId(String id) {
+        this.id = id;
+    }
 
     public void setImageurl(String imageurl){
         this.imageurl = imageurl;
@@ -15,17 +25,26 @@ public class HomeItemBean {
         return imageurl;
     }
 
-    public void setTitle(String title){
-        this.title = title;
+    public void setAcname(String acname){
+        this.acname = acname;
     }
-    public String getTitle(){
-        return title;
+    public String getAcname(){
+        return acname;
     }
 
-    public void setLefttime(String lefttime){
-        this.lefttime = lefttime;
+    public String getBegintime() {
+        return begintime;
     }
-    public String getLefttime(){
-        return lefttime;
+
+    public void setBegintime(String begintime) {
+        this.begintime = begintime;
+    }
+
+    public String getEndtime() {
+        return endtime;
+    }
+
+    public void setEndtime(String endtime) {
+        this.endtime = endtime;
     }
 }
