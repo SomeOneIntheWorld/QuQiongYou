@@ -36,7 +36,7 @@
             />
     </RelativeLayout>
     <TextView
-        android:id="@+id/acname"
+        android:id="@+id/title"
     android:layout_marginTop="5dp"
     android:layout_below="@+id/usr_info"
     android:text="@string/fuckticket_title"
@@ -46,7 +46,7 @@
     <TextView
         android:id="@+id/subtitle"
         android:layout_marginTop="5dp"
-        android:layout_below="@+id/acname"
+        android:layout_below="@+id/title"
         android:text="@string/fuckticket_title"
         android:textSize="@dimen/fuckticket_subtitle_size"
         android:textColor="@color/light_tv_color"

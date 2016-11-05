@@ -160,7 +160,7 @@ public class OriginationActivity extends AppCompatActivity implements Originatio
     private void initOriginationDetailBean(){
         originationDetailBean.setImglist(imgList);
         originationDetailBean.setLocation(placeET.getText().toString());
-        originationDetailBean.setMaxpeoplenum(Integer.parseInt(maxNumberET.getText().toString()));
+        originationDetailBean.setMaxpeoplenum(maxNumberET.getText().toString().equals("") ? 100 : Integer.parseInt(maxNumberET.getText().toString()));
         originationDetailBean.setStarttime(startTimeTV.getText().toString());
         originationDetailBean.setEndtime(endTimeTV.getText().toString());
         originationDetailBean.setPrice(priceTV.getText().toString());
