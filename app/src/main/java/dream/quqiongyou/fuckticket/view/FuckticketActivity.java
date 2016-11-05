@@ -89,7 +89,7 @@ public class FuckticketActivity extends AppCompatActivity implements FuckticketV
         final RecyclerViewLoadMoreListener listener = new RecyclerViewLoadMoreListener(manager) {
             @Override
             public void onLoadMore(int currentPage) {
-                loadMoreData();
+                presenter.loadPostsByPresenter(topicBean,currentPage + 1);
             }
         };
         fuckticketRC.addOnScrollListener(listener);
@@ -97,38 +97,17 @@ public class FuckticketActivity extends AppCompatActivity implements FuckticketV
             @Override
             public void onRefresh() {
                 listener.setPreviousTotal(0);
-                presenter.loadPostsByPresenter(topicBean);
+                presenter.loadPostsByPresenter(topicBean,1);
             }
         });
 
         presenter = new FuckticketPresenterImpl(this);
-        presenter.loadPostsByPresenter(topicBean);
+        presenter.loadPostsByPresenter(topicBean,1);
     }
 
     //the method is just for testing.please remove it later.
     void loadMoreData(){
-        for(int i=0;i<10;i++){
-            PostBean postBean = new PostBean("这是第 " + i + " 个普通帖","这是副标题");
-            postBean.setSource("iphone " + i);
-            postBean.setGoodjobnum(i*10);
-            postBean.setCommentnum(i*100);
-            postBean.setImglist(null);
-            postBean.setIsgreat(true);
-            postBean.setSeenum(i*100);
 
-            QuUser user = new QuUser("123456","password");
-            user.setLevel(2);
-            user.setNickname("第 " + i + "个用户");
-            user.setHeadingimg(null);
-            postBean.setPoster(user);
-            normalList.add(postBean);
-        }
-        try{
-            new Thread().sleep(2000);
-        }catch(Exception e){
-            e.printStackTrace();
-        }
-        fuckticketAdapter.notifyDataSetChanged();
     }
 
     @Override

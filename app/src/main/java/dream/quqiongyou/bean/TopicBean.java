@@ -11,7 +11,7 @@ public class TopicBean implements Serializable{
     @SerializedName("image") private String imgurl;
     @SerializedName("name") private String title;
     @SerializedName("number") private String topicnum;
-    @SerializedName("leibie")private int type;
+    @SerializedName("id")private int type;
     private int imgId;
 
     public int getType() {

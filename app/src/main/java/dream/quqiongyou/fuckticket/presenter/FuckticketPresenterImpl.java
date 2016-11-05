@@ -21,9 +21,9 @@ public class FuckticketPresenterImpl implements FuckticketPresenter,FuckticketMo
     }
 
     @Override
-    public void loadPostsByPresenter(TopicBean topicBean) {
+    public void loadPostsByPresenter(TopicBean topicBean, int page) {
         view.showProgressBar();
-        model.loadPostBeanList(topicBean,this);
+        model.loadPostBeanList(topicBean,page,this);
     }
 
     @Override

@@ -13,5 +13,5 @@ public interface FuckticketModel {
         void loadSuccess(List<PostBean>topList,List<PostBean>normalList);
         void loadFail(String message);
     }
-    void loadPostBeanList(TopicBean topicBean,CallBackByFuckticketModel listener);
+    void loadPostBeanList(TopicBean topicBean,int page,CallBackByFuckticketModel listener);
 }

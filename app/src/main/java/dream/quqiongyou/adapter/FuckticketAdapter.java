@@ -65,21 +65,21 @@ public class FuckticketAdapter extends RecyclerView.Adapter {
     public void onBindViewHolder(RecyclerView.ViewHolder holder, int position) {
         if(holder instanceof PostNormalViewHolder){
             PostBean itemBean = normalLists.get(position - (topLists == null ? 0 : topLists.size()));
-            ((PostNormalViewHolder)holder).commentnumTV.setText(String.valueOf(itemBean.getCommentnum()));
-            ((PostNormalViewHolder)holder).nameTV.setText(itemBean.getPoster().getNickname());
+            ((PostNormalViewHolder)holder).commentnumTV.setText(String.valueOf(itemBean.getCommentNum()));
+            ((PostNormalViewHolder)holder).nameTV.setText(itemBean.getAuthor());
             ((PostNormalViewHolder)holder).subtitleTV.setText(itemBean.getSubtitle());
-            ((PostNormalViewHolder)holder).rankTV.setText(String.valueOf(itemBean.getPoster().getLevel()));
-            ((PostNormalViewHolder)holder).seennumTV.setText(String.valueOf(itemBean.getSeenum()));
+            ((PostNormalViewHolder)holder).rankTV.setText(itemBean.getLevel());
+            ((PostNormalViewHolder)holder).seennumTV.setText(String.valueOf(itemBean.getSeenNum()));
             ((PostNormalViewHolder)holder).timeTV.setText(itemBean.getTime());
             ((PostNormalViewHolder)holder).titleTV.setText(itemBean.getTitle());
-            if(itemBean.getPoster().getHeadingimg() != null){
-                ImageLoaderUtils.display(context,((PostNormalViewHolder)holder).headView,itemBean.getPoster().getHeadingimg());
+            if(itemBean.getH_image() != null){
+                ImageLoaderUtils.display(context,((PostNormalViewHolder)holder).headView,itemBean.getH_image());
             }
             //ViewStub
         }else if(holder instanceof PostTopViewHolder){
             PostBean itemBean = topLists.get(position);
             ((PostTopViewHolder)holder).contentTV.setText(itemBean.getTitle());
-            ((PostTopViewHolder)holder).bestTV.setVisibility(itemBean.getIsgreat() ? View.VISIBLE : View.GONE);
+            ((PostTopViewHolder)holder).bestTV.setVisibility(itemBean.isGreat() ? View.VISIBLE : View.GONE);
         }
     }
 
