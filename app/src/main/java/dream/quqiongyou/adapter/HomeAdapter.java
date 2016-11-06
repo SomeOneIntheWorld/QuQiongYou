@@ -19,6 +19,7 @@ import dream.quqiongyou.bean.HomeItemBean;
 import dream.quqiongyou.bean.TopInfo;
 import dream.quqiongyou.home.widget.Slider;
 import dream.quqiongyou.origination.view.OriginationActivity;
+import dream.quqiongyou.tripdetail.view.TripDetailActivity;
 import dream.quqiongyou.utils.ImageLoaderUtils;
 
 /**
@@ -58,7 +59,9 @@ public class HomeAdapter extends BaseAdapter {
             HomeItemBean itemBean = homeDatas.get(position);
 
             int[]time = getLeftTime(itemBean.getEndtime(),itemBean.getBegintime());
-
+            //Test
+            ((ItemViewHolder)holder).homeItemLayout.setOnClickListener(view -> TripDetailActivity.startTripDetailActivity(view.getContext(), "1"));
+//            ((ItemViewHolder)holder).homeItemLayout.setOnClickListener(view -> TripDetailActivity.startTripDetailActivity( ((ItemViewHolder)holder).homeItemLayout.getContext(), itemBean.getId()));
             ((ItemViewHolder)holder).titleTV.setText(itemBean.getAcname());
             ((ItemViewHolder)holder).hourTV.setText(String.valueOf(time[0]));
             ((ItemViewHolder)holder).minTV.setText(String.valueOf(time[1]));
@@ -127,16 +130,14 @@ public class HomeAdapter extends BaseAdapter {
         @BindView(R.id.hour) TextView hourTV;
         @BindView(R.id.min) TextView minTV;
         @BindView(R.id.second) TextView secondTV;
+        @BindView(R.id.home_item_layout) View homeItemLayout;
 
         public ItemViewHolder(View v){
             super(v);
             ButterKnife.bind(this,v);
         }
 
-        @OnClick(R.id.join)
-        void onClickJoin(){
-            Toast.makeText(context, "lalla", Toast.LENGTH_SHORT).show();
-        }
+
     }
 
     public class HeadViewHolder extends RecyclerView.ViewHolder{
