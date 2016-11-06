@@ -30,4 +30,6 @@ public abstract class BaseBean {
     public String toString() {
         return toJson();
     }
+
+
 }

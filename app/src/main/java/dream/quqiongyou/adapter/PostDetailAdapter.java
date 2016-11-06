@@ -59,14 +59,14 @@ public class PostDetailAdapter extends RecyclerView.Adapter{
     public void onBindViewHolder(RecyclerView.ViewHolder holder, int position) {
         if(holder instanceof PostDetailTopViewHolder){
             PostDetailTopViewHolder topViewHolder = (PostDetailTopViewHolder)holder;
-            topViewHolder.goodjobTV.setText(String.valueOf(postBean.getGoodjobnum()));
-            topViewHolder.nameTV.setText(postBean.getPoster().getNickname());
-            topViewHolder.phoneTV.setText(postBean.getSource());
+            topViewHolder.goodjobTV.setText(String.valueOf(postBean.getGoodJobNum()));
+            topViewHolder.nameTV.setText(postBean.getAuthor());
+            topViewHolder.phoneTV.setText(postBean.getPhone());
             topViewHolder.subtitleTV.setText(postBean.getSubtitle());
-            topViewHolder.rankTV.setText(String.valueOf(postBean.getPoster().getLevel()));
+            topViewHolder.rankTV.setText(String.valueOf(postBean.getLevel()));
             topViewHolder.timeTV.setText(postBean.getTime());
             topViewHolder.titleTV.setText(postBean.getTitle());
-            String headSource = postBean.getPoster().getHeadingimg();
+            String headSource = postBean.getH_image();
             if(headSource == null){
                 return;
             }
