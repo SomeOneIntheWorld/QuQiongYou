@@ -22,7 +22,6 @@ import dream.quqiongyou.adapter.FuckticketAdapter;
 import dream.quqiongyou.adapter.OnItemTouchListener;
 import dream.quqiongyou.adapter.RecyclerViewLoadMoreListener;
 import dream.quqiongyou.bean.PostBean;
-import dream.quqiongyou.bean.QuUser;
 import dream.quqiongyou.bean.TopicBean;
 import dream.quqiongyou.fuckticket.presenter.FuckticketPresenter;
 import dream.quqiongyou.fuckticket.presenter.FuckticketPresenterImpl;
@@ -93,31 +92,23 @@ public class FuckticketActivity extends AppCompatActivity implements FuckticketV
             }
         };
         fuckticketRC.addOnScrollListener(listener);
-        fuckticketSRL.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
-            @Override
-            public void onRefresh() {
-                listener.setPreviousTotal(0);
-                presenter.loadPostsByPresenter(topicBean,1);
-            }
+        fuckticketSRL.setOnRefreshListener(() -> {
+            listener.setPreviousTotal(0);
+            presenter.loadPostsByPresenter(topicBean,1);
         });
 
         presenter = new FuckticketPresenterImpl(this);
         presenter.loadPostsByPresenter(topicBean,1);
     }
 
-    //the method is just for testing.please remove it later.
-    void loadMoreData(){
-
-    }
-
     @Override
     public void showProgressBar() {
-
+        fuckticketAdapter.setStatusOfProgressBar(false);
     }
 
     @Override
     public void hideProgressBar() {
-
+        fuckticketAdapter.setStatusOfProgressBar(true);
     }
 
     @Override

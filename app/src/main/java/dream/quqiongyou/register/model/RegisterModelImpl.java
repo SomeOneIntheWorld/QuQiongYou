@@ -60,25 +60,17 @@ public class RegisterModelImpl implements RegisterModel{
         RequestBody requestBody = RequestBody.create(MediaType.parse("application/json;charset=UTF-8"),strEntity);
         service.getRegisterResult(requestBody)
                 .compose(RxUtils.<Response<String>>normalSchedulers())
-                .subscribe(new Subscriber<Response<String>>() {
-                    @Override
-                    public void onCompleted() {
-
-                    }
-
-                    @Override
-                    public void onError(Throwable e) {
-                        listener.onFail(e.getMessage());
-                    }
-
-                    @Override
-                    public void onNext(Response<String> stringResponse) {
-                        if(stringResponse.code == 102){
-                            listener.onSuccessRegister();
-                        }else{
-                            listener.onFailRegister();
+                .subscribe(
+                        stringResponse -> {
+                            if(stringResponse.code == 102){
+                                listener.onSuccessRegister();
+                            }else{
+                                listener.onFailRegister();
+                            }
+                        },
+                        e -> {
+                            listener.onFail(e.getMessage());
                         }
-                    }
-                });
+                );
     }
 }

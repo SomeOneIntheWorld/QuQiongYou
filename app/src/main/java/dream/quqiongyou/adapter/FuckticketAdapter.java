@@ -20,19 +20,13 @@ import dream.quqiongyou.utils.LogUtils;
 /**
  * Created by SomeOneInTheWorld on 2016/10/8.
  */
-public class FuckticketAdapter extends RecyclerView.Adapter {
-    private static final int TYPE_POST_TOP = 0;
-    private static final int TYPE_POST_NORMAL = 1;
-    private static final int TYPE_POST_FOOTER = 2;
+public class FuckticketAdapter extends BaseAdapter {
     private static final String TAG = "FuckTicketTest";
-
     private List<PostBean>topLists;
     private List<PostBean>normalLists;
 
-    private Context context;
-
     public FuckticketAdapter(Context context){
-        this.context = context;
+        super(context);
     }
 
     public void setTopLists(List<PostBean>topLists){
@@ -49,15 +43,15 @@ public class FuckticketAdapter extends RecyclerView.Adapter {
     @Override
     public RecyclerView.ViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
         LogUtils.d(TAG,"viewType is " + viewType);
-        if(viewType == TYPE_POST_NORMAL){
-            View item = LayoutInflater.from(context).inflate(R.layout.item_fuckticket,parent,false);
+        View item;
+        if(viewType == TYPE_NORMAL){
+            item = LayoutInflater.from(context).inflate(R.layout.item_fuckticket,parent,false);
             return new PostNormalViewHolder(item);
-        }else if(viewType == TYPE_POST_TOP){
-            View item = LayoutInflater.from(context).inflate(R.layout.item_fuckticket_head,parent,false);
+        }else if(viewType == TYPE_HEAD){
+            item = LayoutInflater.from(context).inflate(R.layout.item_fuckticket_head,parent,false);
             return new PostTopViewHolder(item);
         }else{
-            View item = LayoutInflater.from(context).inflate(R.layout.item_footer,parent,false);
-            return new FooterViewHolder(item);
+            return super.onCreateViewHolder(parent,viewType);
         }
     }
 
@@ -65,35 +59,37 @@ public class FuckticketAdapter extends RecyclerView.Adapter {
     public void onBindViewHolder(RecyclerView.ViewHolder holder, int position) {
         if(holder instanceof PostNormalViewHolder){
             PostBean itemBean = normalLists.get(position - (topLists == null ? 0 : topLists.size()));
-            ((PostNormalViewHolder)holder).commentnumTV.setText(String.valueOf(itemBean.getCommentNum()));
-            ((PostNormalViewHolder)holder).nameTV.setText(itemBean.getAuthor());
-            ((PostNormalViewHolder)holder).subtitleTV.setText(itemBean.getSubtitle());
-            ((PostNormalViewHolder)holder).rankTV.setText(itemBean.getLevel());
-            ((PostNormalViewHolder)holder).seennumTV.setText(String.valueOf(itemBean.getSeenNum()));
-            ((PostNormalViewHolder)holder).timeTV.setText(itemBean.getTime());
-            ((PostNormalViewHolder)holder).titleTV.setText(itemBean.getTitle());
+            PostNormalViewHolder tempHolder = ((PostNormalViewHolder)holder);
+            tempHolder.commentnumTV.setText(String.valueOf(itemBean.getCommentNum()));
+            tempHolder.nameTV.setText(itemBean.getAuthor());
+            tempHolder.subtitleTV.setText(itemBean.getSubtitle());
+            tempHolder.rankTV.setText(itemBean.getLevel());
+            tempHolder.seennumTV.setText(String.valueOf(itemBean.getSeenNum()));
+            tempHolder.timeTV.setText(itemBean.getTime());
+            tempHolder.titleTV.setText(itemBean.getTitle());
             if(itemBean.getH_image() != null){
-                ImageLoaderUtils.display(context,((PostNormalViewHolder)holder).headView,itemBean.getH_image());
+                ImageLoaderUtils.display(context,tempHolder.headView,itemBean.getH_image());
             }
-            //ViewStub
+            //TODO ViewStub
         }else if(holder instanceof PostTopViewHolder){
             PostBean itemBean = topLists.get(position);
-            ((PostTopViewHolder)holder).contentTV.setText(itemBean.getTitle());
-            ((PostTopViewHolder)holder).bestTV.setVisibility(itemBean.isGreat() ? View.VISIBLE : View.GONE);
+            PostTopViewHolder tempHolder = ((PostTopViewHolder)holder);
+            tempHolder.contentTV.setText(itemBean.getTitle());
+            tempHolder.bestTV.setVisibility(itemBean.isGreat() ? View.VISIBLE : View.GONE);
+        }else{
+            super.onBindViewHolder(holder, position);
         }
     }
 
     @Override
     public int getItemCount() {
-        int count;
-        if(topLists == null && normalLists == null){
-            count = 1;
-        }else if(topLists == null){
-            count = normalLists.size() + 1;
+        int count = 1;
+        if(topLists == null){
+            count += normalLists.size();
         }else if(normalLists == null){
-            count = topLists.size() + 1;
+            count += topLists.size();
         }else{
-            count = topLists.size() + normalLists.size() + 1;
+            count += topLists.size() + normalLists.size();
         }
         LogUtils.d("FUCKACTEST","count = " + count);
         return count;
@@ -102,12 +98,14 @@ public class FuckticketAdapter extends RecyclerView.Adapter {
     @Override
     public int getItemViewType(int position) {
         if(position>=0 && position<topLists.size()){
-            return TYPE_POST_TOP;
-        }else if(position>=topLists.size() && position<topLists.size()+normalLists.size()-1){
-            return TYPE_POST_NORMAL;
-        }else{
+            return TYPE_HEAD;
+        }else if(position>=topLists.size() && position<topLists.size()+normalLists.size()){
+            return TYPE_NORMAL;
+        }else if(position == topLists.size()+normalLists.size()){
             LogUtils.d(TAG,"is foot");
-            return TYPE_POST_FOOTER;
+            return TYPE_FOOTER;
+        }else{
+            return TYPE_OUT;
         }
     }
 
@@ -134,12 +132,6 @@ public class FuckticketAdapter extends RecyclerView.Adapter {
         public PostTopViewHolder(View parent){
             super(parent);
             ButterKnife.bind(this,parent);
-        }
-    }
-
-    public class FooterViewHolder extends RecyclerView.ViewHolder {
-        public FooterViewHolder(View view){
-            super(view);
         }
     }
 }

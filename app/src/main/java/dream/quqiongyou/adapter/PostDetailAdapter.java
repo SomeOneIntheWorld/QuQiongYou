@@ -20,17 +20,12 @@ import dream.quqiongyou.utils.ImageLoaderUtils;
 /**
  * Created by SomeOneInTheWorld on 2016/10/10.
  */
-public class PostDetailAdapter extends RecyclerView.Adapter{
+public class PostDetailAdapter extends BaseAdapter{
     private List<CommentBean>commentBeanList;
     private PostBean postBean;
-    private Context context;
-
-    private final static int TYPE_POST_DETAIL_TOP = 0;
-    private final static int TYPE_POST_DETAIL_ANSWER = 1;
-    private final static int TYPE_POST_FOOTER = 2;
 
     public PostDetailAdapter(Context context){
-        this.context = context;
+        super(context);
     }
 
     public void setCommentBeanList(List<CommentBean>commentBeanList){
@@ -43,15 +38,14 @@ public class PostDetailAdapter extends RecyclerView.Adapter{
 
     @Override
     public RecyclerView.ViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
-        if(viewType == TYPE_POST_DETAIL_TOP){
+        if(viewType == TYPE_HEAD){
             View view = LayoutInflater.from(context).inflate(R.layout.item_postdetail_head,parent,false);
             return new PostDetailTopViewHolder(view);
-        }else if(viewType == TYPE_POST_DETAIL_ANSWER){
+        }else if(viewType == TYPE_NORMAL){
             View view = LayoutInflater.from(context).inflate(R.layout.item_postdetail_comment,parent,false);
             return new PostDetailAnswerHolder(view);
         }else{
-            View view = LayoutInflater.from(context).inflate(R.layout.item_footer,parent,false);
-            return new FooterViewHolder(view);
+            return super.onCreateViewHolder(parent,viewType);
         }
     }
 
@@ -110,11 +104,11 @@ public class PostDetailAdapter extends RecyclerView.Adapter{
     @Override
     public int getItemViewType(int position) {
         if(position == 0) {
-            return TYPE_POST_DETAIL_TOP;
+            return TYPE_HEAD;
         }else if(position == commentBeanList.size()){
-            return TYPE_POST_FOOTER;
+            return TYPE_FOOTER;
         }else{
-            return TYPE_POST_DETAIL_ANSWER;
+            return TYPE_NORMAL;
         }
     }
 
@@ -148,12 +142,6 @@ public class PostDetailAdapter extends RecyclerView.Adapter{
         public PostDetailAnswerHolder(View parent){
             super(parent);
             ButterKnife.bind(this,parent);
-        }
-    }
-
-    public class FooterViewHolder extends RecyclerView.ViewHolder {
-        public FooterViewHolder(View view){
-            super(view);
         }
     }
 }
