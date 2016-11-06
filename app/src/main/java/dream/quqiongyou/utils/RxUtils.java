@@ -14,13 +14,8 @@ import rx.schedulers.Schedulers;
  */
 public class RxUtils{
     public static <T> Observable.Transformer<T,T>normalSchedulers(){
-        return new Observable.Transformer<T,T>(){
-            @Override
-            public Observable<T> call(Observable<T>source){
-                return source.subscribeOn(Schedulers.io())
-                        .observeOn(AndroidSchedulers.mainThread());
-            }
-        };
+        return source -> source.subscribeOn(Schedulers.io())
+                .observeOn(AndroidSchedulers.mainThread());
     }
 
     public static<S> S createService(Class<S> serviceClass) {

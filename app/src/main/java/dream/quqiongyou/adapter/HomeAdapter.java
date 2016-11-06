@@ -20,24 +20,17 @@ import dream.quqiongyou.bean.TopInfo;
 import dream.quqiongyou.home.widget.Slider;
 import dream.quqiongyou.origination.view.OriginationActivity;
 import dream.quqiongyou.utils.ImageLoaderUtils;
-import dream.quqiongyou.utils.LogUtils;
 
 /**
  * Created by SomeOneInTheWorld on 2016/10/3.
  */
-public class HomeAdapter extends RecyclerView.Adapter {
+public class HomeAdapter extends BaseAdapter {
     private final static String TAG = "testttxt";
     private List<HomeItemBean> homeDatas;
     private List<TopInfo> topInfos;
-    private Context context;
-    private FooterViewHolder footerViewHolder;
-    private final int TYPE_FOOTER = 0;
-    private final int TYPE_HEAD = 1;
-    private final int TYPE_ITEM = 2;
-    private final int TYPE_NONE = 3;
 
     public HomeAdapter(Context context){
-        this.context = context;
+        super(context);
     }
 
     public void setHomeData(List<HomeItemBean>homeDatas,List<TopInfo>topInfos){
@@ -45,35 +38,16 @@ public class HomeAdapter extends RecyclerView.Adapter {
         this.topInfos = topInfos;
     }
 
-    public void setStatusOfProgressBar(boolean gone){
-        LogUtils.d(TAG,"gone = " + gone);
-        if(footerViewHolder == null){
-            LogUtils.d(TAG,"is null");
-            return;
-        }
-        if(gone){
-            footerViewHolder.loadLayout.setVisibility(View.GONE);
-            footerViewHolder.loadFinishedTV.setVisibility(View.VISIBLE);
-        }else{
-            footerViewHolder.loadLayout.setVisibility(View.VISIBLE);
-            footerViewHolder.loadFinishedTV.setVisibility(View.GONE);
-        }
-    }
-
     @Override
     public RecyclerView.ViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
-        if(viewType == TYPE_ITEM){
+        if(viewType == TYPE_NORMAL){
             View item = LayoutInflater.from(context).inflate(R.layout.item_home_normal,parent,false);
             return new ItemViewHolder(item);
-        }else if(viewType == TYPE_FOOTER){
-            View v = LayoutInflater.from(context).inflate(R.layout.item_footer,parent,false);
-            return new FooterViewHolder(v);
         }else if(viewType == TYPE_HEAD){
             View v = LayoutInflater.from(context).inflate(R.layout.item_home_head,parent,false);
             return new HeadViewHolder(v);
         }else{
-            View v = LayoutInflater.from(context).inflate(R.layout.item_home_none,parent,false);
-            return new NoneViewHolder(v);
+            return super.onCreateViewHolder(parent, viewType);
         }
     }
 
@@ -96,8 +70,8 @@ public class HomeAdapter extends RecyclerView.Adapter {
             ImageLoaderUtils.display(context, ((ItemViewHolder)holder).tripIV,itemBean.getImageurl());
         }else if (holder instanceof HeadViewHolder) {
             ((HeadViewHolder) holder).slider.setTopInfos(topInfos);
-        }else if(holder instanceof FooterViewHolder){
-            footerViewHolder = (FooterViewHolder)holder;
+        }else{
+            super.onBindViewHolder(holder, position);
         }
     }
 
@@ -130,9 +104,9 @@ public class HomeAdapter extends RecyclerView.Adapter {
         if(position  == homeDatas.size() + 1){
             return TYPE_FOOTER;
         }else if(position <= homeDatas.size()){
-            return TYPE_ITEM;
+            return TYPE_NORMAL;
         }else{
-            return TYPE_NONE;
+            return TYPE_OUT;
         }
     }
 
@@ -162,22 +136,6 @@ public class HomeAdapter extends RecyclerView.Adapter {
         @OnClick(R.id.join)
         void onClickJoin(){
             Toast.makeText(context, "lalla", Toast.LENGTH_SHORT).show();
-        }
-    }
-
-    public class FooterViewHolder extends RecyclerView.ViewHolder {
-        @BindView(R.id.load_finished)TextView loadFinishedTV;
-        @BindView(R.id.load_layout)View loadLayout;
-
-        public FooterViewHolder(View view){
-            super(view);
-            ButterKnife.bind(this,view);
-        }
-    }
-
-    public class NoneViewHolder extends RecyclerView.ViewHolder {
-        public NoneViewHolder(View view){
-            super(view);
         }
     }
 

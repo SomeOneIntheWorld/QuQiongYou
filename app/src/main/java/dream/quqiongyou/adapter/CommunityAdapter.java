@@ -23,19 +23,14 @@ import dream.quqiongyou.home.widget.Slider;
 /**
  * Created by SomeOneInTheWorld on 2016/10/4.
  */
-public class CommunityAdapter extends RecyclerView.Adapter{
+public class CommunityAdapter extends BaseAdapter{
     private List<TopicBean> communityDatas;
     private List<TopicBean> guessDatas;
     private List<TopInfo> topInfos;
-    private Context context;
-    private final static int TYPE_GUESS = 1;
-    private final static int TYPE_TOPIC = 2;
-    private final static int TYPE_TEXT = 3;
-    private final static int TYPE_OUT = 4;
-    private final static int TYPE_SLIDER = 5;
+
 
     public CommunityAdapter(Context context){
-        this.context = context;
+        super(context);
     }
 
     public void setDatas(List<TopicBean>communityDatas, List<TopicBean>guessDatas){
@@ -49,7 +44,7 @@ public class CommunityAdapter extends RecyclerView.Adapter{
 
     @Override
     public RecyclerView.ViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
-        if(viewType == TYPE_TOPIC || viewType == TYPE_GUESS){
+        if(viewType == TYPE_HEAD || viewType == TYPE_GUESS){
             View item = LayoutInflater.from(context).inflate(R.layout.item_community,parent,false);
             return new CommunityViewHolder(item);
         }else if(viewType == TYPE_TEXT){
@@ -61,7 +56,7 @@ public class CommunityAdapter extends RecyclerView.Adapter{
             View item = LayoutInflater.from(context).inflate(R.layout.item_community_head,parent,false);
             return new HeadViewHolder(item);
         }else{
-            return null;
+            return super.onCreateViewHolder(parent,viewType);
         }
     }
 
@@ -74,7 +69,7 @@ public class CommunityAdapter extends RecyclerView.Adapter{
             return;
         }
         position = position - 1;
-        if(type == TYPE_TOPIC) {
+        if(type == TYPE_HEAD) {
             topicBean = communityDatas.get(position);
         }else if(type == TYPE_GUESS || type == TYPE_TEXT) {
             topicBean = guessDatas.get(position - communityDatas.size());
@@ -84,12 +79,7 @@ public class CommunityAdapter extends RecyclerView.Adapter{
 
         ((CommunityViewHolder)holder).titleTV.setText(topicBean.getTitle());
         ((CommunityViewHolder)holder).topnumTV.setText(topicBean.getTopicnum());
-        ((CommunityViewHolder)holder).menuIV.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                Toast.makeText(context,"you click the menu",Toast.LENGTH_SHORT).show();
-            }
-        });
+        ((CommunityViewHolder)holder).menuIV.setOnClickListener(view -> Toast.makeText(context,"you click the menu",Toast.LENGTH_SHORT).show());
 
 //        if(topicBean.getImgurl() == null){
 //            ((CommunityViewHolder)holder).communityIV.setImageResource(R.mipmap.community_normal);
@@ -105,7 +95,7 @@ public class CommunityAdapter extends RecyclerView.Adapter{
             return TYPE_SLIDER;
         }
         if(position > 0 && position <= communityDatas.size()){
-            return TYPE_TOPIC;
+            return TYPE_HEAD;
         }
         if(position == communityDatas.size() + 1){
             return TYPE_TEXT;

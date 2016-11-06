@@ -64,13 +64,19 @@ public class HomeFragment extends Fragment implements HomeView{
                 mHomeRecycler.setNestedScrollingEnabled(true);
             }
         };
-        mHomeRecycler.addOnScrollListener(listener);
-        mRefreshLayout.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
+        final RecyclerViewLoadMoreListener listene1r = new RecyclerViewLoadMoreListener(layoutManager) {
             @Override
-            public void onRefresh() {
-                mHomePresenter.loadHomeInfoByPresenter(1);
-                listener.setPreviousTotal(0);
+            public void onLoadMore(int currentPage) {
+                mHomeRecycler.setNestedScrollingEnabled(false);
+                LogUtils.d("HOMEMODELIMPL_TEST","currentPage in HomeFragment = " + currentPage);
+                mHomePresenter.loadHomeInfoByPresenter(currentPage);
+                mHomeRecycler.setNestedScrollingEnabled(true);
             }
+        };
+        mHomeRecycler.addOnScrollListener(listener);
+        mRefreshLayout.setOnRefreshListener(() -> {
+            mHomePresenter.loadHomeInfoByPresenter(1);
+            listener.setPreviousTotal(0);
         });
 
         mHomePresenter = new HomePresenterImpl(this);

@@ -10,7 +10,6 @@ import dream.quqiongyou.common.Constants;
 import dream.quqiongyou.service.OkService;
 import dream.quqiongyou.utils.LogUtils;
 import dream.quqiongyou.utils.RxUtils;
-import rx.Subscriber;
 
 /**
  * Created by SomeOneInTheWorld on 2016/10/3.
@@ -31,37 +30,28 @@ public class HomeModelImpl implements HomeModel {
         OkService.MainDataService mainDataService = RxUtils.createService(OkService.MainDataService.class);
         mainDataService.getMainData(page)
                 .compose(RxUtils.<Response<List<HomeItemBean>>>normalSchedulers())
-                .subscribe(new Subscriber<Response<List<HomeItemBean>>>() {
-                    @Override
-                    public void onCompleted() {
+                .subscribe(
+                        listResponse -> {
+                            if(listResponse.data == null || listResponse.data.size() == 0){
+                                listener.loadNoMoreData();
+                                return;
+                            }
+                            maxPage = Integer.parseInt(listResponse.message);
 
-                    }
-
-                    @Override
-                    public void onError(Throwable e) {
-                        LogUtils.d(TAG,"onError is " + e.getMessage());
-                        listener.loadFail(null,Constants.HOME_TAG_ALL_FAIL,e.getMessage());
-                    }
-
-                    @Override
-                    public void onNext(Response<List<HomeItemBean>> listResponse) {
-                        if(listResponse.data == null || listResponse.data.size() == 0){
-                            listener.loadNoMoreData();
-                            return;
+                            if(page == 1){
+                                data.clear();
+                            }
+                            data.addAll(listResponse.data);
+                            List<TopInfo>topInfos = new ArrayList<>();
+                            topInfos.add(new TopInfo());
+                            topInfos.add(new TopInfo());
+                            topInfos.add(new TopInfo());
+                            listener.loadSuccess(data,topInfos);
+                        },
+                        error -> {
+                            LogUtils.d(TAG,"onError is " + error.getMessage());
+                            listener.loadFail(null,Constants.HOME_TAG_ALL_FAIL,error.getMessage());
                         }
-                        maxPage = Integer.parseInt(listResponse.message);
-
-                        if(page == 1){
-                            data.clear();
-                        }
-                        data.addAll(listResponse.data);
-                        List<TopInfo>topInfos = new ArrayList<>();
-                        topInfos.add(new TopInfo());
-                        topInfos.add(new TopInfo());
-                        topInfos.add(new TopInfo());
-                        listener.loadSuccess(data,topInfos);
-                    }
-                });
-
+                );
     }
 }

@@ -11,7 +11,6 @@ import dream.quqiongyou.service.OkService;
 import dream.quqiongyou.utils.RxUtils;
 import okhttp3.MediaType;
 import okhttp3.RequestBody;
-import rx.Subscriber;
 
 /**
  * Created by SomeOneInTheWorld on 2016/10/3.
@@ -29,13 +28,8 @@ public class LoginModelImpl implements LoginModel {
         RequestBody requestBody = RequestBody.create(MediaType.parse("application/json;charset=UTF-8"),strEntity);
         loginService.getUserMessage(requestBody)
                 .compose(RxUtils.<Response<QuUser>>normalSchedulers())
-                .subscribe(new Subscriber<Response<QuUser>>(){
-                    @Override
-                    public void onCompleted() {
-                    }
-
-                    @Override
-                    public void onNext(Response<QuUser> response) {
+                .subscribe(
+                        response -> {
                         if(response.code == Constants.LOGIN_SUCCESS){
                             response.data.setAccount(account);
                             listener.onSuccess(response.data);
@@ -44,12 +38,10 @@ public class LoginModelImpl implements LoginModel {
                         }else if(response.code == Constants.LOGIN_USRE_NOT_EXIST){
                             listener.onFail("该用户不存在");
                         }
-                    }
-
-                    @Override
-                    public void onError(Throwable e) {
+                    },
+                        e -> {
                         listener.onFail(e.getMessage());
                     }
-                });
+                );
     }
 }
