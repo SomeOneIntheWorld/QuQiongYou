@@ -2,12 +2,10 @@ package dream.quqiongyou.service;
 
 import java.util.List;
 
-import dream.quqiongyou.bean.CommentBean;
 import dream.quqiongyou.bean.HomeItemBean;
 import dream.quqiongyou.bean.PostBean;
 import dream.quqiongyou.bean.QuUser;
 import dream.quqiongyou.bean.Response;
-import dream.quqiongyou.bean.TopInfo;
 import dream.quqiongyou.bean.TopicBean;
 import dream.quqiongyou.bean.TripDetail;
 import okhttp3.RequestBody;
@@ -49,6 +47,10 @@ public interface OkService{
     interface TripDetailService{
         @POST("quqiongyou/activity/detail.php")
         Observable<Response<TripDetail> > getTripDetailData(@Query("id") int id);
+    }
+    interface PostDetailService{
+        @POST("quqiongyou/community/third.php")
+        Observable<Response<List<PostBean>>> getPostDetailData(@Query("tie_id")String id,@Query("page")int page);
     }
 }
 

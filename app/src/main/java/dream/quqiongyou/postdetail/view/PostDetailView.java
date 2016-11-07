@@ -2,7 +2,7 @@ package dream.quqiongyou.postdetail.view;
 
 import java.util.List;
 
-import dream.quqiongyou.bean.CommentBean;
+import dream.quqiongyou.bean.PostBean;
 
 /**
  * Created by SomeOneInTheWorld on 2016/10/10.
@@ -10,6 +10,6 @@ import dream.quqiongyou.bean.CommentBean;
 public interface PostDetailView{
     void showProgressBar();
     void hideProgressBar();
-    void showComments(List<CommentBean>commentBeanList);
+    void showComments(List<PostBean>commentBeanList);
     void showErrorMessage(String message);
 }
