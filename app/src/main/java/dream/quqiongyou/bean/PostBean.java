@@ -30,6 +30,7 @@ public class PostBean implements Serializable {
     @SerializedName("abstract")
     private String subtitle;
     private String t_image;
+    private int floor;
     /**
      * 以下变量在后台接口中还没定义
      */

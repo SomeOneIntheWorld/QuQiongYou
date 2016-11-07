@@ -2,7 +2,6 @@ package dream.quqiongyou.postdetail.presenter;
 
 import java.util.List;
 
-import dream.quqiongyou.bean.CommentBean;
 import dream.quqiongyou.bean.PostBean;
 import dream.quqiongyou.postdetail.model.PostDetailModel;
 import dream.quqiongyou.postdetail.model.PostDetailModelImpl;
@@ -21,13 +20,13 @@ public class PostDetailPresenterImpl implements PostDetailPresenter,PostDetailMo
     }
 
     @Override
-    public void loadComments(PostBean postBean) {
+    public void loadComments(String id,int page) {
         view.showProgressBar();
-        model.loadComments(postBean,this);
+        model.loadComments(id,page,this);
     }
 
     @Override
-    public void loadSuccess(List<CommentBean> commentBeanList) {
+    public void loadSuccess(List<PostBean> commentBeanList) {
         view.hideProgressBar();
         view.showComments(commentBeanList);
     }

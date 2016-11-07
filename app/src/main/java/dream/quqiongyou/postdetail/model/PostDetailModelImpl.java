@@ -1,13 +1,9 @@
 package dream.quqiongyou.postdetail.model;
 
 import java.util.ArrayList;
-import java.util.Date;
 import java.util.List;
 
-import dream.quqiongyou.bean.CommentBean;
 import dream.quqiongyou.bean.PostBean;
-import dream.quqiongyou.bean.QuUser;
-import dream.quqiongyou.bean.Response;
 import dream.quqiongyou.service.OkService;
 import dream.quqiongyou.utils.RxUtils;
 
@@ -15,23 +11,29 @@ import dream.quqiongyou.utils.RxUtils;
  * Created by SomeOneInTheWorld on 2016/10/10.
  */
 public class PostDetailModelImpl implements PostDetailModel {
+    private final static String TAG = "HOMEMODELIMPL_TEST";
+    private List<PostBean> data = new ArrayList<>();
+    private int maxPage = 1;
+
     @Override
-    public void loadComments(PostBean postBean,CallBackByPostDetailModel callBackByPostDetailModel) {
-        List<CommentBean>commentBeanList = new ArrayList<>();
-        for(int i=0;i<10;i++){
-            CommentBean commentBean = new CommentBean();
-            commentBean.setAnswertime(new Date(24));
-            QuUser user = new QuUser("123456","password");
-            user.setLevel(2);
-            user.setNickname("第 " + i + "个用户");
-            user.setHeadingimg(null);
-            commentBean.setAnsweruser(user);
-            commentBean.setComment("这是第 " + i + " 个用户在回答");
-            commentBean.setCommentnum(i*100);
-            commentBean.setGoodjobnum(i*10);
-            commentBean.setSource("来自iphone " + i);
-            commentBeanList.add(commentBean);
+    public void loadComments(String id,int page,CallBackByPostDetailModel callBackByPostDetailModel) {
+        if(page < 1 || page > maxPage){
+            callBackByPostDetailModel.loadFail("page should be legal");
+            return;
         }
-        callBackByPostDetailModel.loadSuccess(commentBeanList);
+
+        OkService.PostDetailService service = RxUtils.createService(OkService.PostDetailService.class);
+        service.getPostDetailData(id,page)
+                .compose(RxUtils.normalSchedulers())
+                .subscribe(listResponse->{
+                    maxPage = Integer.parseInt(listResponse.message);
+                    if(page == 1){
+                        data.clear();
+                    }
+                    data.addAll(listResponse.data);
+                    callBackByPostDetailModel.loadSuccess(data);
+                }, error->{
+                    callBackByPostDetailModel.loadFail(error.getMessage());
+                });
     }
 }
