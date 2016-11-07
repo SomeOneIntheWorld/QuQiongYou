@@ -2,12 +2,14 @@ package dream.quqiongyou.service;
 
 import java.util.List;
 
+import dream.quqiongyou.bean.CommentBean;
 import dream.quqiongyou.bean.HomeItemBean;
 import dream.quqiongyou.bean.PostBean;
 import dream.quqiongyou.bean.QuUser;
 import dream.quqiongyou.bean.Response;
 import dream.quqiongyou.bean.TopInfo;
 import dream.quqiongyou.bean.TopicBean;
+import dream.quqiongyou.bean.TripDetail;
 import okhttp3.RequestBody;
 import retrofit2.http.Body;
 import retrofit2.http.GET;
@@ -43,6 +45,10 @@ public interface OkService{
     interface CommunitySecondService{
         @POST("quqiongyou/community/second.php")
         Observable<Response<List<PostBean> >> getCommunitySecondData(@Query("leibie") int leibie, @Query("page") int page);
+    }
+    interface TripDetailService{
+        @POST("quqiongyou/activity/detail.php")
+        Observable<Response<TripDetail> > getTripDetailData(@Query("id") int id);
     }
 }
 

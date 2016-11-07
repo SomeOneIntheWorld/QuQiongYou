@@ -138,10 +138,10 @@ public class OriginationActivity extends AppCompatActivity implements Originatio
         return true;
     }
 
-    @OnClick({R.id.start_time,R.id.end_time,R.id.price,R.id.origination_commit})
+    @OnClick({R.id.begin_time,R.id.end_time,R.id.price,R.id.origination_commit})
     void onClick(View view){
         switch(view.getId()){
-            case R.id.start_time:
+            case R.id.begin_time:
                 doEvent(startTimeTV);
                 break;
             case R.id.end_time:

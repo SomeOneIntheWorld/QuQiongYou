@@ -27,6 +27,7 @@
         <activity android:name=".postdetail.view.PostDetailActivity"/>
         <activity android:name=".post.view.PostActivity"/>
         <activity android:name=".origination.view.OriginationSuccessActivity"/>
+        <activity android:name=".tripdetail.view.TripDetailActivity"/>
     </application>
 
 </manifest>

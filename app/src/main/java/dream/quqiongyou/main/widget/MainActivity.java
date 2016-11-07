@@ -104,25 +104,41 @@ public class MainActivity extends AppCompatActivity {
             case 2:
                 homeImg.setImageResource(R.mipmap.home_normal);
                 communityImg.setImageResource(R.mipmap.community_normal);
-                mineImg .setImageResource(R.mipmap.mine_pressed);
+                mineImg.setImageResource(R.mipmap.mine_pressed);
                 break;
         }
     }
 
+    private void changeTitle(int selectedIndex){
+        switch (selectedIndex){
+            case 0:
+                toolbarTitle.setText(getString(R.string.home));
+                break;
+            case 1:
+                toolbarTitle.setText(getString(R.string.community));
+                break;
+            case 2:
+                toolbarTitle.setText(getString(R.string.mine));
+                break;
+        }
+    }
     @OnClick({R.id.home_ll, R.id.community_ll, R.id.mine_ll})
     public void onClick(View view) {
         switch (view.getId()) {
             case R.id.home_ll:
                 changeSelection(0);
                 changeFragment(0);
+                changeTitle(0);
                 break;
             case R.id.community_ll:
                 changeSelection(1);
                 changeFragment(1);
+                changeTitle(1);
                 break;
             case R.id.mine_ll:
                 changeSelection(2);
                 changeFragment(2);
+                changeTitle(2);
                 break;
         }
     }

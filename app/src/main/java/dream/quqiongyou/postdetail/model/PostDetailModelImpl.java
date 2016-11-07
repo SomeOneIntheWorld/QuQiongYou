@@ -7,13 +7,16 @@ import java.util.List;
 import dream.quqiongyou.bean.CommentBean;
 import dream.quqiongyou.bean.PostBean;
 import dream.quqiongyou.bean.QuUser;
+import dream.quqiongyou.bean.Response;
+import dream.quqiongyou.service.OkService;
+import dream.quqiongyou.utils.RxUtils;
 
 /**
  * Created by SomeOneInTheWorld on 2016/10/10.
  */
 public class PostDetailModelImpl implements PostDetailModel {
     @Override
-    public void loadComments(PostBean postBean,CallBackByPostDetailModel callback) {
+    public void loadComments(PostBean postBean,CallBackByPostDetailModel callBackByPostDetailModel) {
         List<CommentBean>commentBeanList = new ArrayList<>();
         for(int i=0;i<10;i++){
             CommentBean commentBean = new CommentBean();
@@ -29,6 +32,6 @@ public class PostDetailModelImpl implements PostDetailModel {
             commentBean.setSource("来自iphone " + i);
             commentBeanList.add(commentBean);
         }
-        callback.loadSuccess(commentBeanList);
+        callBackByPostDetailModel.loadSuccess(commentBeanList);
     }
 }

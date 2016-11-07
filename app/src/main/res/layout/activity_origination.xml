@@ -47,7 +47,7 @@
                 android:layout_height="1.5dp"
                 android:background="@color/light_gray_plus"/>
             <LinearLayout
-                android:id="@+id/start_time"
+                android:id="@+id/begin_time"
                 style="@style/origination_item_layout_style"
                 android:layout_width="match_parent">
                 <TextView

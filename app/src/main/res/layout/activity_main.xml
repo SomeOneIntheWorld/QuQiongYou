@@ -7,8 +7,8 @@
 
     <android.support.v7.widget.Toolbar
         android:id="@+id/toolbar"
-        android:background="?attr/colorPrimary"
         style="@style/ToolbarStyle">
+
         <TextView
             android:id="@+id/toolbar_title"
             style="@style/normal_tv_style"
