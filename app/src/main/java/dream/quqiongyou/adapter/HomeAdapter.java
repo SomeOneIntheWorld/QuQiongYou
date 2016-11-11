@@ -60,7 +60,7 @@ public class HomeAdapter extends BaseAdapter {
 
             int[]time = getLeftTime(itemBean.getEndtime(),itemBean.getBegintime());
             //Test
-            ((ItemViewHolder)holder).homeItemLayout.setOnClickListener(view -> TripDetailActivity.startTripDetailActivity(view.getContext(), "1"));
+            ((ItemViewHolder)holder).homeItemLayout.setOnClickListener(view -> TripDetailActivity.startTripDetailActivity(view.getContext(), itemBean.getId()));
 //            ((ItemViewHolder)holder).homeItemLayout.setOnClickListener(view -> TripDetailActivity.startTripDetailActivity( ((ItemViewHolder)holder).homeItemLayout.getContext(), itemBean.getId()));
             ((ItemViewHolder)holder).titleTV.setText(itemBean.getAcname());
             ((ItemViewHolder)holder).hourTV.setText(String.valueOf(time[0]));

@@ -6,6 +6,7 @@ import dream.quqiongyou.bean.HomeItemBean;
 import dream.quqiongyou.bean.PostBean;
 import dream.quqiongyou.bean.QuUser;
 import dream.quqiongyou.bean.Response;
+import dream.quqiongyou.bean.TopInfo;
 import dream.quqiongyou.bean.TopicBean;
 import dream.quqiongyou.bean.TripDetail;
 import okhttp3.RequestBody;
@@ -39,6 +40,8 @@ public interface OkService{
     interface CommunityMainService{
         @POST("quqiongyou/community/first.php")
         Observable<Response<List<TopicBean>>> getCommunityMainData();
+        @POST("quqiongyou/banner.php")
+        Observable<Response<List<TopInfo>>> getCommunityBannerData ();
     }
     interface CommunitySecondService{
         @POST("quqiongyou/community/second.php")
@@ -46,11 +49,13 @@ public interface OkService{
     }
     interface TripDetailService{
         @POST("quqiongyou/activity/detail.php")
-        Observable<Response<TripDetail> > getTripDetailData(@Query("id") int id);
+        Observable<Response<TripDetail> > getTripDetailData(@Query("id") String id);
     }
+
     interface PostDetailService{
         @POST("quqiongyou/community/third.php")
         Observable<Response<List<PostBean>>> getPostDetailData(@Query("tie_id")String id,@Query("page")int page);
     }
+
 }
 

@@ -16,7 +16,6 @@ import android.widget.ImageView.ScaleType;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
-import com.bumptech.glide.Glide;
 
 
 import java.util.ArrayList;
@@ -24,6 +23,7 @@ import java.util.List;
 
 import dream.quqiongyou.R;
 import dream.quqiongyou.bean.TopInfo;
+import dream.quqiongyou.utils.ImageLoaderUtils;
 
 
 public class Slider extends FrameLayout implements OnClickListener {
@@ -100,19 +100,13 @@ public class Slider extends FrameLayout implements OnClickListener {
             TextView tv_title = (TextView) fm.findViewById(R.id.tv_title);
             iv.setScaleType(ScaleType.CENTER_CROP);
             if (i == 0) {
-                Glide.with(iv.getContext())
-                        .load(topInfos.get(len - 1).getImage())
-                        .into(iv);
+                ImageLoaderUtils.display(iv.getContext(),iv,topInfos.get(len - 1).getImage());
                 tv_title.setText(topInfos.get(len - 1).getTitle());
             } else if (i == len + 1) {
-                Glide.with(iv.getContext())
-                        .load(topInfos.get(0).getImage())
-                        .into(iv);
+                ImageLoaderUtils.display(iv.getContext(),iv,topInfos.get(0).getImage());
                 tv_title.setText(topInfos.get(0).getTitle());
             } else {
-                Glide.with(iv.getContext())
-                        .load(topInfos.get(i - 1).getImage())
-                        .into(iv);
+                ImageLoaderUtils.display(iv.getContext(),iv,topInfos.get(i - 1).getImage());
                 tv_title.setText(topInfos.get(i - 1).getTitle());
             }
             fm.setOnClickListener(this);

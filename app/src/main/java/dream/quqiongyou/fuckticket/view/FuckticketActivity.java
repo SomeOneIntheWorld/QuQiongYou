@@ -9,7 +9,7 @@ import android.support.v7.widget.DefaultItemAnimator;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.view.View;
-
+import android.widget.TextView;
 
 
 import java.util.ArrayList;
@@ -41,6 +41,9 @@ public class FuckticketActivity extends AppCompatActivity implements FuckticketV
     RecyclerView fuckticketRC;
     @BindView(R.id.fuckticket_refresh_layout)
     SwipeRefreshLayout fuckticketSRL;
+    @BindView(R.id.toolbar_title)
+    TextView toolbarTitle;
+
 
     private final String TAG = "FUCKACTEST";
 
@@ -67,6 +70,7 @@ public class FuckticketActivity extends AppCompatActivity implements FuckticketV
             topicBean = (TopicBean) intent.getSerializableExtra(TOPIC);
             LogUtils.d(TAG, "topicBean is not null");
         }
+        toolbarTitle.setText(topicBean.getTitle());
         LinearLayoutManager manager = new LinearLayoutManager(this);
         fuckticketRC.setLayoutManager(manager);
         fuckticketRC.setItemAnimator(new DefaultItemAnimator());

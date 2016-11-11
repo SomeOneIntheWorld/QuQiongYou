@@ -3,14 +3,12 @@ package dream.quqiongyou.tripdetail.view;
 import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
-import android.os.PersistableBundle;
 import android.support.v7.app.AppCompatActivity;
-import android.util.Log;
 import android.view.View;
 import android.widget.ImageView;
+import android.widget.LinearLayout;
 import android.widget.TextView;
 import android.widget.Toast;
-
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
@@ -36,14 +34,18 @@ public class TripDetailActivity extends AppCompatActivity implements TripDetailV
     TextView peopleNum;
     @BindView(R.id.seenNum)
     TextView seenNum;
-    @BindView(R.id.begin_time)
-    TextView beginTime;
-    @BindView(R.id.end_time)
-    TextView endTime;
+    @BindView(R.id.time)
+    TextView time;
     @BindView(R.id.tripLocation)
     TextView tripLocation;
     @BindView(R.id.consumeNum)
     TextView consumeNum;
+    @BindView(R.id.organizer)
+    TextView organizer;
+    @BindView(R.id.share)
+    LinearLayout share;
+    @BindView(R.id.join)
+    TextView join;
     private String tripId;
 
     public static void startTripDetailActivity(Context context, String tripId) {
@@ -66,11 +68,15 @@ public class TripDetailActivity extends AppCompatActivity implements TripDetailV
     }
 
 
-    @OnClick({R.id.back})
+    @OnClick({R.id.back,R.id.share, R.id.join})
     public void onClick(View view) {
         switch (view.getId()) {
             case R.id.back:
                 finish();
+                break;
+            case R.id.share:
+                break;
+            case R.id.join:
                 break;
         }
     }
@@ -87,12 +93,11 @@ public class TripDetailActivity extends AppCompatActivity implements TripDetailV
 
     @Override
     public void showTripDetail(TripDetail tripDetail) {
-        ImageLoaderUtils.display(this,tripImg,tripDetail.getImage());
+        ImageLoaderUtils.display(this, tripImg, tripDetail.getImage());
         tripName.setText(tripDetail.getName());
-        peopleNum.setText(tripDetail.getPeopleNum());
-        seenNum.setText(tripDetail.getSeenNum());
-        beginTime.setText(tripDetail.getBegintime());
-        endTime.setText(tripDetail.getEndtime());
+        peopleNum.setText(String.format("已参团%s人",tripDetail.getPeopleNum()));
+        seenNum.setText(String.format("浏览%s次",tripDetail.getSeenNum()));
+        time.setText(tripDetail.getBegintime() + " - " + tripDetail.getEndtime());
         tripLocation.setText(tripDetail.getLocation());
         consumeNum.setText(tripDetail.getConsumeNum());
     }
@@ -101,4 +106,6 @@ public class TripDetailActivity extends AppCompatActivity implements TripDetailV
     public void showErrorMessage(String message) {
         Toast.makeText(this, "message", Toast.LENGTH_SHORT).show();
     }
+
+
 }
