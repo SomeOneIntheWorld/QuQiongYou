@@ -88,13 +88,13 @@ public class FuckticketActivity extends AppCompatActivity implements FuckticketV
                 } else if (position >= topList.size() && position < topList.size() + normalList.size()) {
                     postBean = normalList.get(position - topList.size());
                 }
-                PostDetailActivity.startPostDetailActivity(FuckticketActivity.this, postBean);
+                PostDetailActivity.startPostDetailActivity(FuckticketActivity.this, postBean.getId());
             }
         });
         final RecyclerViewLoadMoreListener listener = new RecyclerViewLoadMoreListener(manager) {
             @Override
             public void onLoadMore(int currentPage) {
-                presenter.loadPostsByPresenter(topicBean,currentPage + 1);
+                presenter.loadPostsByPresenter(topicBean,currentPage);
             }
         };
         fuckticketRC.addOnScrollListener(listener);

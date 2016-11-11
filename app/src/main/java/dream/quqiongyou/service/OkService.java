@@ -52,5 +52,10 @@ public interface OkService{
         Observable<Response<TripDetail> > getTripDetailData(@Query("id") String id);
     }
 
+    interface PostDetailService{
+        @POST("quqiongyou/community/third.php")
+        Observable<Response<List<PostBean>>> getPostDetailData(@Query("tie_id")String id,@Query("page")int page);
+    }
+
 }
 

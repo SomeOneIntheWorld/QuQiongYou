@@ -11,7 +11,6 @@ import android.support.v7.widget.RecyclerView;
 import android.view.View;
 
 import java.util.ArrayList;
-import java.util.Date;
 import java.util.List;
 
 import butterknife.BindView;
@@ -21,11 +20,10 @@ import butterknife.Unbinder;
 import dream.quqiongyou.R;
 import dream.quqiongyou.adapter.PostDetailAdapter;
 import dream.quqiongyou.adapter.RecyclerViewLoadMoreListener;
-import dream.quqiongyou.bean.CommentBean;
 import dream.quqiongyou.bean.PostBean;
-import dream.quqiongyou.bean.QuUser;
 import dream.quqiongyou.postdetail.presenter.PostDetailPresenter;
 import dream.quqiongyou.postdetail.presenter.PostDetailPresenterImpl;
+import dream.quqiongyou.utils.LogUtils;
 
 /**
  * Created by SomeOneInTheWorld on 2016/10/10.
@@ -33,18 +31,19 @@ import dream.quqiongyou.postdetail.presenter.PostDetailPresenterImpl;
 public class PostDetailActivity extends AppCompatActivity implements PostDetailView {
     private Unbinder unbinder;
     private PostDetailAdapter postDetailAdapter;
-    private PostBean postBean;
+    private String postId;
+    private int postPage = 1;
     private PostDetailPresenter presenter;
-    private List<CommentBean> commentBeanList = new ArrayList<>();
-    private final static String POST_BEAN = "postBean";
-    @BindView(R.id.postdetail_recycler)
-    RecyclerView postdetailRV;
-    @BindView(R.id.postdetail_refresh)
-    SwipeRefreshLayout refreshLayout;
+    private List<PostBean> postBeanList = new ArrayList<>();
+    private final static String POST_ID = "postID";
+    @BindView(R.id.postdetail_recycler) RecyclerView postdetailRV;
+    @BindView(R.id.postdetail_refresh) SwipeRefreshLayout refreshLayout;
 
-    public static void startPostDetailActivity(Context context, PostBean postBean) {
+    private static final String TAG = "POSTTEST";
+
+    public static void startPostDetailActivity(Context context, String id) {
         Intent intent = new Intent(context, PostDetailActivity.class);
-        intent.putExtra(POST_BEAN, postBean);
+        intent.putExtra(POST_ID, id);
         context.startActivity(intent);
     }
 
@@ -56,70 +55,64 @@ public class PostDetailActivity extends AppCompatActivity implements PostDetailV
 
         Intent intent = getIntent();
         if (intent != null) {
-            postBean = (PostBean) intent.getSerializableExtra(POST_BEAN);
+            postId = intent.getStringExtra(POST_ID);
         }
 
         LinearLayoutManager manager = new LinearLayoutManager(this);
         RecyclerViewLoadMoreListener listener = new RecyclerViewLoadMoreListener(manager) {
             @Override
             public void onLoadMore(int currentPage) {
-                loadMoreDatas();
+                presenter.loadComments(postId,currentPage);
             }
         };
-        refreshLayout.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
-            @Override
-            public void onRefresh() {
-                presenter.loadComments(postBean);
-            }
-        });
+        refreshLayout.setOnRefreshListener(() -> presenter.loadComments(postId,postPage));
         postDetailAdapter = new PostDetailAdapter(this);
-        postDetailAdapter.setCommentBeanList(commentBeanList);
-        postDetailAdapter.setPostBean(postBean);
+        postDetailAdapter.setCommentBeanList(postBeanList);
         postdetailRV.setLayoutManager(manager);
         postdetailRV.setItemAnimator(new DefaultItemAnimator());
         postdetailRV.setAdapter(postDetailAdapter);
         postdetailRV.addOnScrollListener(listener);
 
         presenter = new PostDetailPresenterImpl(this);
-        presenter.loadComments(postBean);
+        presenter.loadComments(postId,postPage);
     }
 
     //just for test,please remove it later;
-    void loadMoreDatas(){
-        for(int i=0;i<10;i++){
-            CommentBean commentBean = new CommentBean();
-            commentBean.setAnswertime(new Date(24));
-            QuUser user = new QuUser("123456","password");
-            user.setLevel(2);
-            user.setNickname("第 " + i + "个用户");
-            user.setHeadingimg(null);
-            commentBean.setAnsweruser(user);
-            commentBean.setComment("这是第 " + i + " 个用户在回答");
-            commentBean.setCommentnum(i*100);
-            commentBean.setGoodjobnum(i*10);
-            commentBean.setSource("来自iphone " + i);
-            commentBeanList.add(commentBean);
-        }
-        postDetailAdapter.notifyDataSetChanged();
-    }
+//    void loadMoreDatas(){
+//        for(int i=0;i<10;i++){
+//            CommentBean commentBean = new CommentBean();
+//            commentBean.setAnswertime(new Date(24));
+//            QuUser user = new QuUser("123456","password");
+//            user.setLevel(2);
+//            user.setNickname("第 " + i + "个用户");
+//            user.setHeadingimg(null);
+//            commentBean.setAnsweruser(user);
+//            commentBean.setComment("这是第 " + i + " 个用户在回答");
+//            commentBean.setCommentnum(i*100);
+//            commentBean.setGoodjobnum(i*10);
+//            commentBean.setSource("来自iphone " + i);
+//            postBeanList.add(commentBean);
+//        }
+//        postDetailAdapter.notifyDataSetChanged();
+//    }
 
     @Override
     public void showProgressBar() {
-
+        postDetailAdapter.setStatusOfProgressBar(false);
     }
 
     @Override
     public void hideProgressBar() {
-
+        postDetailAdapter.setStatusOfProgressBar(true);
     }
 
     @Override
-    public void showComments(List<CommentBean> commentBeanList) {
+    public void showComments(List<PostBean> postBeanList) {
         if(refreshLayout.isRefreshing()){
             refreshLayout.setRefreshing(false);
         }
-        this.commentBeanList.clear();
-        this.commentBeanList.addAll(commentBeanList);
+        this.postBeanList.clear();
+        this.postBeanList.addAll(postBeanList);
         this.postDetailAdapter.notifyDataSetChanged();
     }
 
@@ -128,6 +121,7 @@ public class PostDetailActivity extends AppCompatActivity implements PostDetailV
         if(refreshLayout.isRefreshing()){
             refreshLayout.setRefreshing(false);
         }
+        LogUtils.d(TAG,"message is " + message);
     }
 
     @Override

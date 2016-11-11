@@ -13,7 +13,6 @@ import java.util.List;
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import dream.quqiongyou.R;
-import dream.quqiongyou.bean.CommentBean;
 import dream.quqiongyou.bean.PostBean;
 import dream.quqiongyou.utils.ImageLoaderUtils;
 
@@ -21,19 +20,14 @@ import dream.quqiongyou.utils.ImageLoaderUtils;
  * Created by SomeOneInTheWorld on 2016/10/10.
  */
 public class PostDetailAdapter extends BaseAdapter{
-    private List<CommentBean>commentBeanList;
-    private PostBean postBean;
+    private List<PostBean>commentBeanList;
 
     public PostDetailAdapter(Context context){
         super(context);
     }
 
-    public void setCommentBeanList(List<CommentBean>commentBeanList){
+    public void setCommentBeanList(List<PostBean>commentBeanList){
         this.commentBeanList = commentBeanList;
-    }
-
-    public void setPostBean(PostBean postBean){
-        this.postBean = postBean;
     }
 
     @Override
@@ -52,10 +46,11 @@ public class PostDetailAdapter extends BaseAdapter{
     @Override
     public void onBindViewHolder(RecyclerView.ViewHolder holder, int position) {
         if(holder instanceof PostDetailTopViewHolder){
+            PostBean postBean = commentBeanList.get(position);
             PostDetailTopViewHolder topViewHolder = (PostDetailTopViewHolder)holder;
-            topViewHolder.goodjobTV.setText(String.valueOf(postBean.getGoodJobNum()));
+            topViewHolder.goodjobTV.setText(String.valueOf(postBean.getGoodJobNum() == 0 ? "" : postBean.getGoodJobNum()));
             topViewHolder.nameTV.setText(postBean.getAuthor());
-            topViewHolder.phoneTV.setText(postBean.getPhone());
+            topViewHolder.phoneTV.setText(postBean.getPhone() == null ? "" : postBean.getPhone());
             topViewHolder.subtitleTV.setText(postBean.getSubtitle());
             topViewHolder.rankTV.setText(String.valueOf(postBean.getLevel()));
             topViewHolder.timeTV.setText(postBean.getTime());
@@ -71,40 +66,41 @@ public class PostDetailAdapter extends BaseAdapter{
             if(position >= commentBeanList.size()){
                 return;
             }
-            CommentBean comment = commentBeanList.get(position);
+            PostBean comment = commentBeanList.get(position);
             if(comment == null){
                 return;
             }
-            answerHolder.answerTV.setText(comment.getComment());
-            answerHolder.commentnumTV.setText(String.valueOf(comment.getCommentnum()));
-            answerHolder.nameTV.setText(comment.getAnsweruser().getNickname());
-            answerHolder.phoneTV.setText(comment.getSource());
-            answerHolder.timeTV.setText(comment.getAnswertime().toString());
-            answerHolder.goodjobTV.setText(String.valueOf(comment.getGoodjobnum()));
-            answerHolder.rankTV.setText(String.valueOf(comment.getAnsweruser().getLevel()));
-            String imgsrc = comment.getAnsweruser().getHeadingimg();
+            answerHolder.answerTV.setText(comment.getTitle());
+            answerHolder.commentnumTV.setText(String.valueOf(comment.getCommentNum()));
+            answerHolder.nameTV.setText(comment.getAuthor());
+            answerHolder.phoneTV.setText(comment.getPhone());
+            answerHolder.timeTV.setText(comment.getTime());
+            answerHolder.goodjobTV.setText(String.valueOf(comment.getGoodJobNum()));
+            answerHolder.rankTV.setText(String.valueOf(comment.getLevel()));
+            String imgsrc = comment.getH_image();
             if(imgsrc == null){
                 return;
             }
             ImageLoaderUtils.display(context,answerHolder.headIV,imgsrc);
+        }else{
+            super.onBindViewHolder(holder, position);
         }
     }
 
     @Override
     public int getItemCount() {
-        if(commentBeanList == null && postBean == null){
+        if(commentBeanList == null){
             return 1;//the footer
-        }else if(commentBeanList == null){
-            return 2;
         }else{
-            return commentBeanList.size() + 2;
+            return commentBeanList.size() + 1;
         }
     }
 
     @Override
     public int getItemViewType(int position) {
-        if(position == 0) {
-            return TYPE_HEAD;
+        if( position == 0) {
+            if(commentBeanList == null || commentBeanList.size() == 0) return TYPE_FOOTER;
+            else return TYPE_HEAD;
         }else if(position == commentBeanList.size()){
             return TYPE_FOOTER;
         }else{

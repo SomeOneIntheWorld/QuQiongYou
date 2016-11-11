@@ -2,7 +2,6 @@ package dream.quqiongyou.postdetail.model;
 
 import java.util.List;
 
-import dream.quqiongyou.bean.CommentBean;
 import dream.quqiongyou.bean.PostBean;
 
 /**
@@ -10,8 +9,8 @@ import dream.quqiongyou.bean.PostBean;
  */
 public interface PostDetailModel {
     interface CallBackByPostDetailModel{
-        void loadSuccess(List<CommentBean>commentBeanList);
+        void loadSuccess(List<PostBean>commentBeanList);
         void loadFail(String message);
     }
-    void loadComments(PostBean postBean,CallBackByPostDetailModel callback);
+    void loadComments(String id,int page,CallBackByPostDetailModel callback);
 }
