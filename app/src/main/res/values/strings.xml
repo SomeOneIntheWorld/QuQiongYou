@@ -32,4 +32,7 @@
     <string name="emoji">表情</string>
     <string name="hidden_keyboard">收起键盘</string>
     <string name="tripDetail">活动详情</string>
+    <string name="sharing">分享</string>
+    <string name="join2">立即参加</string>
+    <string name="organizer">联系发起人</string>
 </resources>

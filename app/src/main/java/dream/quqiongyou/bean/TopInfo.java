@@ -5,6 +5,7 @@ package dream.quqiongyou.bean;
  */
 
 public class TopInfo {
+    private String id;
     private String title = "知乎好问题 · 在旅游的过程中如何拍摄出专业的视频？";
     private String image = "http://pic3.zhimg.com/e669f7215f9d4355fafdee7eb0f8ea4e.jpg";
 

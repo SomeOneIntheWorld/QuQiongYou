@@ -22,4 +22,10 @@
     <dimen name="item_fuckticket_head_content_tv_size">16sp</dimen>
     <dimen name="edit_padding_top">0dp</dimen>
     <dimen name="post_tv_size">10sp</dimen>
+    <dimen name="tripDetail_drawable_paddingLeft">10dp</dimen>
+    <dimen name="tripDetail_join_tv_size">25sp</dimen>
+    <dimen name="tripDetail_bottombar_size">60dp</dimen>
+    <dimen name="tripDetail_info_marginTop">10dp</dimen>
+    <dimen name="tripDetail_info_marginBottom">20dp</dimen>
+    <dimen name="tripDetail_scrollview_padding">20dp</dimen>
 </resources>

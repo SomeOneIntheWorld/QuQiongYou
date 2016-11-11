@@ -54,10 +54,10 @@ public class CommunityFragment extends Fragment implements CommunityView {
             public void onItemClick(RecyclerView.ViewHolder vh) {
                 int position = vh.getAdapterPosition();
                 TopicBean topicBean = new TopicBean();
-                if(position >=0 && position < communityList.size()){
-                    topicBean = communityList.get(position);
-                }else if(position >= communityList.size() && position < communityList.size() + guessList.size()){
-                    topicBean = guessList.get(position - communityList.size());
+                if(position >= 1 && position <  1 + communityList.size()){
+                    topicBean = communityList.get(position - 1);
+                }else if(position >= 1 + communityList.size() && position < 1 + communityList.size() + guessList.size()){
+                    topicBean = guessList.get(position - communityList.size() - 1);
                 }
                 FuckticketActivity.startFuckticketActivity(getContext(),topicBean);
             }

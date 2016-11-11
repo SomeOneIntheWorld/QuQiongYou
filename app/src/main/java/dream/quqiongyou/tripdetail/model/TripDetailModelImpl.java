@@ -12,7 +12,7 @@ public class TripDetailModelImpl implements TripDetailModel {
     @Override
     public void loadTripDetail(String tripId, CallBackTripDetailModel callBackTripDetailModel) {
         OkService.TripDetailService service = RxUtils.createService(OkService.TripDetailService.class);
-        service.getTripDetailData(Integer.parseInt(tripId))
+        service.getTripDetailData(tripId)
                 .compose(RxUtils.<Response<TripDetail>>normalSchedulers())
                 .subscribe(tripDetailResponse -> callBackTripDetailModel.loadSuccess(tripDetailResponse.data),
                             throwable -> callBackTripDetailModel.loadFail(throwable.getMessage()));

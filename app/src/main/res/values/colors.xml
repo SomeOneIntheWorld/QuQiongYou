@@ -12,4 +12,5 @@
     <color name="main_layout_color">#eaebeb</color>
     <color name="item_layout_color">#fdfdfd</color>
     <color name="post_tv_color">#4b4b4b</color>
+    <color name="normal_text_color">#777777</color>
 </resources>
