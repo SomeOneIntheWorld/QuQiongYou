@@ -9,8 +9,9 @@ import dream.quqiongyou.bean.TopInfo;
  * Created by SomeOneInTheWorld on 2016/10/3.
  */
 public interface HomeView {
-    void loadHomeInfoSuccess(List<HomeItemBean>datas,List<TopInfo>topInfos);
-    void loadHomeInfoFail(List<?>infos,int tag,String message);
+    void loadTripActivitiesSuccess(List<HomeItemBean>datas);
+    void loadTopBannerSuccess(List<TopInfo>topInfoList);
+    void loadDataFail(int tag,String message);
     void loadNoMoreData();
     void showProgressBar();
     void hideProgressBar();

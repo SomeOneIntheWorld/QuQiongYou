@@ -27,15 +27,27 @@ public class HomePresenterImpl implements HomePresenter,HomeModel.CallbackByHome
     }
 
     @Override
-    public void loadSuccess(List<HomeItemBean> homeItemBeanList, List<TopInfo> topInfoList) {
+    public void loadSuccessTripActivities(List<HomeItemBean> tripList) {
         homeView.hideProgressBar();
-        homeView.loadHomeInfoSuccess(homeItemBeanList, topInfoList);
+        homeView.loadTripActivitiesSuccess(tripList);
     }
 
     @Override
-    public void loadFail(List<?> item, int tag, String message) {
+    public void loadSuccessTopBanners(List<TopInfo> topInfoList) {
         homeView.hideProgressBar();
-        homeView.loadHomeInfoFail(item, tag, message);
+        homeView.loadTopBannerSuccess(topInfoList);
+    }
+
+    @Override
+    public void loadFail(int tag, String message) {
+        homeView.hideProgressBar();
+        homeView.loadDataFail(tag,message);
+    }
+
+    @Override
+    public void loadHomeTopBannerByPresenter() {
+        homeView.showProgressBar();
+        homeModel.loadTopBannerInModel(this);
     }
 
     @Override

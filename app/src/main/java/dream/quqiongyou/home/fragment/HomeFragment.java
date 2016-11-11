@@ -22,7 +22,6 @@ import dream.quqiongyou.adapter.HomeAdapter;
 import dream.quqiongyou.adapter.RecyclerViewLoadMoreListener;
 import dream.quqiongyou.bean.HomeItemBean;
 import dream.quqiongyou.bean.TopInfo;
-import dream.quqiongyou.common.Constants;
 import dream.quqiongyou.home.presenter.HomePresenter;
 import dream.quqiongyou.home.presenter.HomePresenterImpl;
 import dream.quqiongyou.home.view.HomeView;
@@ -40,7 +39,8 @@ public class HomeFragment extends Fragment implements HomeView{
 
     private HomePresenter mHomePresenter;
     private Unbinder unbinder;
-    private LinearLayoutManager layoutManager;
+
+    private final String TAG = "HomeViewTest";
 
     @Nullable
     @Override
@@ -48,7 +48,7 @@ public class HomeFragment extends Fragment implements HomeView{
         View view =  inflater.inflate(R.layout.fragment_home,null);
         unbinder = ButterKnife.bind(this,view);
 
-        layoutManager = new LinearLayoutManager(getActivity());
+        LinearLayoutManager layoutManager = new LinearLayoutManager(getActivity());
         mHomeAdater = new HomeAdapter(getContext());
         mHomeAdater.setHomeData(datas,topInfos);
         mHomeRecycler.setHasFixedSize(true);
@@ -64,33 +64,41 @@ public class HomeFragment extends Fragment implements HomeView{
                 mHomeRecycler.setNestedScrollingEnabled(true);
             }
         };
-        final RecyclerViewLoadMoreListener listene1r = new RecyclerViewLoadMoreListener(layoutManager) {
-            @Override
-            public void onLoadMore(int currentPage) {
-                mHomeRecycler.setNestedScrollingEnabled(false);
-                LogUtils.d("HOMEMODELIMPL_TEST","currentPage in HomeFragment = " + currentPage);
-                mHomePresenter.loadHomeInfoByPresenter(currentPage);
-                mHomeRecycler.setNestedScrollingEnabled(true);
-            }
-        };
         mHomeRecycler.addOnScrollListener(listener);
         mRefreshLayout.setOnRefreshListener(() -> {
             mHomePresenter.loadHomeInfoByPresenter(1);
+            mHomePresenter.loadHomeTopBannerByPresenter();
             listener.setPreviousTotal(0);
         });
 
         mHomePresenter = new HomePresenterImpl(this);
         mHomePresenter.loadHomeInfoByPresenter(1);
+        mHomePresenter.loadHomeTopBannerByPresenter();
 
         return view;
     }
 
     @Override
-    public void loadHomeInfoSuccess(List<HomeItemBean> datas, List<TopInfo> topInfos) {
+    public void loadTripActivitiesSuccess(List<HomeItemBean> datas) {
         this.datas.clear();
         this.datas.addAll(datas);
+        mHomeAdater.notifyDataSetChanged();
+
+        if(mRefreshLayout.isRefreshing()){
+            mRefreshLayout.setRefreshing(false);
+        }
+    }
+
+    @Override
+    public void loadTopBannerSuccess(List<TopInfo> topInfoList) {
+        LogUtils.d(TAG,"topInfoList is " + topInfoList.size() + "///" + topInfoList.get(0).getImage() + "///" + topInfoList.get(0).getTitle());
         this.topInfos.clear();
-        this.topInfos.addAll(topInfos);
+
+        //just for test
+        for(int i=0;i<topInfoList.size();i++){
+            topInfoList.get(i).setImage("http://pic3.zhimg.com/e669f7215f9d4355fafdee7eb0f8ea4e.jpg");
+        }
+        this.topInfos.addAll(topInfoList);
 
         mHomeAdater.notifyDataSetChanged();
 
@@ -105,22 +113,12 @@ public class HomeFragment extends Fragment implements HomeView{
     }
 
     @Override
-    public void loadHomeInfoFail(List<?> infos, int tag, String message) {
+    public void loadDataFail(int tag, String message) {
+        LogUtils.d(TAG,"message is " + message);
         if(mRefreshLayout.isRefreshing()){
             mRefreshLayout.setRefreshing(false);
         }
-
-        if(tag == Constants.HOME_TAG_HOME_ITEM_SUCCESS){
-            this.datas.clear();
-            this.datas.addAll((List<HomeItemBean>)infos);
-            mHomeAdater.notifyDataSetChanged();
-        }else if(tag == Constants.HOME_TAG_TOP_INFO_SUCCESS){
-            this.topInfos.clear();
-            this.topInfos.addAll((List<TopInfo>)infos);
-            mHomeAdater.notifyDataSetChanged();
-        }else{
-            mHomeAdater.setStatusOfProgressBar(true);
-        }
+        mHomeAdater.setStatusOfProgressBar(true);
     }
 
     @Override

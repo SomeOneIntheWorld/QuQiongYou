@@ -57,5 +57,10 @@ public interface OkService{
         Observable<Response<List<PostBean>>> getPostDetailData(@Query("tie_id")String id,@Query("page")int page);
     }
 
+
+    interface BannerService{
+        @POST("quqiongyou/banner.php")
+        Observable<Response<List<TopInfo>>> getBanner();
+    }
 }
 

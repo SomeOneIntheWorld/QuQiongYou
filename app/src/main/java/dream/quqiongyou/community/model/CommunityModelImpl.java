@@ -19,8 +19,8 @@ public class CommunityModelImpl implements CommunityModel{
     public void loadSomethingInModel(final CallBackByCommunityModel callBackByCommunityModel) {
         OkService.CommunityMainService service = RxUtils.createService(OkService.CommunityMainService.class);
         Observable.zip(service.getCommunityMainData(),
-                        service.getCommunityBannerData(),
-                        (topicBeanListResponse,topInfoListResponse) ->new TopicBeanAndTopInfo(topicBeanListResponse,topInfoListResponse))
+                service.getCommunityBannerData(),
+                (topicBeanListResponse,topInfoListResponse) ->new TopicBeanAndTopInfo(topicBeanListResponse,topInfoListResponse))
                 .compose(RxUtils.<TopicBeanAndTopInfo>normalSchedulers())
                 .subscribe(topicBeanAndTopInfo -> callBackByCommunityModel.loadSuccess(
                         topicBeanAndTopInfo.topicBeanListResponse.data,
@@ -35,7 +35,6 @@ public class CommunityModelImpl implements CommunityModel{
                     topInfos.add(new TopInfo());
                     topInfos.add(new TopInfo());
                     topInfos.add(new TopInfo());
-
                     callBackByCommunityModel.loadSuccess(listResponse.data,listResponse.data,topInfos);
                 }, throwable -> {
                     callBackByCommunityModel.loadFail(throwable.getMessage());
