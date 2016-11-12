@@ -10,9 +10,11 @@ import dream.quqiongyou.bean.TopInfo;
  */
 public interface HomeModel {
     interface CallbackByHomeModel{
-        void loadSuccess(List<HomeItemBean>homeItemBeanList,List<TopInfo>topInfoList);
-        void loadFail(List<?>item,int tag,String message);
+        void loadSuccessTripActivities(List<HomeItemBean>tripList);
+        void loadSuccessTopBanners(List<TopInfo>topInfoList);
+        void loadFail(int tag,String message);
         void loadNoMoreData();
     }
     void loadHomeInfoInModel(int page,CallbackByHomeModel listener);
+    void loadTopBannerInModel(CallbackByHomeModel listener);
 }

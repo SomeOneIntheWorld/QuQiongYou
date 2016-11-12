@@ -28,7 +28,8 @@
             android:hint="输入邮箱或手机号码"
             android:id="@+id/account"
             android:layout_width="wrap_content"
-            android:layout_height="wrap_content" />
+            android:layout_height="wrap_content"
+            />
     </LinearLayout>
     <LinearLayout
         android:id="@+id/pwd_ll"
